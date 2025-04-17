@@ -2,7 +2,7 @@ import { Chat } from "@/@types/chat"
 
 export const dummy_chats: Chat[] = [
   {
-    chat_id: "chat_001",
+    chat_id: "chat_001", // should be user_id
     createdAt: "2025-04-14T10:15:00Z",
     last_message: "Hey! Are you coming tonight?",
     messageType: "text",

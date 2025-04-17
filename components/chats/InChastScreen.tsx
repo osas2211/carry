@@ -1,5 +1,12 @@
-import { View, Text, FlatList, TextInput, TouchableOpacity } from "react-native"
-import React from "react"
+import {
+  View,
+  Text,
+  FlatList,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native"
+import React, { useEffect, useRef } from "react"
 import { dummy_chats } from "@/constants/dummy_data/chats"
 import { ChatCard } from "./ChatCard"
 import { dummy_messages } from "@/constants/dummy_data/chat_messages"
@@ -13,6 +20,10 @@ import { IconAvatar } from "../ui/Avatar"
 export const InChatScreen = ({ chat_id }: { chat_id: string }) => {
   const messages = dummy_messages.filter((chat) => chat.chat_id === chat_id)
   const messagesGroup = groupMessagesByDate([...messages, ...messages])
+  const ref: React.RefObject<ScrollView> = useRef(null)
+  useEffect(() => {
+    ref.current?.scrollToEnd({ animated: true })
+  }, [])
   return (
     <View style={{ gap: 15, paddingBottom: 0 }}>
       {messagesGroup?.length === 0 ? (
@@ -38,7 +49,10 @@ export const InChatScreen = ({ chat_id }: { chat_id: string }) => {
           </Text>
         </View>
       ) : (
-        <MessageGroup grouped_message={messagesGroup.reverse()} />
+        <>
+          <MessageGroup grouped_message={messagesGroup.reverse()} />
+          {/* <ScrollView ref={ref} /> */}
+        </>
       )}
 
       <View
@@ -71,7 +85,6 @@ export const InChatScreen = ({ chat_id }: { chat_id: string }) => {
               top: 13,
               left: 10,
               zIndex: 200,
-              // transform: "translateY(-35%)",
             }}
           >
             <Feather

@@ -3,6 +3,7 @@ import React from "react"
 import { appColors } from "@/constants/Colors"
 import { Avatar, IconAvatar } from "../ui/Avatar"
 import AntDesign from "@expo/vector-icons/AntDesign"
+import { router } from "expo-router"
 
 export const ContactDeliveryPerson = () => {
   return (
@@ -31,7 +32,10 @@ export const ContactDeliveryPerson = () => {
         </View>
       </View>
 
-      <TouchableOpacity activeOpacity={1}>
+      <TouchableOpacity
+        activeOpacity={1}
+        onPress={() => router.push(`/chat/chat_001`)}
+      >
         <IconAvatar
           size={50}
           icon={<AntDesign name="message1" size={24} color="black" />}

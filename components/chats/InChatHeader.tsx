@@ -22,7 +22,9 @@ export const InChatHeader = ({ chat }: { chat: Chat }) => {
         backgroundColor: "white",
       }}
     >
-      <View
+      <TouchableOpacity
+        onPress={() => router.push(`/courier/${chat?.user?.user_id}`)}
+        activeOpacity={0.7}
         style={{
           flexDirection: "row",
           alignItems: "center",
@@ -58,7 +60,7 @@ export const InChatHeader = ({ chat }: { chat: Chat }) => {
             {chat?.user?.name}
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
 
       <TouchableOpacity activeOpacity={1}>
         <IconAvatar
