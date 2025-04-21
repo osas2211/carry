@@ -10,6 +10,7 @@ export const ConfirmShipment = ({
 }: {
   setStep: React.Dispatch<React.SetStateAction<number>>
 }) => {
+  const [open, setOpen] = React.useState(false)
   return (
     <Animated.View>
       <Text style={{ fontSize: 24, fontWeight: 600 }}>Confirm Shipment</Text>
@@ -121,11 +122,14 @@ export const ConfirmShipment = ({
           // width={"48%"}
           onPress={() => setStep(1)}
         />
+
         <Button
-          title="Stake (50 SPT)"
+          title="Confirm"
           textColor={appColors.text}
           bgColor={appColors.primary}
           fontSize={14}
+          onPress={() => setOpen((prevOpen) => !prevOpen)}
+
           // height={55}
           // width={"48%"}
         />
