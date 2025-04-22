@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
 import React from "react"
-import { IconAvatar } from "../ui/Avatar"
+import { IconAvatar } from "./Avatar"
 import Feather from "@expo/vector-icons/Feather"
 import { appColors } from "@/constants/Colors"
 import { router } from "expo-router"
