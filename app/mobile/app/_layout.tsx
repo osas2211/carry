@@ -20,9 +20,9 @@ import {
 
 import { useColorScheme } from "@/hooks/useColorScheme"
 import Onboarding from "@/components/onboarding/Onboarding"
-import AsyncStorage from "@react-native-async-storage/async-storage"
 import { ActivityIndicator, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
+import { getValue } from "@/helpers/secureStoreHelpers"
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
@@ -51,18 +51,18 @@ export default function RootLayout() {
     return null
   }
 
-  // useEffect(() => {
-  //   const checkOnboarding = async () => {
-  //     setLoading(true)
-  //     const value = await AsyncStorage.getItem("hasOnboarded")
-  //     setHasOnboarded(value === "true")
-  //     setLoading(false)
-  //   }
-  //   checkOnboarding()
-  //   return () => {
-  //     null
-  //   }
-  // }, [])
+  useEffect(() => {
+    const checkOnboarding = async () => {
+      setLoading(true)
+      const value = await getValue("hasOnboarded_s")
+      setHasOnboarded(value === "true")
+      setLoading(false)
+    }
+    checkOnboarding()
+    return () => {
+      null
+    }
+  }, [])
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
@@ -92,7 +92,7 @@ export default function RootLayout() {
               </SafeAreaView>
             </>
           ) : (
-            <>{/* <Onboarding setHasOnboarded={setHasOnboarded} /> */}</>
+            <>{<Onboarding setHasOnboarded={setHasOnboarded} />}</>
           )}
         </>
       )}

@@ -16,7 +16,7 @@ import {
   ScrollView,
 } from "react-native-gesture-handler"
 import { Link } from "expo-router"
-import AsyncStorage from "@react-native-async-storage/async-storage"
+import { saveValue } from "@/helpers/secureStoreHelpers"
 
 export default function Onboarding({
   setHasOnboarded,
@@ -24,8 +24,8 @@ export default function Onboarding({
   setHasOnboarded: React.Dispatch<React.SetStateAction<boolean>>
 }) {
   const handleGetStarted = async () => {
-    await AsyncStorage.setItem("hasOnboarded", "true")
-    setHasOnboarded(true)
+    // await saveValue("hasOnboarded", "true")
+    // setHasOnboarded(true)
   }
   return (
     <GestureHandlerRootView>
