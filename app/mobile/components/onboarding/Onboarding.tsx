@@ -1,5 +1,5 @@
 import { Image, Text, View } from "react-native"
-import React, { Component } from "react"
+import React, { Component, useState } from "react"
 import { onboardingStyle } from "@/styles/onboarding"
 
 // @ts-ignore
@@ -17,14 +17,27 @@ import {
 } from "react-native-gesture-handler"
 import { Link } from "expo-router"
 import { saveValue } from "@/helpers/secureStoreHelpers"
+import { HAS_ONBOARDED } from "@/constants/key_strings"
+import { connectWallet } from "@/helpers/connectWallet"
 
 export default function Onboarding({
   setHasOnboarded,
 }: {
   setHasOnboarded: React.Dispatch<React.SetStateAction<boolean>>
 }) {
+  const [connecting, setConnecting] = useState(false)
+  const handleWalletConnection = async () => {
+    try {
+      setConnecting(true)
+      await connectWallet()
+    } catch (error) {
+      setConnecting(false)
+    } finally {
+      setConnecting(false)
+    }
+  }
   const handleGetStarted = async () => {
-    // await saveValue("hasOnboarded", "true")
+    await saveValue(HAS_ONBOARDED, "true")
     // setHasOnboarded(true)
   }
   return (
@@ -71,7 +84,11 @@ export default function Onboarding({
           </View>
 
           <View style={{ flexDirection: "column", width: "100%", gap: 12 }}>
-            <Button title="Login" variant="outlined" />
+            <Button
+              title={connecting ? "Connecting..." : "Connect"}
+              variant="outlined"
+              onPress={handleWalletConnection}
+            />
             <Button title="Get started" onPress={handleGetStarted} />
           </View>
         </View>

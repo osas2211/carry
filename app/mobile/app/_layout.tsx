@@ -23,6 +23,7 @@ import Onboarding from "@/components/onboarding/Onboarding"
 import { ActivityIndicator, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { getValue } from "@/helpers/secureStoreHelpers"
+import { HAS_ONBOARDED } from "@/constants/key_strings"
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
@@ -47,22 +48,19 @@ export default function RootLayout() {
     }
   }, [loaded])
 
-  if (!loaded) {
-    return null
-  }
-
   useEffect(() => {
     const checkOnboarding = async () => {
       setLoading(true)
-      const value = await getValue("hasOnboarded_s")
+      const value = await getValue(HAS_ONBOARDED)
       setHasOnboarded(value === "true")
       setLoading(false)
     }
     checkOnboarding()
-    return () => {
-      null
-    }
   }, [])
+
+  if (!loaded) {
+    return null
+  }
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
