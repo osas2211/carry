@@ -30,6 +30,8 @@ export default function Onboarding({
     try {
       setConnecting(true)
       await connectWallet()
+      await saveValue(HAS_ONBOARDED, "true")
+      setHasOnboarded(true)
     } catch (error) {
       setConnecting(false)
     } finally {
@@ -37,7 +39,7 @@ export default function Onboarding({
     }
   }
   const handleGetStarted = async () => {
-    await saveValue(HAS_ONBOARDED, "true")
+    await saveValue(HAS_ONBOARDED, "false")
     // setHasOnboarded(true)
   }
   return (

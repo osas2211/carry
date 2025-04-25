@@ -5,8 +5,8 @@
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint"
@@ -25,7 +25,6 @@
     "@react-navigation/native": "^7.0.14",
     "@solana-mobile/mobile-wallet-adapter-protocol": "^2.1.8",
     "@solana-mobile/mobile-wallet-adapter-protocol-web3js": "^2.1.8",
-    "@solana-mobile/mobile-wallet-adapter-walletlib": "^1.4.0-beta2",
     "@solana-mobile/wallet-adapter-mobile": "^2.1.5",
     "@solana/web3.js": "^1.98.1",
     "assert": "^2.1.0",
