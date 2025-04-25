@@ -1,1 +1,3 @@
 export const HAS_ONBOARDED = "HAS_ONBOARDED"
+export const USER_PUBLIC_KEY = "USER_PUBLIC_KEY"
+export const AUTH_TOKEN = "AUTH_TOKEN"

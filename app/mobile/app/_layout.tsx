@@ -74,7 +74,7 @@ export default function RootLayout() {
         </>
       ) : (
         <>
-          {hasOnboarded ? (
+          {false ? (
             <>
               <SafeAreaView
                 style={{ flex: 1, position: "relative" }}

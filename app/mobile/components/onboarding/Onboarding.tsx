@@ -16,8 +16,12 @@ import {
   ScrollView,
 } from "react-native-gesture-handler"
 import { Link } from "expo-router"
-import { saveValue } from "@/helpers/secureStoreHelpers"
-import { HAS_ONBOARDED } from "@/constants/key_strings"
+import { getValue, saveValue } from "@/helpers/secureStoreHelpers"
+import {
+  AUTH_TOKEN,
+  HAS_ONBOARDED,
+  USER_PUBLIC_KEY,
+} from "@/constants/key_strings"
 import { connectWallet } from "@/helpers/connectWallet"
 
 export default function Onboarding({
@@ -26,6 +30,7 @@ export default function Onboarding({
   setHasOnboarded: React.Dispatch<React.SetStateAction<boolean>>
 }) {
   const [connecting, setConnecting] = useState(false)
+
   const handleWalletConnection = async () => {
     try {
       setConnecting(true)
@@ -33,6 +38,7 @@ export default function Onboarding({
       await saveValue(HAS_ONBOARDED, "true")
       setHasOnboarded(true)
     } catch (error) {
+      alert(`${JSON.stringify(error)}`)
       setConnecting(false)
     } finally {
       setConnecting(false)
