@@ -15,7 +15,7 @@ import {
   GestureHandlerRootView,
   ScrollView,
 } from "react-native-gesture-handler"
-import { Link } from "expo-router"
+import { Link, router } from "expo-router"
 import { getValue, saveValue } from "@/helpers/secureStoreHelpers"
 import {
   AUTH_TOKEN,
@@ -45,8 +45,10 @@ export default function Onboarding({
     }
   }
   const handleGetStarted = async () => {
-    await saveValue(HAS_ONBOARDED, "false")
-    // setHasOnboarded(true)
+    // console.log("Hey")
+    // await saveValue(HAS_ONBOARDED, "false")
+    setHasOnboarded(true)
+    router.push("/onboarding")
   }
   return (
     <GestureHandlerRootView>
@@ -63,7 +65,7 @@ export default function Onboarding({
         <View
           style={{ justifyContent: "center", alignItems: "center", gap: 40 }}
         >
-          {/* <Text style={{ fontWeight: 800, fontSize: 20 }}>DeliChain</Text> */}
+          {/* <Text style={{ fontWeight: 800, fontSize: 20 }}>SpeedFi</Text> */}
           <Image source={deliveryImg} style={{ width: 350, height: 350 }} />
           <View style={{ gap: 10, paddingInline: 20 }}>
             <Text
@@ -85,7 +87,7 @@ export default function Onboarding({
                 fontFamily: "RobotoRegular",
               }}
             >
-              DeliChain connects local couriers and warehouses, retailers and
+              SpeedFi connects local couriers and warehouses, retailers and
               direct consumers into a fast, decentralized delivery network. No
               middlemen, just efficiency.
             </Text>
