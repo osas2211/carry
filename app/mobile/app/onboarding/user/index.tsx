@@ -21,9 +21,9 @@ export default function index() {
         }}
       >
         <ScreenHeader title="Join as Customer" />
-        <View>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <CustomerOnboardingForm />
-        </View>
+        </ScrollView>
       </View>
     </>
   )
