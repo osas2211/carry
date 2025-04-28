@@ -12,7 +12,7 @@ export class UsersController {
     return this.usersService.createUser(body)
   }
 
-  @Get()
+  @Get("/riders")
   async getAllRiders() {
     return this.usersService.getAllRiders()
   }
