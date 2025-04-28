@@ -71,9 +71,7 @@ export default function Onboarding({
             <Text
               style={{
                 fontSize: 32,
-                textAlign: "center",
                 color: appColors.text,
-                fontFamily: "RobotoSemiBold",
                 lineHeight: 34,
                 marginBottom: 0,
               }}
@@ -82,9 +80,7 @@ export default function Onboarding({
             </Text>
             <Text
               style={{
-                textAlign: "center",
                 color: appColors.text,
-                fontFamily: "RobotoRegular",
               }}
             >
               SpeedFi connects local couriers and warehouses, retailers and
@@ -99,7 +95,7 @@ export default function Onboarding({
               variant="outlined"
               onPress={handleWalletConnection}
             />
-            <Button title="Get started" onPress={handleGetStarted} />
+            {/* <Button title="Get started" onPress={handleGetStarted} /> */}
           </View>
         </View>
       </ScrollView>
