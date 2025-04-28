@@ -24,17 +24,32 @@ export class UsersService {
     return user
   }
 
-  async getAllRiders(): Promise<User[]> {
+  async getAllRiders(): Promise<{ riders: User[] }> {
     const riders = await this.prisma.user.findMany({ where: { role: UserRole.RIDER } })
-    return riders
+    return { riders }
   }
 
-  async getUser(index: number) {
-    const user = await this.prisma.user.findUnique({ where: { index } })
+  async getAllNormalUsers(): Promise<{ users: User[] }> {
+    const users = await this.prisma.user.findMany({ where: { role: UserRole.NORMAL_USER } })
+    return { users }
+  }
+
+  async getUser(address: string) {
+    const user = await this.prisma.user.findUnique({ where: { id: address } })
     if (user) {
       return user
     } else {
-      throw new NotFoundException({ message: "User not found" })
+      throw new NotFoundException("User not found")
+    }
+  }
+
+  async deleteUser(address: string) {
+    const user = await this.prisma.user.findUnique({ where: { id: address } })
+    if (user) {
+      await this.prisma.user.delete({ where: { id: address } })
+      return { success: true, message: "User deleted successfully" }
+    } else {
+      throw new NotFoundException("User not found")
     }
   }
 }

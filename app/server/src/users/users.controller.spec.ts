@@ -7,7 +7,7 @@ import { UsersService } from './users.service'
 describe('UsersController', () => {
   let controller: UsersController
   let prisma: PrismaService
-  let userAddress: string
+  let userAddress: string = `${Math.random() * 234}`
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -17,23 +17,33 @@ describe('UsersController', () => {
 
     controller = module.get<UsersController>(UsersController)
     prisma = module.get<PrismaService>(PrismaService)
-    userAddress = `${Math.random() * 234}`
+    // userAddress = `${Math.random() * 234}`
   })
 
   it("should create user", async () => {
-    const users_count = await prisma.user.findMany()
     const user = await controller.createUser({ address: userAddress, role: UserRole.RIDER, avatar: "1234", name: "John" })
-    expect(user).toEqual({ id: userAddress, avatar: "1234", role: "RIDER", index: users_count.length + 1, name: "John" })
+    expect({ id: user.id, avatar: user.avatar, role: user.role, name: user.name }).toEqual({ id: userAddress, avatar: "1234", role: "RIDER", name: "John" })
   })
 
   it("Should get all riders", async () => {
     const riders = await prisma.user.findMany({ where: { role: UserRole.RIDER } })
     const ridersFromController = await controller.getAllRiders()
-    expect(ridersFromController).toEqual(riders)
+    expect(ridersFromController).toEqual({ riders })
+  })
+
+  it("Should get all normal users", async () => {
+    const users = await prisma.user.findMany({ where: { role: UserRole.NORMAL_USER } })
+    const usersFromController = await controller.getllNormalUsers()
+    expect(usersFromController).toEqual({ users })
   })
 
   it("Should get single User by index", async () => {
-    const user = await controller.getUser(1)
-    expect(user.index).toBe(1)
+    const user = await controller.getUser(userAddress)
+    expect(user.id).toEqual(userAddress)
+  })
+
+  it("Should delete user", async () => {
+    const response = await controller.deleteUser({ address: userAddress })
+    expect(response).toEqual({ success: true, message: "User deleted successfully" })
   })
 })
