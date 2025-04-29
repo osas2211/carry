@@ -6,6 +6,8 @@ const ANCHOR_DISCRIMINATOR: usize = 8;
 
 #[program]
 pub mod contracts {
+    use anchor_lang::solana_program::{self};
+
     use super::*;
 
     // CREATE DELIVERY
@@ -17,14 +19,25 @@ pub mod contracts {
     ) -> Result<()> {
         let clock = Clock::get()?;
         // Now you can use:
+        let creator = &ctx.accounts.creator;
+        let escrow = &ctx.accounts.escrow;
         let current_unix_timestamp = clock.unix_timestamp;
         let delivery = &mut ctx.accounts.delivery;
         delivery.index = index;
-        delivery.creator = *ctx.accounts.creator.key;
+        delivery.creator = *creator.key;
         delivery.reward = reward;
         delivery.estimated_time_of_arrival = eta;
         delivery.status = String::from(DeliveryStatus::Active.as_str());
         delivery.created_at = current_unix_timestamp as u64;
+        // delivery.escrow = *escrow.key;
+
+        let transfer_instruction =
+            solana_program::system_instruction::transfer(creator.key, escrow.key, reward);
+        solana_program::program::invoke(
+            &transfer_instruction,
+            &[creator.to_account_info(), escrow.clone()],
+        )?;
+
         Ok(())
     }
 
@@ -49,6 +62,14 @@ pub struct CreateDeliveryJob<'info> {
     pub delivery: Account<'info, Delivery>,
     #[account(mut)]
     pub creator: Signer<'info>,
+
+    /// CHECK: This account holds Token only, no state manipulation
+    #[account(
+        mut,
+        seeds = [b"vault", creator.key().as_ref(), index.to_le_bytes().as_ref()],
+        bump,
+    )]
+    pub escrow: AccountInfo<'info>,
     pub system_program: Program<'info, System>,
 }
 
@@ -82,6 +103,7 @@ pub struct Delivery {
     metadata_hash: Option<String>,
     created_at: u64,
     estimated_time_of_arrival: u64,
+    // escrow: Pubkey,
 }
 
 pub enum DeliveryStatus {

@@ -15,7 +15,7 @@ describe("contracts", () => {
   let provider: BankrunProvider
   let program: Program<Contracts>
   let index = new anchor.BN(2)
-  let reward = new anchor.BN(100)
+  let reward = new anchor.BN(0)
   let eta = new anchor.BN(170947)
 
   beforeEach(async () => {
@@ -44,7 +44,12 @@ describe("contracts", () => {
     }
     let [deliveryAddress] = PublicKey.findProgramAddressSync([publicAddress.toBuffer(), index.toArrayLike(Buffer, "le", 8)], programAddress)
     let delivery = await program.account.delivery.fetch(deliveryAddress)
-    console.log(JSON.stringify(delivery))
+    const [vaultPda] = PublicKey.findProgramAddressSync(
+      [Buffer.from("vault"), publicAddress.toBuffer(), new anchor.BN(index).toArrayLike(Buffer, "le", 8)],
+      program.programId
+    )
+    // console.log(JSON.stringify(delivery))
+    // console.log(vaultPda.toString())
     expect(delivery.status).eqls("DELIVERED")
   })
 
