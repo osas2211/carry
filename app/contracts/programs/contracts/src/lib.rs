@@ -7,6 +7,8 @@ const ANCHOR_DISCRIMINATOR: usize = 8;
 #[program]
 pub mod contracts {
     use super::*;
+
+    // CREATE DELIVERY
     pub fn create_delivery(
         ctx: Context<CreateDeliveryJob>,
         index: u64,
@@ -25,6 +27,13 @@ pub mod contracts {
         delivery.created_at = current_unix_timestamp as u64;
         Ok(())
     }
+
+    // CONFIRM DELIVERY
+    pub fn confirm_delivery(ctx: Context<ConfirmDeliveryStatus>, _index: u64) -> Result<()> {
+        let delivery = &mut ctx.accounts.delivery;
+        delivery.status = String::from(DeliveryStatus::Delivered.as_str());
+        Ok(())
+    }
 }
 
 #[derive(Accounts)]
@@ -40,6 +49,23 @@ pub struct CreateDeliveryJob<'info> {
     pub delivery: Account<'info, Delivery>,
     #[account(mut)]
     pub creator: Signer<'info>,
+    pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+#[instruction(index: u64)]
+pub struct ConfirmDeliveryStatus<'info> {
+    #[account(mut)]
+    pub signer: Signer<'info>,
+    #[account(
+        mut,
+        seeds = [signer.key().as_ref(), index.to_le_bytes().as_ref()],
+        bump,
+        realloc = ANCHOR_DISCRIMINATOR + Delivery::INIT_SPACE,
+        realloc::payer = signer,
+        realloc::zero = true
+    )]
+    pub delivery: Account<'info, Delivery>,
     pub system_program: Program<'info, System>,
 }
 
