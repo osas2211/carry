@@ -39,7 +39,7 @@ export default function RootLayout() {
     RobotoBold: Roboto_700Bold,
   })
 
-  const [hasOnboarded, setHasOnboarded] = useState(true)
+  const [hasOnboarded, setHasOnboarded] = useState(false)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function RootLayout() {
       setLoading(false)
     }
     checkOnboarding()
-  }, [])
+  }, [hasOnboarded])
 
   if (!loaded) {
     return null
@@ -64,7 +64,7 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      {loading ? (
+      {/* {loading ? (
         <>
           <View
             style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
@@ -93,7 +93,15 @@ export default function RootLayout() {
             <>{<Onboarding setHasOnboarded={setHasOnboarded} />}</>
           )}
         </>
-      )}
+      )} */}
+      <>
+        <SafeAreaView style={{ flex: 1, position: "relative" }} edges={["top"]}>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+        </SafeAreaView>
+      </>
       <StatusBar style="auto" />
     </ThemeProvider>
   )

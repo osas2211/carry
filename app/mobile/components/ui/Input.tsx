@@ -2,6 +2,7 @@ import React, { ReactNode } from "react"
 import { appColors } from "@/constants/Colors"
 import {
   StyleProp,
+  Text,
   TextInput,
   TextInputProps,
   TextStyle,
@@ -10,6 +11,7 @@ import {
 
 interface props extends TextInputProps {
   icon?: ReactNode
+  label?: string
 }
 export const Input = (props: props) => {
   let baseStyle = {
@@ -26,11 +28,12 @@ export const Input = (props: props) => {
     : baseStyle
   return (
     <View style={{ position: "relative" }}>
+      {props.label && <Text style={{ marginBottom: 4 }}>{props.label}</Text>}
       <TextInput {...props} style={style} />
       <View
         style={{
           position: "absolute",
-          top: 15,
+          top: props.label ? 34 : 15,
           left: 15,
           transform: "translateY(-0%)",
         }}

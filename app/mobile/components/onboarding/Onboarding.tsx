@@ -15,9 +15,13 @@ import {
   GestureHandlerRootView,
   ScrollView,
 } from "react-native-gesture-handler"
-import { Link } from "expo-router"
-import { saveValue } from "@/helpers/secureStoreHelpers"
-import { HAS_ONBOARDED } from "@/constants/key_strings"
+import { Link, router } from "expo-router"
+import { getValue, saveValue } from "@/helpers/secureStoreHelpers"
+import {
+  AUTH_TOKEN,
+  HAS_ONBOARDED,
+  USER_PUBLIC_KEY,
+} from "@/constants/key_strings"
 import { connectWallet } from "@/helpers/connectWallet"
 
 export default function Onboarding({
@@ -26,6 +30,7 @@ export default function Onboarding({
   setHasOnboarded: React.Dispatch<React.SetStateAction<boolean>>
 }) {
   const [connecting, setConnecting] = useState(false)
+
   const handleWalletConnection = async () => {
     try {
       setConnecting(true)
@@ -33,14 +38,17 @@ export default function Onboarding({
       await saveValue(HAS_ONBOARDED, "true")
       setHasOnboarded(true)
     } catch (error) {
+      alert(`${JSON.stringify(error)}`)
       setConnecting(false)
     } finally {
       setConnecting(false)
     }
   }
   const handleGetStarted = async () => {
-    await saveValue(HAS_ONBOARDED, "false")
-    // setHasOnboarded(true)
+    // console.log("Hey")
+    // await saveValue(HAS_ONBOARDED, "false")
+    setHasOnboarded(true)
+    router.push("/onboarding")
   }
   return (
     <GestureHandlerRootView>
@@ -57,15 +65,13 @@ export default function Onboarding({
         <View
           style={{ justifyContent: "center", alignItems: "center", gap: 40 }}
         >
-          {/* <Text style={{ fontWeight: 800, fontSize: 20 }}>DeliChain</Text> */}
+          {/* <Text style={{ fontWeight: 800, fontSize: 20 }}>SpeedFi</Text> */}
           <Image source={deliveryImg} style={{ width: 350, height: 350 }} />
           <View style={{ gap: 10, paddingInline: 20 }}>
             <Text
               style={{
                 fontSize: 32,
-                textAlign: "center",
                 color: appColors.text,
-                fontFamily: "RobotoSemiBold",
                 lineHeight: 34,
                 marginBottom: 0,
               }}
@@ -74,12 +80,10 @@ export default function Onboarding({
             </Text>
             <Text
               style={{
-                textAlign: "center",
                 color: appColors.text,
-                fontFamily: "RobotoRegular",
               }}
             >
-              DeliChain connects local couriers and warehouses, retailers and
+              SpeedFi connects local couriers and warehouses, retailers and
               direct consumers into a fast, decentralized delivery network. No
               middlemen, just efficiency.
             </Text>
@@ -91,7 +95,7 @@ export default function Onboarding({
               variant="outlined"
               onPress={handleWalletConnection}
             />
-            <Button title="Get started" onPress={handleGetStarted} />
+            {/* <Button title="Get started" onPress={handleGetStarted} /> */}
           </View>
         </View>
       </ScrollView>
