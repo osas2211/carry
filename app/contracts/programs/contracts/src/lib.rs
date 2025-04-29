@@ -44,6 +44,23 @@ pub mod contracts {
     // CONFIRM DELIVERY
     pub fn confirm_delivery(ctx: Context<ConfirmDeliveryStatus>, _index: u64) -> Result<()> {
         let delivery = &mut ctx.accounts.delivery;
+        let courier = delivery.courier.ok_or(CustomError::NoCourierAssigned)?;
+
+        require!(
+            delivery.status == String::from(DeliveryStatus::InProgress.as_str()),
+            CustomError::JobNotAcceptedYet
+        );
+
+        require_keys_eq!(
+            courier,
+            ctx.accounts.courier_account.key(),
+            CustomError::InvalidCourierAccount
+        );
+
+        let amount = **ctx.accounts.escrow.lamports.borrow();
+        **ctx.accounts.escrow.lamports.borrow_mut() = 0;
+        **ctx.accounts.courier_account.lamports.borrow_mut() += amount;
+
         delivery.status = String::from(DeliveryStatus::Delivered.as_str());
         Ok(())
     }
@@ -55,6 +72,7 @@ pub mod contracts {
         creator: Pubkey,
     ) -> Result<()> {
         let delivery = &mut ctx.accounts.delivery;
+
         require!(delivery.status == "ACTIVE", CustomError::JobNotAvailable);
         require_keys_neq!(
             creator,
@@ -66,6 +84,8 @@ pub mod contracts {
         Ok(())
     }
 }
+
+// ************************************************************** PDAs **************************************************************
 
 #[derive(Accounts)]
 #[instruction(index: u64)]
@@ -84,7 +104,7 @@ pub struct CreateDeliveryJob<'info> {
     /// CHECK: This account holds Token only, no state manipulation
     #[account(
         mut,
-        seeds = [b"vault", creator.key().as_ref(), index.to_le_bytes().as_ref()],
+        seeds = [b"escrow", creator.key().as_ref(), index.to_le_bytes().as_ref()],
         bump,
     )]
     pub escrow: AccountInfo<'info>,
@@ -105,6 +125,17 @@ pub struct ConfirmDeliveryStatus<'info> {
         realloc::zero = true
     )]
     pub delivery: Account<'info, Delivery>,
+
+    /// CHECK: Verification will be made manually
+    #[account(
+        mut,
+        seeds= [b"escrow", signer.key().as_ref(), index.to_le_bytes().as_ref()],
+        bump
+    )]
+    pub escrow: AccountInfo<'info>,
+
+    /// CHECK: This account will be checked manually
+    pub courier_account: AccountInfo<'info>,
     pub system_program: Program<'info, System>,
 }
 
@@ -116,11 +147,13 @@ pub struct CourierDeliveryAcceptJob<'info> {
     #[account(
         mut,
         seeds = [creator.as_ref(), index.to_le_bytes().as_ref()],
-        bump
+        bump,
     )]
     pub delivery: Account<'info, Delivery>,
     pub system_program: Program<'info, System>,
 }
+
+// ************************************************************** PDAs STRUCTS **************************************************************
 
 #[account]
 #[derive(InitSpace)]
@@ -138,6 +171,8 @@ pub struct Delivery {
     // escrow: Pubkey,
 }
 
+// ************************************************************** NORMAL ENUMS **************************************************************
+
 pub enum DeliveryStatus {
     Active,
     InProgress,
@@ -154,11 +189,21 @@ impl DeliveryStatus {
     }
 }
 
+// ************************************************************** ERRORS **************************************************************
 #[error_code]
 pub enum CustomError {
     #[msg("This Delivery Job is no longer available")]
     JobNotAvailable,
 
+    #[msg("This Delivery Job has not been accepted by a courier yet")]
+    JobNotAcceptedYet,
+
     #[msg("Creator can't be courier")]
     CreatorAcceptJobBlocked,
+
+    #[msg("No courier has been assigned.")]
+    NoCourierAssigned,
+
+    #[msg("The provided courier account does not match the assigned courier.")]
+    InvalidCourierAccount,
 }

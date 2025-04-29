@@ -17,11 +17,13 @@ describe("contracts", () => {
   let index = new anchor.BN(2)
   let reward = new anchor.BN(0)
   let eta = new anchor.BN(170947)
+  let courier: anchor.web3.Keypair
 
   beforeEach(async () => {
     context = await startAnchor("", [{ name: "contracts", programId: programAddress }], [])
     provider = new BankrunProvider(context)
     program = new Program(IDL, provider)
+    courier = anchor.web3.Keypair.generate()
 
   })
 
@@ -37,16 +39,18 @@ describe("contracts", () => {
   })
 
   it("Confirm a Delivery", async () => {
-    await program.methods.createDelivery(index, reward, eta).rpc()
-    await program.methods.confirmDelivery(index).rpc()
     let publicAddress = program.provider.publicKey
     if (!publicAddress) {
       throw new Error("Provider public key is undefined")
     }
+    await program.methods.createDelivery(index, reward, eta).rpc()
+    await program.methods.acceptDeliveryJob(index, publicAddress).accountsPartial({ courier: courier.publicKey }).signers([courier]).rpc()
+    await program.methods.confirmDelivery(index).accountsPartial({ courierAccount: courier.publicKey }).rpc()
+
     let [deliveryAddress] = PublicKey.findProgramAddressSync([publicAddress.toBuffer(), index.toArrayLike(Buffer, "le", 8)], programAddress)
     let delivery = await program.account.delivery.fetch(deliveryAddress)
     const [vaultPda] = PublicKey.findProgramAddressSync(
-      [Buffer.from("vault"), publicAddress.toBuffer(), new anchor.BN(index).toArrayLike(Buffer, "le", 8)],
+      [Buffer.from("escrow"), publicAddress.toBuffer(), new anchor.BN(index).toArrayLike(Buffer, "le", 8)],
       program.programId
     )
     // console.log(JSON.stringify(delivery))
@@ -60,7 +64,7 @@ describe("contracts", () => {
     if (!publicAddress) {
       throw new Error("Provider public key is undefined")
     }
-    await program.methods.acceptDeliveryJob(index, publicAddress).rpc()
+    await program.methods.acceptDeliveryJob(index, publicAddress).accountsPartial({ courier: courier.publicKey }).signers([courier]).rpc()
     let [deliveryAddress] = PublicKey.findProgramAddressSync([publicAddress.toBuffer(), index.toArrayLike(Buffer, "le", 8)], programAddress)
     let delivery = await program.account.delivery.fetch(deliveryAddress)
     console.log(delivery)
