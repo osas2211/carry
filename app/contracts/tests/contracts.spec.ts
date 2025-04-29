@@ -22,6 +22,7 @@ describe("contracts", () => {
     context = await startAnchor("", [{ name: "contracts", programId: programAddress }], [])
     provider = new BankrunProvider(context)
     program = new Program(IDL, provider)
+
   })
 
   it("Create a delivery", async () => {
@@ -51,6 +52,19 @@ describe("contracts", () => {
     // console.log(JSON.stringify(delivery))
     // console.log(vaultPda.toString())
     expect(delivery.status).eqls("DELIVERED")
+  })
+
+  it("Accept Delivery Job", async () => {
+    await program.methods.createDelivery(index, reward, eta).rpc()
+    let publicAddress = program.provider.publicKey
+    if (!publicAddress) {
+      throw new Error("Provider public key is undefined")
+    }
+    await program.methods.acceptDeliveryJob(index, publicAddress).rpc()
+    let [deliveryAddress] = PublicKey.findProgramAddressSync([publicAddress.toBuffer(), index.toArrayLike(Buffer, "le", 8)], programAddress)
+    let delivery = await program.account.delivery.fetch(deliveryAddress)
+    console.log(delivery)
+    expect(delivery.status).eqls("IN_PROGRESS")
   })
 
 
