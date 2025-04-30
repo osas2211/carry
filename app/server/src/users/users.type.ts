@@ -1,12 +1,14 @@
+import { Role } from "@prisma/client"
+
 export interface CreateUserDTO {
-  name: string,
-  role: UserRole,
-  address: string,
-  avatar: string
+  username?: string,
+  role: Role,
+  walletAddress: string,
+  avatarUrl?: string,
+  email?: string,
+  bio?: string,
+
 }
 
-export enum UserRole {
-  RIDER = "RIDER",
-  NORMAL_USER = "NORMAL_USER"
-}
+
 

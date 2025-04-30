@@ -1,41 +1,41 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
-import { CreateUserDTO, UserRole } from './users.type'
+import { CreateUserDTO } from './users.type'
 import { PrismaService } from '../prisma.service'
-import { Prisma, User } from '@prisma/client'
+import { User, Role } from '@prisma/client'
 
 @Injectable()
 export class UsersService {
   constructor(private readonly prisma: PrismaService) { }
   async createUser(body: CreateUserDTO): Promise<User> {
-    const bodyKeys = ["address", "name", "role", "avatar"]
+    const bodyKeys = ["walletAddress", "username", "role"]
     bodyKeys.forEach((key) => {
-      if (body[key as "address"] === undefined) {
+      if (body[key as "walletAddress"] === undefined) {
         throw new BadRequestException(`${key} is required`)
       }
     })
     const { create, findUnique } = this.prisma.user
-    const userExists = await findUnique({ where: { id: body.address } })
+    const userExists = await findUnique({ where: { walletAddress: body.walletAddress } })
     if (userExists) {
       throw new BadRequestException("User already exists")
     }
     const user = await create({
-      data: { id: body.address, avatar: body.avatar, role: body.role, name: body.name }
+      data: { ...body, role: body.role as Role }
     })
     return user
   }
 
-  async getAllRiders(): Promise<{ riders: User[] }> {
-    const riders = await this.prisma.user.findMany({ where: { role: UserRole.RIDER } })
-    return { riders }
+  async getAllCourier(): Promise<{ couriers: User[] }> {
+    const couriers = await this.prisma.user.findMany({ where: { role: Role.COURIER } })
+    return { couriers }
   }
 
   async getAllNormalUsers(): Promise<{ users: User[] }> {
-    const users = await this.prisma.user.findMany({ where: { role: UserRole.NORMAL_USER } })
+    const users = await this.prisma.user.findMany({ where: { role: Role.NORMAL_USER } })
     return { users }
   }
 
-  async getUser(address: string) {
-    const user = await this.prisma.user.findUnique({ where: { id: address } })
+  async getUser(walletAddress: string) {
+    const user = await this.prisma.user.findUnique({ where: { walletAddress: walletAddress } })
     if (user) {
       return user
     } else {
@@ -43,10 +43,10 @@ export class UsersService {
     }
   }
 
-  async deleteUser(address: string) {
-    const user = await this.prisma.user.findUnique({ where: { id: address } })
+  async deleteUser(walletAddress: string) {
+    const user = await this.prisma.user.findUnique({ where: { walletAddress: walletAddress } })
     if (user) {
-      await this.prisma.user.delete({ where: { id: address } })
+      await this.prisma.user.delete({ where: { walletAddress: walletAddress } })
       return { success: true, message: "User deleted successfully" }
     } else {
       throw new NotFoundException("User not found")

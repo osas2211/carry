@@ -13,8 +13,8 @@ export class UsersController {
   }
 
   @Get("/riders")
-  async getAllRiders() {
-    return this.usersService.getAllRiders()
+  async getAllCourier() {
+    return this.usersService.getAllCourier()
   }
 
   @Get()
@@ -23,12 +23,12 @@ export class UsersController {
   }
 
   @Get()
-  async getUser(@Param() address: string) {
-    return this.usersService.getUser(address)
+  async getUser(@Param() walletAddress: string) {
+    return this.usersService.getUser(walletAddress)
   }
 
   @Delete()
-  async deleteUser(@Body() body: { address: string }) {
-    return this.usersService.deleteUser(body.address)
+  async deleteUser(@Body() body: { walletAddress: string }) {
+    return this.usersService.deleteUser(body.walletAddress)
   }
 }
