@@ -15,9 +15,36 @@ datasource db {
 }
 
 model User {
-  id     String @unique
-  index  Int    @id @default(autoincrement())
-  avatar String
-  role   String
-  name   String
+  id            String  @id @default(uuid())
+  walletAddress String  @unique
+  username      String?
+  role          Role    @default(NORMAL_USER)
+  email         String? @unique
+  phone         String?
+
+  avatarUrl String?
+  bio       String?
+
+  lat Float?
+  lng Float?
+
+  reputationScore Float @default(0)
+  reviewsCount    Int   @default(0)
+
+  jobsCompleted       Int    @default(0)
+  jobsPosted          Int    @default(0)
+  earningsTotal       BigInt @default(0)
+  distanceTravelledKm Float  @default(0)
+
+  kycVerified    Boolean   @default(false)
+  kycDocumentUrl String?
+  kycVerifiedAt  DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  COURIER
+  NORMAL_USER
 }

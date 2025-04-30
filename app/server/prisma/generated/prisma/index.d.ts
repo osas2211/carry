@@ -20,6 +20,23 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 
 /**
+ * Enums
+ */
+export namespace $Enums {
+  export const Role: {
+  COURIER: 'COURIER',
+  NORMAL_USER: 'NORMAL_USER'
+};
+
+export type Role = (typeof Role)[keyof typeof Role]
+
+}
+
+export type Role = $Enums.Role
+
+export const Role: typeof $Enums.Role
+
+/**
  * ##  Prisma Client ʲˢ
  *
  * Type-safe database client for TypeScript & Node.js
@@ -882,69 +899,193 @@ export namespace Prisma {
   }
 
   export type UserAvgAggregateOutputType = {
-    index: number | null
+    lat: number | null
+    lng: number | null
+    reputationScore: number | null
+    reviewsCount: number | null
+    jobsCompleted: number | null
+    jobsPosted: number | null
+    earningsTotal: number | null
+    distanceTravelledKm: number | null
   }
 
   export type UserSumAggregateOutputType = {
-    index: number | null
+    lat: number | null
+    lng: number | null
+    reputationScore: number | null
+    reviewsCount: number | null
+    jobsCompleted: number | null
+    jobsPosted: number | null
+    earningsTotal: bigint | null
+    distanceTravelledKm: number | null
   }
 
   export type UserMinAggregateOutputType = {
     id: string | null
-    index: number | null
-    avatar: string | null
-    role: string | null
-    name: string | null
+    walletAddress: string | null
+    username: string | null
+    role: $Enums.Role | null
+    email: string | null
+    phone: string | null
+    avatarUrl: string | null
+    bio: string | null
+    lat: number | null
+    lng: number | null
+    reputationScore: number | null
+    reviewsCount: number | null
+    jobsCompleted: number | null
+    jobsPosted: number | null
+    earningsTotal: bigint | null
+    distanceTravelledKm: number | null
+    kycVerified: boolean | null
+    kycDocumentUrl: string | null
+    kycVerifiedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
     id: string | null
-    index: number | null
-    avatar: string | null
-    role: string | null
-    name: string | null
+    walletAddress: string | null
+    username: string | null
+    role: $Enums.Role | null
+    email: string | null
+    phone: string | null
+    avatarUrl: string | null
+    bio: string | null
+    lat: number | null
+    lng: number | null
+    reputationScore: number | null
+    reviewsCount: number | null
+    jobsCompleted: number | null
+    jobsPosted: number | null
+    earningsTotal: bigint | null
+    distanceTravelledKm: number | null
+    kycVerified: boolean | null
+    kycDocumentUrl: string | null
+    kycVerifiedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type UserCountAggregateOutputType = {
     id: number
-    index: number
-    avatar: number
+    walletAddress: number
+    username: number
     role: number
-    name: number
+    email: number
+    phone: number
+    avatarUrl: number
+    bio: number
+    lat: number
+    lng: number
+    reputationScore: number
+    reviewsCount: number
+    jobsCompleted: number
+    jobsPosted: number
+    earningsTotal: number
+    distanceTravelledKm: number
+    kycVerified: number
+    kycDocumentUrl: number
+    kycVerifiedAt: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
 
   export type UserAvgAggregateInputType = {
-    index?: true
+    lat?: true
+    lng?: true
+    reputationScore?: true
+    reviewsCount?: true
+    jobsCompleted?: true
+    jobsPosted?: true
+    earningsTotal?: true
+    distanceTravelledKm?: true
   }
 
   export type UserSumAggregateInputType = {
-    index?: true
+    lat?: true
+    lng?: true
+    reputationScore?: true
+    reviewsCount?: true
+    jobsCompleted?: true
+    jobsPosted?: true
+    earningsTotal?: true
+    distanceTravelledKm?: true
   }
 
   export type UserMinAggregateInputType = {
     id?: true
-    index?: true
-    avatar?: true
+    walletAddress?: true
+    username?: true
     role?: true
-    name?: true
+    email?: true
+    phone?: true
+    avatarUrl?: true
+    bio?: true
+    lat?: true
+    lng?: true
+    reputationScore?: true
+    reviewsCount?: true
+    jobsCompleted?: true
+    jobsPosted?: true
+    earningsTotal?: true
+    distanceTravelledKm?: true
+    kycVerified?: true
+    kycDocumentUrl?: true
+    kycVerifiedAt?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type UserMaxAggregateInputType = {
     id?: true
-    index?: true
-    avatar?: true
+    walletAddress?: true
+    username?: true
     role?: true
-    name?: true
+    email?: true
+    phone?: true
+    avatarUrl?: true
+    bio?: true
+    lat?: true
+    lng?: true
+    reputationScore?: true
+    reviewsCount?: true
+    jobsCompleted?: true
+    jobsPosted?: true
+    earningsTotal?: true
+    distanceTravelledKm?: true
+    kycVerified?: true
+    kycDocumentUrl?: true
+    kycVerifiedAt?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type UserCountAggregateInputType = {
     id?: true
-    index?: true
-    avatar?: true
+    walletAddress?: true
+    username?: true
     role?: true
-    name?: true
+    email?: true
+    phone?: true
+    avatarUrl?: true
+    bio?: true
+    lat?: true
+    lng?: true
+    reputationScore?: true
+    reviewsCount?: true
+    jobsCompleted?: true
+    jobsPosted?: true
+    earningsTotal?: true
+    distanceTravelledKm?: true
+    kycVerified?: true
+    kycDocumentUrl?: true
+    kycVerifiedAt?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -1036,10 +1177,26 @@ export namespace Prisma {
 
   export type UserGroupByOutputType = {
     id: string
-    index: number
-    avatar: string
-    role: string
-    name: string
+    walletAddress: string
+    username: string | null
+    role: $Enums.Role
+    email: string | null
+    phone: string | null
+    avatarUrl: string | null
+    bio: string | null
+    lat: number | null
+    lng: number | null
+    reputationScore: number
+    reviewsCount: number
+    jobsCompleted: number
+    jobsPosted: number
+    earningsTotal: bigint
+    distanceTravelledKm: number
+    kycVerified: boolean
+    kycDocumentUrl: string | null
+    kycVerifiedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -1063,47 +1220,127 @@ export namespace Prisma {
 
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    index?: boolean
-    avatar?: boolean
+    walletAddress?: boolean
+    username?: boolean
     role?: boolean
-    name?: boolean
+    email?: boolean
+    phone?: boolean
+    avatarUrl?: boolean
+    bio?: boolean
+    lat?: boolean
+    lng?: boolean
+    reputationScore?: boolean
+    reviewsCount?: boolean
+    jobsCompleted?: boolean
+    jobsPosted?: boolean
+    earningsTotal?: boolean
+    distanceTravelledKm?: boolean
+    kycVerified?: boolean
+    kycDocumentUrl?: boolean
+    kycVerifiedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    index?: boolean
-    avatar?: boolean
+    walletAddress?: boolean
+    username?: boolean
     role?: boolean
-    name?: boolean
+    email?: boolean
+    phone?: boolean
+    avatarUrl?: boolean
+    bio?: boolean
+    lat?: boolean
+    lng?: boolean
+    reputationScore?: boolean
+    reviewsCount?: boolean
+    jobsCompleted?: boolean
+    jobsPosted?: boolean
+    earningsTotal?: boolean
+    distanceTravelledKm?: boolean
+    kycVerified?: boolean
+    kycDocumentUrl?: boolean
+    kycVerifiedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    index?: boolean
-    avatar?: boolean
+    walletAddress?: boolean
+    username?: boolean
     role?: boolean
-    name?: boolean
+    email?: boolean
+    phone?: boolean
+    avatarUrl?: boolean
+    bio?: boolean
+    lat?: boolean
+    lng?: boolean
+    reputationScore?: boolean
+    reviewsCount?: boolean
+    jobsCompleted?: boolean
+    jobsPosted?: boolean
+    earningsTotal?: boolean
+    distanceTravelledKm?: boolean
+    kycVerified?: boolean
+    kycDocumentUrl?: boolean
+    kycVerifiedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
     id?: boolean
-    index?: boolean
-    avatar?: boolean
+    walletAddress?: boolean
+    username?: boolean
     role?: boolean
-    name?: boolean
+    email?: boolean
+    phone?: boolean
+    avatarUrl?: boolean
+    bio?: boolean
+    lat?: boolean
+    lng?: boolean
+    reputationScore?: boolean
+    reviewsCount?: boolean
+    jobsCompleted?: boolean
+    jobsPosted?: boolean
+    earningsTotal?: boolean
+    distanceTravelledKm?: boolean
+    kycVerified?: boolean
+    kycDocumentUrl?: boolean
+    kycVerifiedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "index" | "avatar" | "role" | "name", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "walletAddress" | "username" | "role" | "email" | "phone" | "avatarUrl" | "bio" | "lat" | "lng" | "reputationScore" | "reviewsCount" | "jobsCompleted" | "jobsPosted" | "earningsTotal" | "distanceTravelledKm" | "kycVerified" | "kycDocumentUrl" | "kycVerifiedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      index: number
-      avatar: string
-      role: string
-      name: string
+      walletAddress: string
+      username: string | null
+      role: $Enums.Role
+      email: string | null
+      phone: string | null
+      avatarUrl: string | null
+      bio: string | null
+      lat: number | null
+      lng: number | null
+      reputationScore: number
+      reviewsCount: number
+      jobsCompleted: number
+      jobsPosted: number
+      earningsTotal: bigint
+      distanceTravelledKm: number
+      kycVerified: boolean
+      kycDocumentUrl: string | null
+      kycVerifiedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1528,10 +1765,26 @@ export namespace Prisma {
    */
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
-    readonly index: FieldRef<"User", 'Int'>
-    readonly avatar: FieldRef<"User", 'String'>
-    readonly role: FieldRef<"User", 'String'>
-    readonly name: FieldRef<"User", 'String'>
+    readonly walletAddress: FieldRef<"User", 'String'>
+    readonly username: FieldRef<"User", 'String'>
+    readonly role: FieldRef<"User", 'Role'>
+    readonly email: FieldRef<"User", 'String'>
+    readonly phone: FieldRef<"User", 'String'>
+    readonly avatarUrl: FieldRef<"User", 'String'>
+    readonly bio: FieldRef<"User", 'String'>
+    readonly lat: FieldRef<"User", 'Float'>
+    readonly lng: FieldRef<"User", 'Float'>
+    readonly reputationScore: FieldRef<"User", 'Float'>
+    readonly reviewsCount: FieldRef<"User", 'Int'>
+    readonly jobsCompleted: FieldRef<"User", 'Int'>
+    readonly jobsPosted: FieldRef<"User", 'Int'>
+    readonly earningsTotal: FieldRef<"User", 'BigInt'>
+    readonly distanceTravelledKm: FieldRef<"User", 'Float'>
+    readonly kycVerified: FieldRef<"User", 'Boolean'>
+    readonly kycDocumentUrl: FieldRef<"User", 'String'>
+    readonly kycVerifiedAt: FieldRef<"User", 'DateTime'>
+    readonly createdAt: FieldRef<"User", 'DateTime'>
+    readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -1909,10 +2162,26 @@ export namespace Prisma {
 
   export const UserScalarFieldEnum: {
     id: 'id',
-    index: 'index',
-    avatar: 'avatar',
+    walletAddress: 'walletAddress',
+    username: 'username',
     role: 'role',
-    name: 'name'
+    email: 'email',
+    phone: 'phone',
+    avatarUrl: 'avatarUrl',
+    bio: 'bio',
+    lat: 'lat',
+    lng: 'lng',
+    reputationScore: 'reputationScore',
+    reviewsCount: 'reviewsCount',
+    jobsCompleted: 'jobsCompleted',
+    jobsPosted: 'jobsPosted',
+    earningsTotal: 'earningsTotal',
+    distanceTravelledKm: 'distanceTravelledKm',
+    kycVerified: 'kycVerified',
+    kycDocumentUrl: 'kycDocumentUrl',
+    kycVerifiedAt: 'kycVerifiedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -1924,6 +2193,14 @@ export namespace Prisma {
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -1939,9 +2216,9 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'Role'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
     
 
 
@@ -1949,6 +2226,34 @@ export namespace Prisma {
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'BigInt'
+   */
+  export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
     
   /**
    * Deep Input Types
@@ -1960,37 +2265,101 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     id?: StringFilter<"User"> | string
-    index?: IntFilter<"User"> | number
-    avatar?: StringFilter<"User"> | string
-    role?: StringFilter<"User"> | string
-    name?: StringFilter<"User"> | string
+    walletAddress?: StringFilter<"User"> | string
+    username?: StringNullableFilter<"User"> | string | null
+    role?: EnumRoleFilter<"User"> | $Enums.Role
+    email?: StringNullableFilter<"User"> | string | null
+    phone?: StringNullableFilter<"User"> | string | null
+    avatarUrl?: StringNullableFilter<"User"> | string | null
+    bio?: StringNullableFilter<"User"> | string | null
+    lat?: FloatNullableFilter<"User"> | number | null
+    lng?: FloatNullableFilter<"User"> | number | null
+    reputationScore?: FloatFilter<"User"> | number
+    reviewsCount?: IntFilter<"User"> | number
+    jobsCompleted?: IntFilter<"User"> | number
+    jobsPosted?: IntFilter<"User"> | number
+    earningsTotal?: BigIntFilter<"User"> | bigint | number
+    distanceTravelledKm?: FloatFilter<"User"> | number
+    kycVerified?: BoolFilter<"User"> | boolean
+    kycDocumentUrl?: StringNullableFilter<"User"> | string | null
+    kycVerifiedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
-    index?: SortOrder
-    avatar?: SortOrder
+    walletAddress?: SortOrder
+    username?: SortOrderInput | SortOrder
     role?: SortOrder
-    name?: SortOrder
+    email?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
+    avatarUrl?: SortOrderInput | SortOrder
+    bio?: SortOrderInput | SortOrder
+    lat?: SortOrderInput | SortOrder
+    lng?: SortOrderInput | SortOrder
+    reputationScore?: SortOrder
+    reviewsCount?: SortOrder
+    jobsCompleted?: SortOrder
+    jobsPosted?: SortOrder
+    earningsTotal?: SortOrder
+    distanceTravelledKm?: SortOrder
+    kycVerified?: SortOrder
+    kycDocumentUrl?: SortOrderInput | SortOrder
+    kycVerifiedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    index?: number
+    walletAddress?: string
+    email?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    avatar?: StringFilter<"User"> | string
-    role?: StringFilter<"User"> | string
-    name?: StringFilter<"User"> | string
-  }, "index" | "id">
+    username?: StringNullableFilter<"User"> | string | null
+    role?: EnumRoleFilter<"User"> | $Enums.Role
+    phone?: StringNullableFilter<"User"> | string | null
+    avatarUrl?: StringNullableFilter<"User"> | string | null
+    bio?: StringNullableFilter<"User"> | string | null
+    lat?: FloatNullableFilter<"User"> | number | null
+    lng?: FloatNullableFilter<"User"> | number | null
+    reputationScore?: FloatFilter<"User"> | number
+    reviewsCount?: IntFilter<"User"> | number
+    jobsCompleted?: IntFilter<"User"> | number
+    jobsPosted?: IntFilter<"User"> | number
+    earningsTotal?: BigIntFilter<"User"> | bigint | number
+    distanceTravelledKm?: FloatFilter<"User"> | number
+    kycVerified?: BoolFilter<"User"> | boolean
+    kycDocumentUrl?: StringNullableFilter<"User"> | string | null
+    kycVerifiedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
+  }, "id" | "walletAddress" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
-    index?: SortOrder
-    avatar?: SortOrder
+    walletAddress?: SortOrder
+    username?: SortOrderInput | SortOrder
     role?: SortOrder
-    name?: SortOrder
+    email?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
+    avatarUrl?: SortOrderInput | SortOrder
+    bio?: SortOrderInput | SortOrder
+    lat?: SortOrderInput | SortOrder
+    lng?: SortOrderInput | SortOrder
+    reputationScore?: SortOrder
+    reviewsCount?: SortOrder
+    jobsCompleted?: SortOrder
+    jobsPosted?: SortOrder
+    earningsTotal?: SortOrder
+    distanceTravelledKm?: SortOrder
+    kycVerified?: SortOrder
+    kycDocumentUrl?: SortOrderInput | SortOrder
+    kycVerifiedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -2003,63 +2372,194 @@ export namespace Prisma {
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"User"> | string
-    index?: IntWithAggregatesFilter<"User"> | number
-    avatar?: StringWithAggregatesFilter<"User"> | string
-    role?: StringWithAggregatesFilter<"User"> | string
-    name?: StringWithAggregatesFilter<"User"> | string
+    walletAddress?: StringWithAggregatesFilter<"User"> | string
+    username?: StringNullableWithAggregatesFilter<"User"> | string | null
+    role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
+    email?: StringNullableWithAggregatesFilter<"User"> | string | null
+    phone?: StringNullableWithAggregatesFilter<"User"> | string | null
+    avatarUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
+    bio?: StringNullableWithAggregatesFilter<"User"> | string | null
+    lat?: FloatNullableWithAggregatesFilter<"User"> | number | null
+    lng?: FloatNullableWithAggregatesFilter<"User"> | number | null
+    reputationScore?: FloatWithAggregatesFilter<"User"> | number
+    reviewsCount?: IntWithAggregatesFilter<"User"> | number
+    jobsCompleted?: IntWithAggregatesFilter<"User"> | number
+    jobsPosted?: IntWithAggregatesFilter<"User"> | number
+    earningsTotal?: BigIntWithAggregatesFilter<"User"> | bigint | number
+    distanceTravelledKm?: FloatWithAggregatesFilter<"User"> | number
+    kycVerified?: BoolWithAggregatesFilter<"User"> | boolean
+    kycDocumentUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
+    kycVerifiedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
   export type UserCreateInput = {
-    id: string
-    avatar: string
-    role: string
-    name: string
+    id?: string
+    walletAddress: string
+    username?: string | null
+    role?: $Enums.Role
+    email?: string | null
+    phone?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    lat?: number | null
+    lng?: number | null
+    reputationScore?: number
+    reviewsCount?: number
+    jobsCompleted?: number
+    jobsPosted?: number
+    earningsTotal?: bigint | number
+    distanceTravelledKm?: number
+    kycVerified?: boolean
+    kycDocumentUrl?: string | null
+    kycVerifiedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UserUncheckedCreateInput = {
-    id: string
-    index?: number
-    avatar: string
-    role: string
-    name: string
+    id?: string
+    walletAddress: string
+    username?: string | null
+    role?: $Enums.Role
+    email?: string | null
+    phone?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    lat?: number | null
+    lng?: number | null
+    reputationScore?: number
+    reviewsCount?: number
+    jobsCompleted?: number
+    jobsPosted?: number
+    earningsTotal?: bigint | number
+    distanceTravelledKm?: number
+    kycVerified?: boolean
+    kycDocumentUrl?: string | null
+    kycVerifiedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    walletAddress?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    reputationScore?: FloatFieldUpdateOperationsInput | number
+    reviewsCount?: IntFieldUpdateOperationsInput | number
+    jobsCompleted?: IntFieldUpdateOperationsInput | number
+    jobsPosted?: IntFieldUpdateOperationsInput | number
+    earningsTotal?: BigIntFieldUpdateOperationsInput | bigint | number
+    distanceTravelledKm?: FloatFieldUpdateOperationsInput | number
+    kycVerified?: BoolFieldUpdateOperationsInput | boolean
+    kycDocumentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    kycVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    index?: IntFieldUpdateOperationsInput | number
-    avatar?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    walletAddress?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    reputationScore?: FloatFieldUpdateOperationsInput | number
+    reviewsCount?: IntFieldUpdateOperationsInput | number
+    jobsCompleted?: IntFieldUpdateOperationsInput | number
+    jobsPosted?: IntFieldUpdateOperationsInput | number
+    earningsTotal?: BigIntFieldUpdateOperationsInput | bigint | number
+    distanceTravelledKm?: FloatFieldUpdateOperationsInput | number
+    kycVerified?: BoolFieldUpdateOperationsInput | boolean
+    kycDocumentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    kycVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserCreateManyInput = {
-    id: string
-    index?: number
-    avatar: string
-    role: string
-    name: string
+    id?: string
+    walletAddress: string
+    username?: string | null
+    role?: $Enums.Role
+    email?: string | null
+    phone?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    lat?: number | null
+    lng?: number | null
+    reputationScore?: number
+    reviewsCount?: number
+    jobsCompleted?: number
+    jobsPosted?: number
+    earningsTotal?: bigint | number
+    distanceTravelledKm?: number
+    kycVerified?: boolean
+    kycDocumentUrl?: string | null
+    kycVerifiedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    walletAddress?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    reputationScore?: FloatFieldUpdateOperationsInput | number
+    reviewsCount?: IntFieldUpdateOperationsInput | number
+    jobsCompleted?: IntFieldUpdateOperationsInput | number
+    jobsPosted?: IntFieldUpdateOperationsInput | number
+    earningsTotal?: BigIntFieldUpdateOperationsInput | bigint | number
+    distanceTravelledKm?: FloatFieldUpdateOperationsInput | number
+    kycVerified?: BoolFieldUpdateOperationsInput | boolean
+    kycDocumentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    kycVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    index?: IntFieldUpdateOperationsInput | number
-    avatar?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    walletAddress?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    reputationScore?: FloatFieldUpdateOperationsInput | number
+    reviewsCount?: IntFieldUpdateOperationsInput | number
+    jobsCompleted?: IntFieldUpdateOperationsInput | number
+    jobsPosted?: IntFieldUpdateOperationsInput | number
+    earningsTotal?: BigIntFieldUpdateOperationsInput | bigint | number
+    distanceTravelledKm?: FloatFieldUpdateOperationsInput | number
+    kycVerified?: BoolFieldUpdateOperationsInput | boolean
+    kycDocumentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    kycVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -2076,6 +2576,49 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type EnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[]
+    notIn?: $Enums.Role[]
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -2087,36 +2630,141 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type BigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[]
+    notIn?: bigint[] | number[]
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
-    index?: SortOrder
-    avatar?: SortOrder
+    walletAddress?: SortOrder
+    username?: SortOrder
     role?: SortOrder
-    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    avatarUrl?: SortOrder
+    bio?: SortOrder
+    lat?: SortOrder
+    lng?: SortOrder
+    reputationScore?: SortOrder
+    reviewsCount?: SortOrder
+    jobsCompleted?: SortOrder
+    jobsPosted?: SortOrder
+    earningsTotal?: SortOrder
+    distanceTravelledKm?: SortOrder
+    kycVerified?: SortOrder
+    kycDocumentUrl?: SortOrder
+    kycVerifiedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
-    index?: SortOrder
+    lat?: SortOrder
+    lng?: SortOrder
+    reputationScore?: SortOrder
+    reviewsCount?: SortOrder
+    jobsCompleted?: SortOrder
+    jobsPosted?: SortOrder
+    earningsTotal?: SortOrder
+    distanceTravelledKm?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
-    index?: SortOrder
-    avatar?: SortOrder
+    walletAddress?: SortOrder
+    username?: SortOrder
     role?: SortOrder
-    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    avatarUrl?: SortOrder
+    bio?: SortOrder
+    lat?: SortOrder
+    lng?: SortOrder
+    reputationScore?: SortOrder
+    reviewsCount?: SortOrder
+    jobsCompleted?: SortOrder
+    jobsPosted?: SortOrder
+    earningsTotal?: SortOrder
+    distanceTravelledKm?: SortOrder
+    kycVerified?: SortOrder
+    kycDocumentUrl?: SortOrder
+    kycVerifiedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
-    index?: SortOrder
-    avatar?: SortOrder
+    walletAddress?: SortOrder
+    username?: SortOrder
     role?: SortOrder
-    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    avatarUrl?: SortOrder
+    bio?: SortOrder
+    lat?: SortOrder
+    lng?: SortOrder
+    reputationScore?: SortOrder
+    reviewsCount?: SortOrder
+    jobsCompleted?: SortOrder
+    jobsPosted?: SortOrder
+    earningsTotal?: SortOrder
+    distanceTravelledKm?: SortOrder
+    kycVerified?: SortOrder
+    kycDocumentUrl?: SortOrder
+    kycVerifiedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
-    index?: SortOrder
+    lat?: SortOrder
+    lng?: SortOrder
+    reputationScore?: SortOrder
+    reviewsCount?: SortOrder
+    jobsCompleted?: SortOrder
+    jobsPosted?: SortOrder
+    earningsTotal?: SortOrder
+    distanceTravelledKm?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -2136,6 +2784,65 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[]
+    notIn?: $Enums.Role[]
+    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleFilter<$PrismaModel>
+    _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -2152,8 +2859,84 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type BigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[]
+    notIn?: bigint[] | number[]
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type EnumRoleFieldUpdateOperationsInput = {
+    set?: $Enums.Role
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -2162,6 +2945,26 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type BigIntFieldUpdateOperationsInput = {
+    set?: bigint | number
+    increment?: bigint | number
+    decrement?: bigint | number
+    multiply?: bigint | number
+    divide?: bigint | number
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -2178,6 +2981,49 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedEnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[]
+    notIn?: $Enums.Role[]
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -2187,6 +3033,44 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedBigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[]
+    notIn?: bigint[] | number[]
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -2206,6 +3090,76 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[]
+    notIn?: $Enums.Role[]
+    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleFilter<$PrismaModel>
+    _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -2222,15 +3176,56 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
+  export type NestedBigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[]
+    notIn?: bigint[] | number[]
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
 

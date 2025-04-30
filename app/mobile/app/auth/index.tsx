@@ -2,7 +2,7 @@ import { Image, Text, View } from "react-native"
 import React, { useState } from "react"
 import { onboardingStyle } from "@/styles/onboarding"
 // @ts-ignore
-import deliveryImg from "../../assets/images/onboarding/delivery-man.png"
+import deliveryImg from "../../assets/images/onboarding/courier.jpg"
 import { Button } from "@/components/ui/Button"
 import { appColors } from "@/constants/Colors"
 import {
@@ -42,35 +42,42 @@ export default function Onboarding() {
           style={{
             // marginBlock: 30,
             paddingInline: 20,
+            paddingTop: 60,
             // paddingTop: "0%",
             position: "relative",
             ...onboardingStyle.fullScreen,
             backgroundColor: appColors.background,
           }}
         >
-          <View
-            style={{ justifyContent: "center", alignItems: "center", gap: 40 }}
-          >
+          <View style={{ gap: 20, justifyContent: "center", height: "100%" }}>
             {/* <Text style={{ fontWeight: 800, fontSize: 20 }}>SpeedFi</Text> */}
-            <Image source={deliveryImg} style={{ width: 350, height: 350 }} />
-            <View style={{ gap: 10, paddingInline: 20 }}>
+            <Image
+              source={deliveryImg}
+              style={{
+                width: 420,
+                height: 300,
+                objectFit: "contain",
+                alignSelf: "center",
+              }}
+            />
+            <View style={{ gap: 10, paddingInline: 0 }}>
+              <Text>Logo</Text>
               <Text
                 style={{
-                  fontSize: 32,
-                  textAlign: "center",
+                  fontSize: 24,
                   color: appColors.text,
                   fontFamily: "RobotoSemiBold",
-                  lineHeight: 34,
+                  lineHeight: 27,
                   marginBottom: 0,
                 }}
               >
-                A Decentralized Delivery Network.
+                A Decentralized and Community Driven Delivery Network.
               </Text>
               <Text
                 style={{
-                  textAlign: "center",
                   color: appColors.text,
                   fontFamily: "RobotoRegular",
+                  fontSize: 13,
                 }}
               >
                 SpeedFi connects local couriers and warehouses, retailers and

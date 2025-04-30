@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Param, Post, Req } from '@nestjs/common'
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Req } from '@nestjs/common'
 import { UsersService } from './users.service'
 import { Request } from 'express'
 import { CreateUserDTO } from './users.type'
@@ -12,13 +12,23 @@ export class UsersController {
     return this.usersService.createUser(body)
   }
 
-  @Get()
-  async getAllRiders() {
-    return this.usersService.getAllRiders()
+  @Get("/riders")
+  async getAllCourier() {
+    return this.usersService.getAllCourier()
   }
 
   @Get()
-  async getUser(@Param() index: number) {
-    return this.usersService.getUser(index)
+  async getllNormalUsers() {
+    return this.usersService.getAllNormalUsers()
+  }
+
+  @Get()
+  async getUser(@Param() walletAddress: string) {
+    return this.usersService.getUser(walletAddress)
+  }
+
+  @Delete()
+  async deleteUser(@Body() body: { walletAddress: string }) {
+    return this.usersService.deleteUser(body.walletAddress)
   }
 }
