@@ -19,7 +19,6 @@ import {
 } from "@expo-google-fonts/roboto"
 
 import { useColorScheme } from "@/hooks/useColorScheme"
-import Onboarding from "@/components/onboarding/Onboarding"
 import { ActivityIndicator, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { getValue } from "@/helpers/secureStoreHelpers"

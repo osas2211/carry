@@ -22,8 +22,8 @@ export class UsersController {
     return this.usersService.getAllNormalUsers()
   }
 
-  @Get()
-  async getUser(@Param() walletAddress: string) {
+  @Get("/:walletAddress")
+  async getUser(@Param("walletAddress") walletAddress: string) {
     return this.usersService.getUser(walletAddress)
   }
 

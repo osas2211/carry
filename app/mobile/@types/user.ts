@@ -1,11 +1,14 @@
 export interface CreateUserDTO {
-  name: string,
+  username?: string,
   role: UserRole,
-  address: string,
-  avatar: string
+  walletAddress: string,
+  avatarUrl?: string,
+  email?: string,
+  bio?: string,
+
 }
 
 export enum UserRole {
-  RIDER = "RIDER",
+  COURIER = "COURIER",
   NORMAL_USER = "NORMAL_USER"
 }
