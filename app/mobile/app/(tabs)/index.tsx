@@ -1,11 +1,12 @@
 import { ScrollView, View } from "react-native"
-import { TrackOrder } from "@/components/home/TrackOrder"
-import { TrackingHistory } from "@/components/home/TrackingHistory"
-import { CurrentShipment } from "@/components/home/CurrentShipment"
-import { SafeAreaView } from "react-native-safe-area-context"
-import { Links } from "@/components/home/Links"
+import NormalUserHome from "@/components/home/NormalUserHome"
+import { getItem } from "expo-secure-store"
+import { USER_ROLE } from "@/constants/key_strings"
+import { UserRole } from "@/@types/user"
+import CourierHome from "@/components/home/CourierHome"
 
 export default function HomeScreen() {
+  const role = getItem(USER_ROLE) as UserRole.COURIER | UserRole.NORMAL_USER
   return (
     <>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -21,10 +22,7 @@ export default function HomeScreen() {
             gap: 20,
           }}
         >
-          <TrackOrder />
-          {/* <Links /> */}
-          <TrackingHistory />
-          <CurrentShipment />
+          {role === UserRole.NORMAL_USER ? <NormalUserHome /> : <CourierHome />}
         </View>
       </ScrollView>
     </>

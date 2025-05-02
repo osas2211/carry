@@ -14,6 +14,7 @@ import { Avatar, AvatarWithStatus } from "../ui/Avatar"
 import { router } from "expo-router"
 import { useGetUser } from "@/hooks/api-hooks/useUser"
 import { truncateText } from "@/helpers/trunctateText"
+import HomeHeader from "./Header"
 
 export const TrackOrder = () => {
   const [tracking_id, setTracking_id] = useState("")
@@ -21,75 +22,7 @@ export const TrackOrder = () => {
   const { data: user, isLoading } = useGetUser()
   return (
     <View style={{ gap: 20 }}>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <View
-          style={{
-            height: 50,
-            padding: 5,
-            paddingRight: 20,
-            borderRadius: 25,
-            alignItems: "center",
-            flexDirection: "row",
-            gap: 8,
-            borderColor: appColors.text,
-            // borderWidth: 0.2,
-            // elevation: 2,
-            backgroundColor: "#fff",
-          }}
-        >
-          {isLoading ? (
-            <>
-              <View
-                style={{
-                  justifyContent: "flex-start",
-                  alignItems: "flex-start",
-                  paddingInline: 5,
-                }}
-              >
-                <ActivityIndicator />
-              </View>
-              <View>
-                <Text style={{ fontFamily: "RobotoMedium" }}>Loading...</Text>
-                <Text style={{ fontSize: 12 }}>loading...</Text>
-              </View>
-            </>
-          ) : (
-            <>
-              <AvatarWithStatus status="online" src={user?.avatarUrl || ""} />
-              <View>
-                <Text style={{ fontFamily: "RobotoMedium" }}>
-                  {user?.username}
-                </Text>
-                <Text style={{ fontSize: 11 }}>
-                  {truncateText(user?.walletAddress || "", 5)}
-                </Text>
-              </View>
-            </>
-          )}
-        </View>
-
-        <TouchableOpacity
-          activeOpacity={0.5}
-          style={{
-            backgroundColor: appColors.primary,
-            height: 45,
-            width: 45,
-            borderRadius: 50,
-            justifyContent: "center",
-            alignItems: "center",
-            elevation: 10,
-          }}
-        >
-          <Ionicons name="notifications" size={24} color="black" />
-        </TouchableOpacity>
-      </View>
-
+      <HomeHeader />
       <View
         style={{
           minHeight: 180,

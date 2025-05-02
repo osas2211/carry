@@ -8,11 +8,14 @@ import TabBarBackground from "@/components/ui/TabBarBackground"
 import { appColors, Colors } from "@/constants/Colors"
 import { useColorScheme } from "@/hooks/useColorScheme"
 import { getValue, saveValue } from "@/helpers/secureStoreHelpers"
-import { AUTH_TOKEN } from "@/constants/key_strings"
+import { AUTH_TOKEN, USER_ROLE } from "@/constants/key_strings"
+import { UserRole } from "@/@types/user"
+import { getItem } from "expo-secure-store"
 
 export default function TabLayout() {
   const colorScheme = useColorScheme()
   const [isAuthorized, setIsAuthorized] = useState(false)
+  const role = getItem(USER_ROLE) as UserRole.COURIER | UserRole.NORMAL_USER
   const checkToken = async () => {
     // await saveValue(AUTH_TOKEN, "")
     const token = await getValue(AUTH_TOKEN)
@@ -89,8 +92,12 @@ export default function TabLayout() {
               tabBarIcon: ({ color }) => (
                 <Feather size={28} name="plus" color={color} />
               ),
+              tabBarItemStyle: {
+                display: role === UserRole.COURIER ? "none" : "flex",
+              },
             }}
           />
+
           <Tabs.Screen
             name="chats"
             options={{

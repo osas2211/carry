@@ -8,18 +8,23 @@ export const Status = ({
     | "in-transit"
     | "completed"
     | "cancelled"
-    | "failed",
+    | "failed"
+    | "rejected"
+    | "accepted"
+    | "assigned",
 }) => {
   const statusBgColor: ColorValue =
-    status === "pending"
+    status === "pending" || status === "assigned"
       ? appColors.pending
       : status === "completed"
       ? appColors.primary
-      : status === "in-transit"
+      : status === "in-transit" || status === "accepted"
       ? appColors.blue
       : appColors.error
   const statusTextColor: ColorValue =
-    status === "pending" || status === "completed" ? "black" : "white"
+    status === "pending" || status === "completed" || status === "assigned"
+      ? "black"
+      : "white"
   return (
     <Text
       style={{
