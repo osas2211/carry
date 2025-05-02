@@ -1,13 +1,24 @@
-import { View, Text, Image, TouchableOpacity, TextInput } from "react-native"
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  TextInput,
+  ActivityIndicator,
+} from "react-native"
 import React, { useState } from "react"
 import { appColors } from "@/constants/Colors"
 import Ionicons from "@expo/vector-icons/Ionicons"
 import { Button } from "../ui/Button"
 import { Avatar, AvatarWithStatus } from "../ui/Avatar"
 import { router } from "expo-router"
+import { useGetUser } from "@/hooks/api-hooks/useUser"
+import { truncateText } from "@/helpers/trunctateText"
 
 export const TrackOrder = () => {
   const [tracking_id, setTracking_id] = useState("")
+
+  const { data: user, isLoading } = useGetUser()
   return (
     <View style={{ gap: 20 }}>
       <View
@@ -32,14 +43,35 @@ export const TrackOrder = () => {
             backgroundColor: "#fff",
           }}
         >
-          <AvatarWithStatus
-            src="https://img.freepik.com/free-photo/portrait-african-american-man_23-2149072178.jpg?t=st=1744458540~exp=1744462140~hmac=96b72190a28165648296662a4a6f8cfca23188fbeb13b870f8db078b795169d1&w=996"
-            status="online"
-          />
-          <View>
-            <Text style={{ fontFamily: "RobotoMedium" }}>John Amenaghawon</Text>
-            <Text style={{ fontSize: 12 }}>91Kgx....J69b</Text>
-          </View>
+          {isLoading ? (
+            <>
+              <View
+                style={{
+                  justifyContent: "flex-start",
+                  alignItems: "flex-start",
+                  paddingInline: 5,
+                }}
+              >
+                <ActivityIndicator />
+              </View>
+              <View>
+                <Text style={{ fontFamily: "RobotoMedium" }}>Loading...</Text>
+                <Text style={{ fontSize: 12 }}>loading...</Text>
+              </View>
+            </>
+          ) : (
+            <>
+              <AvatarWithStatus status="online" src={user?.avatarUrl || ""} />
+              <View>
+                <Text style={{ fontFamily: "RobotoMedium" }}>
+                  {user?.username}
+                </Text>
+                <Text style={{ fontSize: 11 }}>
+                  {truncateText(user?.walletAddress || "", 5)}
+                </Text>
+              </View>
+            </>
+          )}
         </View>
 
         <TouchableOpacity

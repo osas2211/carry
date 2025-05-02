@@ -26,7 +26,7 @@ export default function Onboarding() {
       router.replace("/")
       const pubKey = await getValue(USER_PUBLIC_KEY)
       const data = await api.get(`/users/${pubKey}`)
-      console.log(data.data)
+      // console.log(data.data)
     } catch (error) {
       alert(`${JSON.stringify(error)}`)
       setConnecting(false)
