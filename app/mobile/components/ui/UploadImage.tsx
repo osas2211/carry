@@ -94,13 +94,24 @@ export default function UploadImage({
         </View>
       </Pressable>
       {uploading && (
-        <ActivityIndicator
-          size="large"
-          color="#0000ff"
-          style={{ marginTop: 20 }}
+        <View
+          style={{
+            flexDirection: "row",
+            gap: 5,
+            alignItems: "center",
+            marginTop: 10,
+          }}
+        >
+          <ActivityIndicator size="small" color="#0000ff" />
+          <Text>Uploading image...</Text>
+        </View>
+      )}
+      {image && (
+        <Image
+          source={{ uri: image }}
+          style={{ ...styles.image, opacity: uploading ? 0.5 : 1 }}
         />
       )}
-      {image && <Image source={{ uri: image }} style={styles.image} />}
     </View>
   )
 }

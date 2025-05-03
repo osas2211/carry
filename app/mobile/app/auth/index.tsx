@@ -10,9 +10,16 @@ import {
   ScrollView,
 } from "react-native-gesture-handler"
 import { router, Stack } from "expo-router"
-import { saveValue } from "@/helpers/secureStoreHelpers"
-import { HAS_ONBOARDED } from "@/constants/key_strings"
+import { getValue, saveValue } from "@/helpers/secureStoreHelpers"
+import {
+  HAS_ONBOARDED,
+  USER_PUBLIC_KEY,
+  USER_ROLE,
+} from "@/constants/key_strings"
 import { connectWallet } from "@/helpers/connectWallet"
+import { api } from "@/api/api.instance"
+import { AxiosError } from "axios"
+import { UserProfile } from "@/@types/user"
 
 export default function Onboarding() {
   const [connecting, setConnecting] = useState(false)
@@ -21,10 +28,17 @@ export default function Onboarding() {
     try {
       setConnecting(true)
       await connectWallet()
+      const pubKey = await getValue(USER_PUBLIC_KEY)
+      const data: UserProfile = (await api.get(`/users/${pubKey}`)).data
+      saveValue(USER_ROLE, data.role)
+
       await saveValue(HAS_ONBOARDED, "true")
       router.replace("/")
-    } catch (error) {
-      alert(`${JSON.stringify(error)}`)
+    } catch (error: any) {
+      console.log(error?.status)
+      if (error?.status == 404) {
+        router.push("/onboarding")
+      }
       setConnecting(false)
     } finally {
       setConnecting(false)

@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from "react-native"
+import { View, Text, ScrollView, TouchableOpacity } from "react-native"
 import React, { useState } from "react"
 import { Input } from "../ui/Input"
 import { Button } from "../ui/Button"
@@ -8,6 +8,9 @@ import axios from "axios"
 import { CreateUserDTO, UserRole } from "@/@types/user"
 import { getValue } from "@/helpers/secureStoreHelpers"
 import { USER_PUBLIC_KEY } from "@/constants/key_strings"
+import { API_URL } from "@/constants/urls"
+import { router } from "expo-router"
+import { api } from "@/api/api.instance"
 
 const CustomerOnboardingForm = () => {
   const [imageUrl, setImageUrl] = useState("")
@@ -22,20 +25,20 @@ const CustomerOnboardingForm = () => {
   const handleJoin = async () => {
     try {
       setIsLoading(true)
-      // await connectWallet()
+      await connectWallet()
       const pubKey = (await getValue(USER_PUBLIC_KEY)) || ""
       const data: CreateUserDTO = {
-        name: `${form.firstName} ${form.lastName}`,
-        address: "37hkfs82",
+        username: `${form.firstName} ${form.lastName}`,
+        walletAddress: pubKey,
         role: UserRole.NORMAL_USER,
-        avatar: imageUrl,
+        avatarUrl: imageUrl,
       }
       // console.log(data)
       console.clear()
-      const response = await axios.post(`http://192.168.0.123:4000/users`, data)
+      const response = await api.post(`/users`, data)
       setIsLoading(false)
       alert("Joined successfully")
-      console.log(response)
+      console.log(response.data)
     } catch (error) {
       console.log(error)
       setIsLoading(false)
@@ -76,8 +79,17 @@ const CustomerOnboardingForm = () => {
         onChangeText={(text) => setForm((form) => ({ ...form, email: text }))}
       />
 
-      <UploadImage label="Upload Profile picture" />
-      <Button title={isLoading ? "Joining..." : "Join"} onPress={handleJoin} />
+      <UploadImage label="Upload Profile picture" setImageUrl={setImageUrl} />
+      <Button
+        title={isLoading ? "Joining..." : "Create account"}
+        onPress={handleJoin}
+        disabled={isLoading}
+      />
+      <TouchableOpacity onPress={() => router.replace("/onboarding/rider")}>
+        <Text style={{ textAlign: "center", textDecorationLine: "underline" }}>
+          Join as courier
+        </Text>
+      </TouchableOpacity>
     </View>
   )
 }

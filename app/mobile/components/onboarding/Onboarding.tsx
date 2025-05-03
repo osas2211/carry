@@ -23,6 +23,7 @@ import {
   USER_PUBLIC_KEY,
 } from "@/constants/key_strings"
 import { connectWallet } from "@/helpers/connectWallet"
+import { api } from "@/api/api.instance"
 
 export default function Onboarding({
   setHasOnboarded,
@@ -35,8 +36,13 @@ export default function Onboarding({
     try {
       setConnecting(true)
       await connectWallet()
-      await saveValue(HAS_ONBOARDED, "true")
-      setHasOnboarded(true)
+      // await saveValue(HAS_ONBOARDED, "true")
+      // setHasOnboarded(true)
+      await getValue(USER_PUBLIC_KEY)
+      const data = await api.get(`/`, {
+        params: { walletAddress: USER_PUBLIC_KEY },
+      })
+      console.log(data)
     } catch (error) {
       alert(`${JSON.stringify(error)}`)
       setConnecting(false)

@@ -20,6 +20,7 @@ export const Button = ({
   borderRadius,
   fontSize,
   icon,
+  disabled,
 }: {
   onPress?: () => void
   title: ReactNode
@@ -31,11 +32,12 @@ export const Button = ({
   borderRadius?: AnimatableNumericValue
   fontSize?: number
   icon?: ReactNode
+  disabled?: boolean
 }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.9}
-      onPress={onPress}
+      onPress={!disabled ? onPress : () => {}}
       style={{
         backgroundColor:
           variant === "outlined" ? "transparent" : bgColor || "#202A25",
@@ -48,6 +50,7 @@ export const Button = ({
         borderColor: bgColor || "#202A25",
         flexDirection: "row",
         gap: 5,
+        opacity: disabled ? 0.6 : 1,
       }}
     >
       {icon}

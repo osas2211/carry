@@ -20,9 +20,9 @@ export default function index() {
         }}
       >
         <ScreenHeader title="Join as Courier" />
-        <View>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <CourierOnboardingForm />
-        </View>
+        </ScrollView>
       </View>
     </>
   )

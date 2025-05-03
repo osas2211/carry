@@ -51,7 +51,7 @@ export class UsersService {
   async getUser(walletAddress: string) {
     const user = await this.prisma.user.findUnique({ where: { walletAddress: walletAddress } })
     if (user) {
-      return user
+      return formatUserData(user)
     } else {
       throw new NotFoundException("User not found")
     }

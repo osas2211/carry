@@ -17,9 +17,11 @@ import {
   Roboto_600SemiBold,
   Roboto_700Bold,
 } from "@expo-google-fonts/roboto"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+
+const queryClient = new QueryClient()
 
 import { useColorScheme } from "@/hooks/useColorScheme"
-import Onboarding from "@/components/onboarding/Onboarding"
 import { ActivityIndicator, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { getValue } from "@/helpers/secureStoreHelpers"
@@ -63,46 +65,21 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      {/* {loading ? (
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <>
-          <View
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          <SafeAreaView
+            style={{ flex: 1, position: "relative" }}
+            edges={["top"]}
           >
-            <ActivityIndicator size="large" />
-          </View>
+            <Stack>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="+not-found" />
+            </Stack>
+          </SafeAreaView>
         </>
-      ) : (
-        <>
-          {hasOnboarded ? (
-            <>
-              <SafeAreaView
-                style={{ flex: 1, position: "relative" }}
-                edges={["top"]}
-              >
-                <Stack>
-                  <Stack.Screen
-                    name="(tabs)"
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen name="+not-found" />
-                </Stack>
-              </SafeAreaView>
-            </>
-          ) : (
-            <>{<Onboarding setHasOnboarded={setHasOnboarded} />}</>
-          )}
-        </>
-      )} */}
-      <>
-        <SafeAreaView style={{ flex: 1, position: "relative" }} edges={["top"]}>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" />
-          </Stack>
-        </SafeAreaView>
-      </>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+        <StatusBar style="auto" />
+      </ThemeProvider>
+    </QueryClientProvider>
   )
 }
