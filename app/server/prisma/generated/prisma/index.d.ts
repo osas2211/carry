@@ -2562,6 +2562,9 @@ export namespace Prisma {
     pickupAddress: string | null
     dropoffAddress: string | null
     description: string | null
+    packageType: string | null
+    isFragile: boolean | null
+    isTemperatureSensitive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
     eta: string | null
@@ -2578,6 +2581,9 @@ export namespace Prisma {
     pickupAddress: string | null
     dropoffAddress: string | null
     description: string | null
+    packageType: string | null
+    isFragile: boolean | null
+    isTemperatureSensitive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
     eta: string | null
@@ -2594,6 +2600,9 @@ export namespace Prisma {
     pickupAddress: number
     dropoffAddress: number
     description: number
+    packageType: number
+    isFragile: number
+    isTemperatureSensitive: number
     createdAt: number
     updatedAt: number
     eta: number
@@ -2620,6 +2629,9 @@ export namespace Prisma {
     pickupAddress?: true
     dropoffAddress?: true
     description?: true
+    packageType?: true
+    isFragile?: true
+    isTemperatureSensitive?: true
     createdAt?: true
     updatedAt?: true
     eta?: true
@@ -2636,6 +2648,9 @@ export namespace Prisma {
     pickupAddress?: true
     dropoffAddress?: true
     description?: true
+    packageType?: true
+    isFragile?: true
+    isTemperatureSensitive?: true
     createdAt?: true
     updatedAt?: true
     eta?: true
@@ -2652,6 +2667,9 @@ export namespace Prisma {
     pickupAddress?: true
     dropoffAddress?: true
     description?: true
+    packageType?: true
+    isFragile?: true
+    isTemperatureSensitive?: true
     createdAt?: true
     updatedAt?: true
     eta?: true
@@ -2755,6 +2773,9 @@ export namespace Prisma {
     pickupAddress: string
     dropoffAddress: string
     description: string | null
+    packageType: string | null
+    isFragile: boolean
+    isTemperatureSensitive: boolean
     createdAt: Date
     updatedAt: Date
     eta: string
@@ -2790,6 +2811,9 @@ export namespace Prisma {
     pickupAddress?: boolean
     dropoffAddress?: boolean
     description?: boolean
+    packageType?: boolean
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     eta?: boolean
@@ -2810,6 +2834,9 @@ export namespace Prisma {
     pickupAddress?: boolean
     dropoffAddress?: boolean
     description?: boolean
+    packageType?: boolean
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     eta?: boolean
@@ -2828,6 +2855,9 @@ export namespace Prisma {
     pickupAddress?: boolean
     dropoffAddress?: boolean
     description?: boolean
+    packageType?: boolean
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     eta?: boolean
@@ -2846,13 +2876,16 @@ export namespace Prisma {
     pickupAddress?: boolean
     dropoffAddress?: boolean
     description?: boolean
+    packageType?: boolean
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     eta?: boolean
     isDeleted?: boolean
   }
 
-  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "creatorAddress" | "courierAddress" | "status" | "reward" | "metadataHash" | "pickupAddress" | "dropoffAddress" | "description" | "createdAt" | "updatedAt" | "eta" | "isDeleted", ExtArgs["result"]["job"]>
+  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "creatorAddress" | "courierAddress" | "status" | "reward" | "metadataHash" | "pickupAddress" | "dropoffAddress" | "description" | "packageType" | "isFragile" | "isTemperatureSensitive" | "createdAt" | "updatedAt" | "eta" | "isDeleted", ExtArgs["result"]["job"]>
   export type JobInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     creator?: boolean | UserDefaultArgs<ExtArgs>
     courier?: boolean | Job$courierArgs<ExtArgs>
@@ -2885,6 +2918,9 @@ export namespace Prisma {
       pickupAddress: string
       dropoffAddress: string
       description: string | null
+      packageType: string | null
+      isFragile: boolean
+      isTemperatureSensitive: boolean
       createdAt: Date
       updatedAt: Date
       eta: string
@@ -3324,6 +3360,9 @@ export namespace Prisma {
     readonly pickupAddress: FieldRef<"Job", 'String'>
     readonly dropoffAddress: FieldRef<"Job", 'String'>
     readonly description: FieldRef<"Job", 'String'>
+    readonly packageType: FieldRef<"Job", 'String'>
+    readonly isFragile: FieldRef<"Job", 'Boolean'>
+    readonly isTemperatureSensitive: FieldRef<"Job", 'Boolean'>
     readonly createdAt: FieldRef<"Job", 'DateTime'>
     readonly updatedAt: FieldRef<"Job", 'DateTime'>
     readonly eta: FieldRef<"Job", 'String'>
@@ -4926,6 +4965,9 @@ export namespace Prisma {
     pickupAddress: 'pickupAddress',
     dropoffAddress: 'dropoffAddress',
     description: 'description',
+    packageType: 'packageType',
+    isFragile: 'isFragile',
+    isTemperatureSensitive: 'isTemperatureSensitive',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     eta: 'eta',
@@ -5184,6 +5226,9 @@ export namespace Prisma {
     pickupAddress?: StringFilter<"Job"> | string
     dropoffAddress?: StringFilter<"Job"> | string
     description?: StringNullableFilter<"Job"> | string | null
+    packageType?: StringNullableFilter<"Job"> | string | null
+    isFragile?: BoolFilter<"Job"> | boolean
+    isTemperatureSensitive?: BoolFilter<"Job"> | boolean
     createdAt?: DateTimeFilter<"Job"> | Date | string
     updatedAt?: DateTimeFilter<"Job"> | Date | string
     eta?: StringFilter<"Job"> | string
@@ -5203,6 +5248,9 @@ export namespace Prisma {
     pickupAddress?: SortOrder
     dropoffAddress?: SortOrder
     description?: SortOrderInput | SortOrder
+    packageType?: SortOrderInput | SortOrder
+    isFragile?: SortOrder
+    isTemperatureSensitive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     eta?: SortOrder
@@ -5225,6 +5273,9 @@ export namespace Prisma {
     pickupAddress?: StringFilter<"Job"> | string
     dropoffAddress?: StringFilter<"Job"> | string
     description?: StringNullableFilter<"Job"> | string | null
+    packageType?: StringNullableFilter<"Job"> | string | null
+    isFragile?: BoolFilter<"Job"> | boolean
+    isTemperatureSensitive?: BoolFilter<"Job"> | boolean
     createdAt?: DateTimeFilter<"Job"> | Date | string
     updatedAt?: DateTimeFilter<"Job"> | Date | string
     eta?: StringFilter<"Job"> | string
@@ -5244,6 +5295,9 @@ export namespace Prisma {
     pickupAddress?: SortOrder
     dropoffAddress?: SortOrder
     description?: SortOrderInput | SortOrder
+    packageType?: SortOrderInput | SortOrder
+    isFragile?: SortOrder
+    isTemperatureSensitive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     eta?: SortOrder
@@ -5268,6 +5322,9 @@ export namespace Prisma {
     pickupAddress?: StringWithAggregatesFilter<"Job"> | string
     dropoffAddress?: StringWithAggregatesFilter<"Job"> | string
     description?: StringNullableWithAggregatesFilter<"Job"> | string | null
+    packageType?: StringNullableWithAggregatesFilter<"Job"> | string | null
+    isFragile?: BoolWithAggregatesFilter<"Job"> | boolean
+    isTemperatureSensitive?: BoolWithAggregatesFilter<"Job"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Job"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Job"> | Date | string
     eta?: StringWithAggregatesFilter<"Job"> | string
@@ -5522,6 +5579,9 @@ export namespace Prisma {
     pickupAddress: string
     dropoffAddress: string
     description?: string | null
+    packageType?: string | null
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     eta: string
@@ -5541,6 +5601,9 @@ export namespace Prisma {
     pickupAddress: string
     dropoffAddress: string
     description?: string | null
+    packageType?: string | null
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     eta: string
@@ -5556,6 +5619,9 @@ export namespace Prisma {
     pickupAddress?: StringFieldUpdateOperationsInput | string
     dropoffAddress?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
@@ -5575,6 +5641,9 @@ export namespace Prisma {
     pickupAddress?: StringFieldUpdateOperationsInput | string
     dropoffAddress?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
@@ -5592,6 +5661,9 @@ export namespace Prisma {
     pickupAddress: string
     dropoffAddress: string
     description?: string | null
+    packageType?: string | null
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     eta: string
@@ -5606,6 +5678,9 @@ export namespace Prisma {
     pickupAddress?: StringFieldUpdateOperationsInput | string
     dropoffAddress?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
@@ -5622,6 +5697,9 @@ export namespace Prisma {
     pickupAddress?: StringFieldUpdateOperationsInput | string
     dropoffAddress?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
@@ -6082,6 +6160,9 @@ export namespace Prisma {
     pickupAddress?: SortOrder
     dropoffAddress?: SortOrder
     description?: SortOrder
+    packageType?: SortOrder
+    isFragile?: SortOrder
+    isTemperatureSensitive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     eta?: SortOrder
@@ -6102,6 +6183,9 @@ export namespace Prisma {
     pickupAddress?: SortOrder
     dropoffAddress?: SortOrder
     description?: SortOrder
+    packageType?: SortOrder
+    isFragile?: SortOrder
+    isTemperatureSensitive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     eta?: SortOrder
@@ -6118,6 +6202,9 @@ export namespace Prisma {
     pickupAddress?: SortOrder
     dropoffAddress?: SortOrder
     description?: SortOrder
+    packageType?: SortOrder
+    isFragile?: SortOrder
+    isTemperatureSensitive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     eta?: SortOrder
@@ -6693,6 +6780,9 @@ export namespace Prisma {
     pickupAddress: string
     dropoffAddress: string
     description?: string | null
+    packageType?: string | null
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     eta: string
@@ -6710,6 +6800,9 @@ export namespace Prisma {
     pickupAddress: string
     dropoffAddress: string
     description?: string | null
+    packageType?: string | null
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     eta: string
@@ -6734,6 +6827,9 @@ export namespace Prisma {
     pickupAddress: string
     dropoffAddress: string
     description?: string | null
+    packageType?: string | null
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     eta: string
@@ -6751,6 +6847,9 @@ export namespace Prisma {
     pickupAddress: string
     dropoffAddress: string
     description?: string | null
+    packageType?: string | null
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     eta: string
@@ -6796,6 +6895,9 @@ export namespace Prisma {
     pickupAddress?: StringFilter<"Job"> | string
     dropoffAddress?: StringFilter<"Job"> | string
     description?: StringNullableFilter<"Job"> | string | null
+    packageType?: StringNullableFilter<"Job"> | string | null
+    isFragile?: BoolFilter<"Job"> | boolean
+    isTemperatureSensitive?: BoolFilter<"Job"> | boolean
     createdAt?: DateTimeFilter<"Job"> | Date | string
     updatedAt?: DateTimeFilter<"Job"> | Date | string
     eta?: StringFilter<"Job"> | string
@@ -7116,6 +7218,9 @@ export namespace Prisma {
     pickupAddress: string
     dropoffAddress: string
     description?: string | null
+    packageType?: string | null
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     eta: string
@@ -7134,6 +7239,9 @@ export namespace Prisma {
     pickupAddress: string
     dropoffAddress: string
     description?: string | null
+    packageType?: string | null
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     eta: string
@@ -7164,6 +7272,9 @@ export namespace Prisma {
     pickupAddress?: StringFieldUpdateOperationsInput | string
     dropoffAddress?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
@@ -7182,6 +7293,9 @@ export namespace Prisma {
     pickupAddress?: StringFieldUpdateOperationsInput | string
     dropoffAddress?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
@@ -7197,6 +7311,9 @@ export namespace Prisma {
     pickupAddress: string
     dropoffAddress: string
     description?: string | null
+    packageType?: string | null
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     eta: string
@@ -7212,6 +7329,9 @@ export namespace Prisma {
     pickupAddress: string
     dropoffAddress: string
     description?: string | null
+    packageType?: string | null
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     eta: string
@@ -7226,6 +7346,9 @@ export namespace Prisma {
     pickupAddress?: StringFieldUpdateOperationsInput | string
     dropoffAddress?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
@@ -7243,6 +7366,9 @@ export namespace Prisma {
     pickupAddress?: StringFieldUpdateOperationsInput | string
     dropoffAddress?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
@@ -7259,6 +7385,9 @@ export namespace Prisma {
     pickupAddress?: StringFieldUpdateOperationsInput | string
     dropoffAddress?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
@@ -7273,6 +7402,9 @@ export namespace Prisma {
     pickupAddress?: StringFieldUpdateOperationsInput | string
     dropoffAddress?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
@@ -7290,6 +7422,9 @@ export namespace Prisma {
     pickupAddress?: StringFieldUpdateOperationsInput | string
     dropoffAddress?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
@@ -7306,6 +7441,9 @@ export namespace Prisma {
     pickupAddress?: StringFieldUpdateOperationsInput | string
     dropoffAddress?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string

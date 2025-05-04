@@ -51,12 +51,15 @@ model Job {
   courier        User?   @relation("JobsDelivered", fields: [courierAddress], references: [walletAddress])
   courierAddress String?
 
-  status         JobStatus @default(ACTIVE)
-  reward         BigInt
-  metadataHash   String?
-  pickupAddress  String
-  dropoffAddress String
-  description    String?
+  status                 JobStatus @default(ACTIVE)
+  reward                 BigInt
+  metadataHash           String?
+  pickupAddress          String
+  dropoffAddress         String
+  description            String?
+  packageType            String?
+  isFragile              Boolean   @default(false)
+  isTemperatureSensitive Boolean   @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

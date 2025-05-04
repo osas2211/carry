@@ -33,6 +33,10 @@ export class CreateDeliveryJobDto {
   @IsString()
   description?: string
 
+  @IsOptional()
+  @IsString()
+  packageType?: string
+
   @IsNotEmpty()
   @IsDateString()
   eta: string // ISO 8601 format
