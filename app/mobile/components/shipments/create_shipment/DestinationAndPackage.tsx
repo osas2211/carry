@@ -3,15 +3,20 @@ import React, { useState } from "react"
 import { Input } from "@/components/ui/Input"
 import { appColors } from "@/constants/Colors"
 import EvilIcons from "@expo/vector-icons/EvilIcons"
-import { Picker } from "@react-native-picker/picker"
 import RNPickerSelect from "react-native-picker-select"
 import { Checkbox } from "@/components/ui/Checkbox"
 import { Button } from "@/components/ui/Button"
+import { GooglePlaceDetail } from "react-native-google-places-autocomplete"
+import { CreateShipmentFormI } from "./create-form-type"
 
 export const DestinationAndPackage = ({
   setStep,
+  setForm,
+  form,
 }: {
   setStep: React.Dispatch<React.SetStateAction<number>>
+  setForm: React.Dispatch<React.SetStateAction<CreateShipmentFormI>>
+  form: CreateShipmentFormI
 }) => {
   const [isFragile, setIsFragile] = useState(false)
   const [isTemperatureSensitive, setIsTemperatureSensitive] = useState(false)
@@ -22,9 +27,13 @@ export const DestinationAndPackage = ({
         <View>
           <Text style={style.smallText}>From</Text>
           <Input
-            style={style.inputBorder}
+            style={{ borderRadius: 10 }}
             icon={<EvilIcons name="location" size={24} />}
             placeholder="Pickup location"
+            inputType="google-places-input"
+            onChangeGooglePlace={(detail) =>
+              setForm((prev) => ({ ...prev, from: detail }))
+            }
           />
         </View>
 
@@ -41,9 +50,13 @@ export const DestinationAndPackage = ({
         <View>
           <Text style={style.smallText}>To</Text>
           <Input
-            style={style.inputBorder}
+            style={{ borderRadius: 10 }}
             icon={<EvilIcons name="location" size={24} />}
             placeholder="Dropoff location"
+            inputType="google-places-input"
+            onChangeGooglePlace={(detail) =>
+              setForm((prev) => ({ ...prev, to: detail }))
+            }
           />
         </View>
       </View>
@@ -57,7 +70,9 @@ export const DestinationAndPackage = ({
             icon={<EvilIcons name="location" size={24} />}
           /> */}
         <RNPickerSelect
-          onValueChange={(value) => console.log(value)}
+          onValueChange={(value) =>
+            setForm((prev) => ({ ...prev, packageType: value }))
+          }
           items={[
             { label: "Envelope", value: "Envelope" },
             { label: "Small box", value: "Small box" },
@@ -84,6 +99,7 @@ export const DestinationAndPackage = ({
             checked={isFragile}
             onPress={() => {
               setIsFragile(!isFragile)
+              setForm((prev) => ({ ...prev, isFragile: !isFragile }))
             }}
           />
           <Checkbox
@@ -91,6 +107,10 @@ export const DestinationAndPackage = ({
             checked={isTemperatureSensitive}
             onPress={() => {
               setIsTemperatureSensitive(!isTemperatureSensitive)
+              setForm((prev) => ({
+                ...prev,
+                isTemperateSensitive: !isTemperatureSensitive,
+              }))
             }}
           />
         </View>
@@ -102,6 +122,7 @@ export const DestinationAndPackage = ({
         <Input
           style={{ ...style.inputBorder, paddingLeft: 16 }}
           // placeholder="Note to Rider"
+          onChangeText={(text) => setForm((prev) => ({ ...prev, note: text }))}
         />
       </View>
 
