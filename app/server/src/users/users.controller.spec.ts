@@ -48,7 +48,6 @@ describe('UsersController', () => {
 
   it("Should get single User by index", async () => {
     const user = await controller.getUser(userAddress)
-    console.log(user)
     expect(user.walletAddress).toEqual(userAddress)
   })
 
