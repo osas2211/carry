@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Input } from "@/components/ui/Input"
 import { appColors } from "@/constants/Colors"
 import EvilIcons from "@expo/vector-icons/EvilIcons"
@@ -18,8 +18,29 @@ export const DestinationAndPackage = ({
   setForm: React.Dispatch<React.SetStateAction<CreateShipmentFormI>>
   form: CreateShipmentFormI
 }) => {
+  const [required_fields, setRequired_fields] = useState({
+    from: false,
+    to: false,
+    packageType: false,
+  })
+
   const [isFragile, setIsFragile] = useState(false)
   const [isTemperatureSensitive, setIsTemperatureSensitive] = useState(false)
+
+  const handleSubmit = () => {
+    if (!form.from) {
+      setRequired_fields((prev) => ({ ...prev, from: true }))
+    }
+    if (!form.to) {
+      setRequired_fields((prev) => ({ ...prev, to: true }))
+    }
+    if (!form.packageType) {
+      setRequired_fields((prev) => ({ ...prev, packageType: true }))
+    }
+    if (form.from && form.to && form.packageType) {
+      setStep(2)
+    }
+  }
   return (
     <View style={{ gap: 12 }}>
       <Text style={{ fontSize: 18, fontWeight: 500 }}>Destination</Text>
@@ -31,10 +52,14 @@ export const DestinationAndPackage = ({
             icon={<EvilIcons name="location" size={24} />}
             placeholder="Pickup location"
             inputType="google-places-input"
-            onChangeGooglePlace={(detail) =>
+            onChangeGooglePlace={(detail) => {
               setForm((prev) => ({ ...prev, from: detail }))
-            }
+              setRequired_fields((prev) => ({ ...prev, from: false }))
+            }}
           />
+          {required_fields.from && (
+            <Text style={style.errorText}>Pickup address is required</Text>
+          )}
         </View>
 
         <View
@@ -54,10 +79,14 @@ export const DestinationAndPackage = ({
             icon={<EvilIcons name="location" size={24} />}
             placeholder="Dropoff location"
             inputType="google-places-input"
-            onChangeGooglePlace={(detail) =>
+            onChangeGooglePlace={(detail) => {
               setForm((prev) => ({ ...prev, to: detail }))
-            }
+              setRequired_fields((prev) => ({ ...prev, to: false }))
+            }}
           />
+          {required_fields.to && (
+            <Text style={style.errorText}>Dropoff address is required</Text>
+          )}
         </View>
       </View>
       <Text style={{ fontSize: 18, fontWeight: 500, marginTop: 5 }}>
@@ -70,9 +99,10 @@ export const DestinationAndPackage = ({
             icon={<EvilIcons name="location" size={24} />}
           /> */}
         <RNPickerSelect
-          onValueChange={(value) =>
+          onValueChange={(value) => {
             setForm((prev) => ({ ...prev, packageType: value }))
-          }
+            setRequired_fields((prev) => ({ ...prev, packageType: false }))
+          }}
           items={[
             { label: "Envelope", value: "Envelope" },
             { label: "Small box", value: "Small box" },
@@ -90,6 +120,9 @@ export const DestinationAndPackage = ({
           placeholder={{ label: "Pick package type" }}
         />
       </View>
+      {required_fields.packageType && (
+        <Text style={style.errorText}>Package Type is required</Text>
+      )}
 
       <View>
         <Text style={style.smallText}>Other Package Infomation</Text>
@@ -131,7 +164,7 @@ export const DestinationAndPackage = ({
         textColor={appColors.text}
         bgColor={appColors.primary}
         height={55}
-        onPress={() => setStep(2)}
+        onPress={handleSubmit}
       />
     </View>
   )
@@ -140,4 +173,5 @@ export const DestinationAndPackage = ({
 const style = StyleSheet.create({
   smallText: { fontWeight: 300, marginBottom: 2, fontSize: 12 },
   inputBorder: { borderRadius: 10, height: 52 },
+  errorText: { fontSize: 10, color: appColors.error },
 })

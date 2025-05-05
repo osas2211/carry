@@ -25,7 +25,8 @@ export const ConfirmShipment = ({
     form.to?.geometry?.location.lat,
     form.to?.geometry?.location.lng
   )
-  const eta = calculateETA(distanceKm, 50)
+  const { eta_date, eta_time } = calculateETA(distanceKm, 30)
+  const cost = Number(distanceKm * 0.00409).toPrecision(3)
   return (
     <Animated.View>
       <Text style={{ fontSize: 24, fontWeight: 600 }}>Confirm Shipment</Text>
@@ -39,7 +40,7 @@ export const ConfirmShipment = ({
             borderRadius: 10,
             minHeight: 100,
             backgroundColor: appColors.grey,
-            gap: 14,
+            gap: 12,
           }}
         >
           <View style={styles.infoRow}>
@@ -66,6 +67,29 @@ export const ConfirmShipment = ({
             </Text>
           </View>
           <View style={styles.infoRow}>
+            <Text style={styles.smallText}>ETA</Text>
+            <Text
+              style={{
+                ...styles.midText,
+                color: appColors.error,
+              }}
+            >
+              {eta_time}
+            </Text>
+          </View>
+          <View style={styles.infoRow}>
+            <Text style={styles.smallText}>Cost/Courier reward</Text>
+            <Text
+              style={{
+                ...styles.midText,
+                color: appColors.blue,
+                fontWeight: 800,
+              }}
+            >
+              {cost} SOL
+            </Text>
+          </View>
+          <View style={styles.infoRow}>
             <Text style={styles.smallText}>Package Type</Text>
             <Text style={styles.midText}>{form?.packageType || "-"}</Text>
           </View>
@@ -77,14 +101,14 @@ export const ConfirmShipment = ({
                 : "Package is not fragile"}
             </Text>
           </View>
-          <View style={styles.infoRow}>
+          {/* <View style={styles.infoRow}>
             <Text style={styles.smallText}>Temperature Sensitive</Text>
             <Text style={styles.midText}>
               {form?.isTemperateSensitive
                 ? "Temperature sensitive"
                 : "Not temperature sensitive"}
             </Text>
-          </View>
+          </View> */}
           {/* <View>
             <Text style={styles.smallText}>Note</Text>
             <Text>N/A</Text>
@@ -128,14 +152,18 @@ export const ConfirmShipment = ({
         >
           <View>
             <Text style={styles.smallText}>Arrives on</Text>
-            <Text style={{ fontWeight: 500 }}>{moment(eta).format("LL")}</Text>
+            <Text style={{ fontWeight: 500 }}>
+              {moment(eta_date).format("LL")}
+            </Text>
           </View>
           <View style={styles.dashedline} />
           <MaterialCommunityIcons name="van-utility" size={24} color="black" />
           <View style={styles.dashedline} />
           <View>
             <Text style={styles.smallText}>Delivered by</Text>
-            <Text style={{ fontWeight: 500 }}>{moment(eta).format("LT")}</Text>
+            <Text style={{ fontWeight: 500 }}>
+              {moment(eta_date).format("LT")}
+            </Text>
           </View>
         </View>
       </View>
