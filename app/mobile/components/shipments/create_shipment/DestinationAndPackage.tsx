@@ -8,6 +8,9 @@ import { Checkbox } from "@/components/ui/Checkbox"
 import { Button } from "@/components/ui/Button"
 import { GooglePlaceDetail } from "react-native-google-places-autocomplete"
 import { CreateShipmentFormI } from "./create-form-type"
+import { getItem } from "expo-secure-store"
+import { AUTH_TOKEN } from "@/constants/key_strings"
+import { jwtDecode } from "jwt-decode"
 
 export const DestinationAndPackage = ({
   setStep,
@@ -41,6 +44,11 @@ export const DestinationAndPackage = ({
       setStep(2)
     }
   }
+  const token = getItem(AUTH_TOKEN)
+  // const decoded = jwtDecode(token || "")
+  console.log(token?.split("."))
+  // alert(token)
+
   return (
     <View style={{ gap: 12 }}>
       <Text style={{ fontSize: 18, fontWeight: 500 }}>Destination</Text>

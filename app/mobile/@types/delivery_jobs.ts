@@ -17,7 +17,7 @@ export interface ConfirmDeliveryDto {
   courierAddress: string
 }
 
-export interface DeliveryJob {
+export interface DeliveryJobI {
   id: string
   creatorAddress: string
   courierAddress: string | null
