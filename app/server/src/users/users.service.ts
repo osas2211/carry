@@ -57,6 +57,15 @@ export class UsersService {
     }
   }
 
+  async getUserProfile(walletAddress: string) {
+    const user = await this.prisma.user.findUnique({ where: { walletAddress: walletAddress } })
+    if (user) {
+      return formatUserData(user)
+    } else {
+      throw new NotFoundException("User not found")
+    }
+  }
+
   async deleteUser(walletAddress: string) {
     const user = await this.prisma.user.findUnique({ where: { walletAddress: walletAddress } })
     if (user) {
