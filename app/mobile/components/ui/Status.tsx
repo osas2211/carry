@@ -17,7 +17,7 @@ export const Status = ({
     status === "pending" || status === "assigned"
       ? appColors.pending
       : status === "completed"
-      ? appColors.primary
+      ? appColors.success
       : status === "in-transit" || status === "accepted"
       ? appColors.blue
       : appColors.error

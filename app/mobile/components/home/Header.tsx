@@ -65,6 +65,9 @@ const HomeHeader = () => {
                 {truncateText(user?.walletAddress || "", 5)}
               </Text>
             </View>
+            <Pressable onPress={() => refetch()}>
+              <Text>Click me</Text>
+            </Pressable>
           </>
         )}
       </View>

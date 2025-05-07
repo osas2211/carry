@@ -5,4 +5,5 @@ export const AUTH_TOKEN = "AUTH_TOKEN"
 export const USER_ROLE = "USER_ROLE"
 export const SIGNATURE = "SIGNATURE"
 export const SIGNATURE_MESSAGE = "SIGNATURE_MESSAGE"
+export const SERVER_AUTH_TOKEN = "SERVER_AUTH_TOKEN"
 
