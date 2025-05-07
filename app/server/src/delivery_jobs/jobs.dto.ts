@@ -9,10 +9,6 @@ import {
 
 export class CreateDeliveryJobDto {
   @IsNotEmpty()
-  @IsString()
-  creatorAddress: string
-
-  @IsNotEmpty()
   @IsNumber()
   @IsPositive()
   reward: number

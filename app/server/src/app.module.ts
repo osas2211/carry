@@ -18,6 +18,6 @@ export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(WalletAuthMiddleware)
-      .forRoutes('users/profile') // Apply it to specific routes
+      .forRoutes('users/profile', "jobs") // Apply it to specific routes
   }
 }

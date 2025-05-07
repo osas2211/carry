@@ -6,9 +6,8 @@ import { CreateDeliveryJobDto } from './jobs.dto'
 export class DeliveryJobsService {
   constructor(private readonly prisma: PrismaService) { }
 
-  async createDeliveryJob(body: CreateDeliveryJobDto) {
+  async createDeliveryJob(body: CreateDeliveryJobDto, publicKey: string) {
     const req_fields = [
-      'creatorAddress',
       'reward',
       'pickupAddress',
       'dropoffAddress',
@@ -19,7 +18,7 @@ export class DeliveryJobsService {
       }
     })
 
-    const deliveryJob = await this.prisma.job.create({ data: body })
+    const deliveryJob = await this.prisma.job.create({ data: { ...body, creatorAddress: publicKey, } })
     return { message: "Delivery job created successfully", deliveryJob, success: true }
 
   }

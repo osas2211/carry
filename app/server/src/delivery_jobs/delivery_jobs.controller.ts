@@ -1,14 +1,16 @@
-import { Body, Controller, Get, Param, Patch, Post, Query } from '@nestjs/common'
+import { Body, Controller, Get, Param, Patch, Post, Query, Request, UseGuards } from '@nestjs/common'
 import { DeliveryJobsService } from './delivery_jobs.service'
 import { CreateDeliveryJobDto } from './jobs.dto'
+import { WalletAuthMiddleware } from '@server/middleware/wallet-auth'
 
 @Controller('jobs')
 export class DeliveryJobsController {
   constructor(private readonly jobService: DeliveryJobsService) { }
 
+  @UseGuards(WalletAuthMiddleware)
   @Post()
-  async createDeliveryJob(@Body() body: CreateDeliveryJobDto) {
-    return this.jobService.createDeliveryJob(body)
+  async createDeliveryJob(@Body() body: CreateDeliveryJobDto, @Request() req: { publicKey: string }) {
+    return this.jobService.createDeliveryJob(body, req.publicKey)
   }
 
   @Get()
