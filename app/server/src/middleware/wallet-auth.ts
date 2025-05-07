@@ -1,74 +1,43 @@
 import { Injectable, NestMiddleware, UnauthorizedException } from '@nestjs/common'
 import { Request, Response, NextFunction } from 'express'
-import * as nacl from 'tweetnacl'
-import bs58 from 'bs58'
+import * as jwt from 'jsonwebtoken'
 import { PublicKey } from '@solana/web3.js'
-import * as dotenv from 'dotenv'
 
-dotenv.config()
-
-declare global {
-  namespace Express {
-    interface Request {
-      publicKey?: string
-    }
-  }
-}
+// Replace with the public key or keySet Solana Mobile uses to sign auth tokens (or fetch from JWKS URL)
+const WALLET_AUTH_PUBLIC_KEY = process.env.WALLET_AUTH_PUBLIC_KEY || ''
 
 @Injectable()
 export class WalletAuthMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
     const authHeader = req.headers.authorization
-    const messageHeader = req.headers['x-wallet-message']
-    const publicKey = req.headers['x-wallet-address'] as string
+    const walletAddress = req.headers["x-wallet-address"]
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       throw new UnauthorizedException('Missing or malformed authorization header')
     }
 
-    if (!messageHeader || typeof messageHeader !== 'string') {
-      throw new UnauthorizedException('Missing or invalid wallet message')
-    }
-
-    const signature = authHeader.replace('Bearer ', '')
-    const message = decodeURIComponent(messageHeader)
-    const expectedMessage = process.env.WALLET_AUTH_MESSAGE || "Sign in to SpeedFi with your wallet"
-
-    if (!signature || !message || !publicKey) {
-      throw new UnauthorizedException('Missing wallet auth headers')
-    }
-
-    if (message !== expectedMessage) {
-      throw new UnauthorizedException('Message mismatch')
-    }
+    const token = authHeader.replace('Bearer ', '')
 
     try {
-      const messageBytes = new TextEncoder().encode(message)
-      const signatureBytes = bs58.decode(signature)
-      const pubKeyBytes = new PublicKey(publicKey).toBytes()
+      // ⚠️ This part depends on how the wallet signs the JWT.
+      // You might need to fetch the key or validate with a public key set or endpoint.
+      const verifiedToken = jwt.verify(token, process.env.JWT_SECRET_KEY || "")
+      const decoded: { pubKey: string } = JSON.parse(JSON.stringify(verifiedToken) as string)
+      // console.log(token, decoded)
 
-      // Defensive checks before verification
-      if (signatureBytes.length !== 64) {
-        throw new UnauthorizedException('Invalid signature length')
+      if (!decoded?.pubKey) {
+        throw new UnauthorizedException('Invalid wallet token')
+      }
+      if (decoded.pubKey !== walletAddress) {
+        throw new UnauthorizedException("Wallet address doesn't match")
+
       }
 
-      if (pubKeyBytes.length !== 32) {
-        throw new UnauthorizedException('Invalid public key length')
-      }
-
-      const isValid = nacl.sign.detached.verify(messageBytes, signatureBytes, pubKeyBytes)
-
-      if (!isValid) {
-        throw new UnauthorizedException('Invalid wallet signature')
-      }
-
-      req.publicKey = publicKey
-      // console.log(req.publicKey)
-      // console.log('✅ Wallet signature verified:', publicKey)
+      req.publicKey = decoded.pubKey
       next()
     } catch (err) {
-      console.error('❌ Wallet verification error:', err)
-      throw new UnauthorizedException('Signature verification failed')
+      console.error('❌ Auth token verification failed:', err)
+      throw new UnauthorizedException('Invalid wallet authorization token')
     }
   }
 }

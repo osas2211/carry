@@ -12,10 +12,16 @@ export class UsersController {
     return this.usersService.createUser(body)
   }
 
+  @Post("/generate-server-token")
+  async generateServerToken(@Body() body: { pubKey: string }) {
+    return this.usersService.generateServerToken(body.pubKey)
+  }
+
   @Get("/riders")
   async getAllCourier() {
     return this.usersService.getAllCourier()
   }
+
 
   @Get()
   async getllNormalUsers() {
