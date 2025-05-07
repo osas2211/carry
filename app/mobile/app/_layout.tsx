@@ -20,13 +20,13 @@ import {
 } from "@expo-google-fonts/roboto"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
-const queryClient = new QueryClient()
-
 import { useColorScheme } from "@/hooks/useColorScheme"
-import { ActivityIndicator, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { getValue } from "@/helpers/secureStoreHelpers"
 import { HAS_ONBOARDED } from "@/constants/key_strings"
+import { AlertNotificationRoot } from "react-native-alert-notification"
+
+const queryClient = new QueryClient()
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
@@ -67,20 +67,24 @@ export default function RootLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <>
-          <SafeAreaView
-            style={{ flex: 1, position: "relative" }}
-            edges={["top"]}
-          >
-            <Stack>
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen name="+not-found" />
-            </Stack>
-          </SafeAreaView>
-        </>
-        <StatusBar style="auto" />
-      </ThemeProvider>
+      <AlertNotificationRoot>
+        <ThemeProvider
+          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+        >
+          <>
+            <SafeAreaView
+              style={{ flex: 1, position: "relative" }}
+              edges={["top"]}
+            >
+              <Stack>
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                <Stack.Screen name="+not-found" />
+              </Stack>
+            </SafeAreaView>
+          </>
+          <StatusBar style="auto" />
+        </ThemeProvider>
+      </AlertNotificationRoot>
     </QueryClientProvider>
   )
 }

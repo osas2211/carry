@@ -1,5 +1,4 @@
 export interface CreateDeliveryJobDto {
-  creatorAddress: string
   reward: number
   pickupAddress: string
   dropoffAddress: string
@@ -7,6 +6,7 @@ export interface CreateDeliveryJobDto {
   description?: string
   packageType?: string
   eta: string // ISO 8601 format
+  isFragile?: boolean
 }
 
 export interface AcceptDeliveryJobDto {

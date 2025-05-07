@@ -8,6 +8,9 @@ import { CreateShipmentFormI } from "./create-form-type"
 import { haversineDistance } from "@/helpers/haversineDistance"
 import moment from "moment"
 import { calculateETA } from "@/helpers/CalculateETA"
+import { useCreateDeliveryJob } from "@/hooks/api-hooks/useDeliveryJobs"
+import { CreateDeliveryJobDto } from "@/@types/delivery_jobs"
+import { LAMPORTS } from "@/constants/units"
 
 export const ConfirmShipment = ({
   setStep,
@@ -26,7 +29,21 @@ export const ConfirmShipment = ({
     form.to?.geometry?.location.lng
   )
   const { eta_date, eta_time } = calculateETA(distanceKm, 30)
-  const cost = Number(distanceKm * 0.00409).toPrecision(3)
+  const reward = Number(distanceKm * 0.00409)
+  const cost = reward.toPrecision(3)
+
+  const createShipment = useCreateDeliveryJob()
+  const handleConfirm = () => {
+    const payload: CreateDeliveryJobDto = {
+      reward: Number(cost) * LAMPORTS,
+      pickupAddress: form.from?.formatted_address || "",
+      dropoffAddress: form.to?.formatted_address || "",
+      packageType: form.packageType,
+      eta: eta_date,
+      isFragile: form.isFragile,
+    }
+    createShipment.mutate(payload)
+  }
   return (
     <Animated.View>
       <Text style={{ fontSize: 24, fontWeight: 600 }}>Confirm Shipment</Text>
@@ -183,6 +200,7 @@ export const ConfirmShipment = ({
           // height={55}
           // width={"48%"}
           onPress={() => setStep(1)}
+          disabled={createShipment.isPending}
         />
 
         <Button
@@ -190,7 +208,9 @@ export const ConfirmShipment = ({
           textColor={appColors.text}
           bgColor={appColors.primary}
           fontSize={14}
-          onPress={() => setOpen((prevOpen) => !prevOpen)}
+          onPress={handleConfirm}
+          disabled={createShipment.isPending}
+          isLoading={createShipment.isPending}
 
           // height={55}
           // width={"48%"}

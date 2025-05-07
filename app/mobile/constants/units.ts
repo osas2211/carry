@@ -1,0 +1,1 @@
+export const LAMPORTS = 1000000000

@@ -5,6 +5,7 @@ import {
   ColorValue,
   DimensionValue,
   AnimatableNumericValue,
+  ActivityIndicator,
 } from "react-native"
 import React, { ReactNode } from "react"
 import { appColors } from "@/constants/Colors"
@@ -21,6 +22,7 @@ export const Button = ({
   fontSize,
   icon,
   disabled,
+  isLoading,
 }: {
   onPress?: () => void
   title: ReactNode
@@ -33,6 +35,7 @@ export const Button = ({
   fontSize?: number
   icon?: ReactNode
   disabled?: boolean
+  isLoading?: boolean
 }) => {
   return (
     <TouchableOpacity
@@ -50,22 +53,26 @@ export const Button = ({
         borderColor: bgColor || "#202A25",
         flexDirection: "row",
         gap: 5,
-        opacity: disabled ? 0.6 : 1,
+        opacity: isLoading || disabled ? 0.6 : 1,
       }}
     >
       {icon}
-      <Text
-        style={{
-          fontSize: fontSize || 16,
-          color:
-            variant === "outlined"
-              ? "#202A25"
-              : textColor || appColors.background,
-          fontFamily: "RobotoMedium",
-        }}
-      >
-        {title}
-      </Text>
+      {isLoading ? (
+        <ActivityIndicator size={32} />
+      ) : (
+        <Text
+          style={{
+            fontSize: fontSize || 16,
+            color:
+              variant === "outlined"
+                ? "#202A25"
+                : textColor || appColors.background,
+            fontFamily: "RobotoMedium",
+          }}
+        >
+          {title}
+        </Text>
+      )}
     </TouchableOpacity>
   )
 }
