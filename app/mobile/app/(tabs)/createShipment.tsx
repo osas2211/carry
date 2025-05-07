@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from "react-native"
+import { View, Text, KeyboardAvoidingView, ScrollView } from "react-native"
 import React from "react"
 import { ScreenHeader } from "@/components/ui/ScreenHeader"
 import CreateForm from "@/components/shipments/create_shipment/CreateForm"
@@ -17,7 +17,10 @@ export default function createShipment() {
       }}
     >
       <ScreenHeader title="Create shipment" />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="always"
+      >
         <CreateForm />
       </ScrollView>
     </View>

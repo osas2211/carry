@@ -7,6 +7,6 @@ export const useGetUser = () => {
   const walletAddress = getItem(USER_PUBLIC_KEY) || ""
   return useQuery({
     queryKey: ["user", walletAddress],
-    queryFn: () => getUser(walletAddress)
+    queryFn: () => getUser()
   })
 }

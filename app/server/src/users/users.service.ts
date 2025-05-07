@@ -3,6 +3,7 @@ import { CreateUserDTO } from './users.type'
 import { PrismaService } from '../prisma.service'
 import { User, Role } from '@prisma/client'
 import { formatUserData } from '../../helpers/formatUserData'
+import { JwtService } from "@nestjs/jwt"
 
 // @ts-ignore
 BigInt.prototype.toJSON = function () {
@@ -11,7 +12,7 @@ BigInt.prototype.toJSON = function () {
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService, private jwt: JwtService) { }
   async createUser(body: CreateUserDTO) {
     const bodyKeys = ["walletAddress", "username", "role"]
     bodyKeys.forEach((key) => {
@@ -28,6 +29,12 @@ export class UsersService {
       data: { ...body, role: body.role as Role }
     })
     return formatUserData(user)
+  }
+
+  async generateServerToken(pubKey: string) {
+    const payload = { pubKey }
+    const token = await this.jwt.signAsync(JSON.stringify(payload))
+    return { token }
   }
 
   async getAllCourier(): Promise<{ couriers: User[] }> {
@@ -49,6 +56,15 @@ export class UsersService {
   }
 
   async getUser(walletAddress: string) {
+    const user = await this.prisma.user.findUnique({ where: { walletAddress: walletAddress } })
+    if (user) {
+      return formatUserData(user)
+    } else {
+      throw new NotFoundException("User not found")
+    }
+  }
+
+  async getUserProfile(walletAddress: string) {
     const user = await this.prisma.user.findUnique({ where: { walletAddress: walletAddress } })
     if (user) {
       return formatUserData(user)

@@ -1,4 +1,10 @@
-import { View, Text, ActivityIndicator, TouchableOpacity } from "react-native"
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  TouchableOpacity,
+  Pressable,
+} from "react-native"
 import React from "react"
 import { useGetUser } from "@/hooks/api-hooks/useUser"
 import { AvatarWithStatus } from "../ui/Avatar"
@@ -7,7 +13,7 @@ import { appColors } from "@/constants/Colors"
 import { Ionicons } from "@expo/vector-icons"
 
 const HomeHeader = () => {
-  const { data: user, isLoading } = useGetUser()
+  const { data: user, isLoading, refetch } = useGetUser()
 
   return (
     <View
@@ -59,6 +65,9 @@ const HomeHeader = () => {
                 {truncateText(user?.walletAddress || "", 5)}
               </Text>
             </View>
+            <Pressable onPress={() => refetch()}>
+              <Text>Click me</Text>
+            </Pressable>
           </>
         )}
       </View>

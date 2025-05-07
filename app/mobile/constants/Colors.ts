@@ -28,7 +28,9 @@ export const Colors = {
 export const appColors = {
   text: "#1B1B1E",
   background: "#FDFDFF",
-  primary: "#9EF01A",
+  // primary: "#9EF01A",
+  primary: "#febd2f",
+  success: "#9EF01A",
   pending: "#FDCA40",
   error: "#DD1C1A",
   blue: "#3772FF",

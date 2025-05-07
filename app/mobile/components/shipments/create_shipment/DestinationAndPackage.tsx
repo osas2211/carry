@@ -1,20 +1,54 @@
 import { View, Text, StyleSheet } from "react-native"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Input } from "@/components/ui/Input"
 import { appColors } from "@/constants/Colors"
 import EvilIcons from "@expo/vector-icons/EvilIcons"
-import { Picker } from "@react-native-picker/picker"
 import RNPickerSelect from "react-native-picker-select"
 import { Checkbox } from "@/components/ui/Checkbox"
 import { Button } from "@/components/ui/Button"
+import { GooglePlaceDetail } from "react-native-google-places-autocomplete"
+import { CreateShipmentFormI } from "./create-form-type"
+import { getItem } from "expo-secure-store"
+import { AUTH_TOKEN } from "@/constants/key_strings"
+import { jwtDecode } from "jwt-decode"
 
 export const DestinationAndPackage = ({
   setStep,
+  setForm,
+  form,
 }: {
   setStep: React.Dispatch<React.SetStateAction<number>>
+  setForm: React.Dispatch<React.SetStateAction<CreateShipmentFormI>>
+  form: CreateShipmentFormI
 }) => {
+  const [required_fields, setRequired_fields] = useState({
+    from: false,
+    to: false,
+    packageType: false,
+  })
+
   const [isFragile, setIsFragile] = useState(false)
   const [isTemperatureSensitive, setIsTemperatureSensitive] = useState(false)
+
+  const handleSubmit = () => {
+    if (!form.from) {
+      setRequired_fields((prev) => ({ ...prev, from: true }))
+    }
+    if (!form.to) {
+      setRequired_fields((prev) => ({ ...prev, to: true }))
+    }
+    if (!form.packageType) {
+      setRequired_fields((prev) => ({ ...prev, packageType: true }))
+    }
+    if (form.from && form.to && form.packageType) {
+      setStep(2)
+    }
+  }
+  const token = getItem(AUTH_TOKEN)
+  // const decoded = jwtDecode(token || "")
+  console.log(token?.split("."))
+  // alert(token)
+
   return (
     <View style={{ gap: 12 }}>
       <Text style={{ fontSize: 18, fontWeight: 500 }}>Destination</Text>
@@ -22,10 +56,18 @@ export const DestinationAndPackage = ({
         <View>
           <Text style={style.smallText}>From</Text>
           <Input
-            style={style.inputBorder}
+            style={{ borderRadius: 10 }}
             icon={<EvilIcons name="location" size={24} />}
             placeholder="Pickup location"
+            inputType="google-places-input"
+            onChangeGooglePlace={(detail) => {
+              setForm((prev) => ({ ...prev, from: detail }))
+              setRequired_fields((prev) => ({ ...prev, from: false }))
+            }}
           />
+          {required_fields.from && (
+            <Text style={style.errorText}>Pickup address is required</Text>
+          )}
         </View>
 
         <View
@@ -41,10 +83,18 @@ export const DestinationAndPackage = ({
         <View>
           <Text style={style.smallText}>To</Text>
           <Input
-            style={style.inputBorder}
+            style={{ borderRadius: 10 }}
             icon={<EvilIcons name="location" size={24} />}
             placeholder="Dropoff location"
+            inputType="google-places-input"
+            onChangeGooglePlace={(detail) => {
+              setForm((prev) => ({ ...prev, to: detail }))
+              setRequired_fields((prev) => ({ ...prev, to: false }))
+            }}
           />
+          {required_fields.to && (
+            <Text style={style.errorText}>Dropoff address is required</Text>
+          )}
         </View>
       </View>
       <Text style={{ fontSize: 18, fontWeight: 500, marginTop: 5 }}>
@@ -57,7 +107,10 @@ export const DestinationAndPackage = ({
             icon={<EvilIcons name="location" size={24} />}
           /> */}
         <RNPickerSelect
-          onValueChange={(value) => console.log(value)}
+          onValueChange={(value) => {
+            setForm((prev) => ({ ...prev, packageType: value }))
+            setRequired_fields((prev) => ({ ...prev, packageType: false }))
+          }}
           items={[
             { label: "Envelope", value: "Envelope" },
             { label: "Small box", value: "Small box" },
@@ -75,6 +128,9 @@ export const DestinationAndPackage = ({
           placeholder={{ label: "Pick package type" }}
         />
       </View>
+      {required_fields.packageType && (
+        <Text style={style.errorText}>Package Type is required</Text>
+      )}
 
       <View>
         <Text style={style.smallText}>Other Package Infomation</Text>
@@ -84,6 +140,7 @@ export const DestinationAndPackage = ({
             checked={isFragile}
             onPress={() => {
               setIsFragile(!isFragile)
+              setForm((prev) => ({ ...prev, isFragile: !isFragile }))
             }}
           />
           <Checkbox
@@ -91,6 +148,10 @@ export const DestinationAndPackage = ({
             checked={isTemperatureSensitive}
             onPress={() => {
               setIsTemperatureSensitive(!isTemperatureSensitive)
+              setForm((prev) => ({
+                ...prev,
+                isTemperateSensitive: !isTemperatureSensitive,
+              }))
             }}
           />
         </View>
@@ -102,6 +163,7 @@ export const DestinationAndPackage = ({
         <Input
           style={{ ...style.inputBorder, paddingLeft: 16 }}
           // placeholder="Note to Rider"
+          onChangeText={(text) => setForm((prev) => ({ ...prev, note: text }))}
         />
       </View>
 
@@ -110,7 +172,7 @@ export const DestinationAndPackage = ({
         textColor={appColors.text}
         bgColor={appColors.primary}
         height={55}
-        onPress={() => setStep(2)}
+        onPress={handleSubmit}
       />
     </View>
   )
@@ -119,4 +181,5 @@ export const DestinationAndPackage = ({
 const style = StyleSheet.create({
   smallText: { fontWeight: 300, marginBottom: 2, fontSize: 12 },
   inputBorder: { borderRadius: 10, height: 52 },
+  errorText: { fontSize: 10, color: appColors.error },
 })

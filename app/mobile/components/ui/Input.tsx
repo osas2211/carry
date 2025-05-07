@@ -8,10 +8,16 @@ import {
   TextStyle,
   View,
 } from "react-native"
+import {
+  GooglePlaceDetail,
+  GooglePlacesAutocomplete,
+} from "react-native-google-places-autocomplete"
 
 interface props extends TextInputProps {
   icon?: ReactNode
   label?: string
+  inputType?: "google-places-input" | "normal-input"
+  onChangeGooglePlace?: (detail: GooglePlaceDetail) => void
 }
 export const Input = (props: props) => {
   let baseStyle = {
@@ -29,7 +35,34 @@ export const Input = (props: props) => {
   return (
     <View style={{ position: "relative" }}>
       {props.label && <Text style={{ marginBottom: 4 }}>{props.label}</Text>}
-      <TextInput {...props} style={style} />
+
+      {props?.inputType === "google-places-input" ? (
+        <GooglePlacesAutocomplete
+          placeholder="Search"
+          query={{
+            key: process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY,
+            language: "en",
+          }}
+          disableScroll
+          {...props}
+          styles={{ textInput: style }}
+          onPress={(data, details = null) => {
+            // 'details' is provided when fetchDetails = true
+            // console.log(data, details)
+            if (details) {
+              props?.onChangeGooglePlace && props?.onChangeGooglePlace(details)
+            }
+          }}
+          textInputProps={{
+            onChangeText: props.onChangeText,
+            // value: props.value,
+          }}
+          listViewDisplayed={false}
+          fetchDetails={true}
+        />
+      ) : (
+        <TextInput {...props} style={style} />
+      )}
       <View
         style={{
           position: "absolute",

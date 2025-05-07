@@ -37,7 +37,7 @@ export const AvatarWithStatus = ({
           right: 5,
           backgroundColor:
             status === "online"
-              ? appColors.primary
+              ? appColors.success
               : status === "away"
               ? appColors.pending
               : "#A5A5A5",

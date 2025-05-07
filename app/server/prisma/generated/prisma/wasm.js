@@ -135,7 +135,35 @@ exports.Prisma.UserScalarFieldEnum = {
   kycDocumentUrl: 'kycDocumentUrl',
   kycVerifiedAt: 'kycVerifiedAt',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  isBusy: 'isBusy'
+};
+
+exports.Prisma.JobScalarFieldEnum = {
+  id: 'id',
+  creatorAddress: 'creatorAddress',
+  courierAddress: 'courierAddress',
+  status: 'status',
+  reward: 'reward',
+  metadataHash: 'metadataHash',
+  pickupAddress: 'pickupAddress',
+  dropoffAddress: 'dropoffAddress',
+  description: 'description',
+  packageType: 'packageType',
+  isFragile: 'isFragile',
+  isTemperatureSensitive: 'isTemperatureSensitive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  eta: 'eta',
+  isDeleted: 'isDeleted'
+};
+
+exports.Prisma.TrackingUpdateScalarFieldEnum = {
+  id: 'id',
+  jobId: 'jobId',
+  lat: 'lat',
+  lng: 'lng',
+  timestamp: 'timestamp'
 };
 
 exports.Prisma.SortOrder = {
@@ -149,11 +177,21 @@ exports.Prisma.NullsOrder = {
 };
 exports.Role = exports.$Enums.Role = {
   COURIER: 'COURIER',
-  NORMAL_USER: 'NORMAL_USER'
+  NORMAL_USER: 'NORMAL_USER',
+  ADMIN: 'ADMIN'
+};
+
+exports.JobStatus = exports.$Enums.JobStatus = {
+  ACTIVE: 'ACTIVE',
+  IN_PROGRESS: 'IN_PROGRESS',
+  DELIVERED: 'DELIVERED',
+  CANCELLED: 'CANCELLED'
 };
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Job: 'Job',
+  TrackingUpdate: 'TrackingUpdate'
 };
 
 /**

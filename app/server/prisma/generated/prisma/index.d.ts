@@ -18,6 +18,16 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
+ * Model Job
+ * 
+ */
+export type Job = $Result.DefaultSelection<Prisma.$JobPayload>
+/**
+ * Model TrackingUpdate
+ * 
+ */
+export type TrackingUpdate = $Result.DefaultSelection<Prisma.$TrackingUpdatePayload>
 
 /**
  * Enums
@@ -25,16 +35,31 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 export namespace $Enums {
   export const Role: {
   COURIER: 'COURIER',
-  NORMAL_USER: 'NORMAL_USER'
+  NORMAL_USER: 'NORMAL_USER',
+  ADMIN: 'ADMIN'
 };
 
 export type Role = (typeof Role)[keyof typeof Role]
+
+
+export const JobStatus: {
+  ACTIVE: 'ACTIVE',
+  IN_PROGRESS: 'IN_PROGRESS',
+  DELIVERED: 'DELIVERED',
+  CANCELLED: 'CANCELLED'
+};
+
+export type JobStatus = (typeof JobStatus)[keyof typeof JobStatus]
 
 }
 
 export type Role = $Enums.Role
 
 export const Role: typeof $Enums.Role
+
+export type JobStatus = $Enums.JobStatus
+
+export const JobStatus: typeof $Enums.JobStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -170,6 +195,26 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.job`: Exposes CRUD operations for the **Job** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Jobs
+    * const jobs = await prisma.job.findMany()
+    * ```
+    */
+  get job(): Prisma.JobDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.trackingUpdate`: Exposes CRUD operations for the **TrackingUpdate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TrackingUpdates
+    * const trackingUpdates = await prisma.trackingUpdate.findMany()
+    * ```
+    */
+  get trackingUpdate(): Prisma.TrackingUpdateDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -610,7 +655,9 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    User: 'User'
+    User: 'User',
+    Job: 'Job',
+    TrackingUpdate: 'TrackingUpdate'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -629,7 +676,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user"
+      modelProps: "user" | "job" | "trackingUpdate"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -704,6 +751,154 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Job: {
+        payload: Prisma.$JobPayload<ExtArgs>
+        fields: Prisma.JobFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.JobFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JobPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.JobFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JobPayload>
+          }
+          findFirst: {
+            args: Prisma.JobFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JobPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.JobFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JobPayload>
+          }
+          findMany: {
+            args: Prisma.JobFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JobPayload>[]
+          }
+          create: {
+            args: Prisma.JobCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JobPayload>
+          }
+          createMany: {
+            args: Prisma.JobCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.JobCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JobPayload>[]
+          }
+          delete: {
+            args: Prisma.JobDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JobPayload>
+          }
+          update: {
+            args: Prisma.JobUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JobPayload>
+          }
+          deleteMany: {
+            args: Prisma.JobDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.JobUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.JobUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JobPayload>[]
+          }
+          upsert: {
+            args: Prisma.JobUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JobPayload>
+          }
+          aggregate: {
+            args: Prisma.JobAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateJob>
+          }
+          groupBy: {
+            args: Prisma.JobGroupByArgs<ExtArgs>
+            result: $Utils.Optional<JobGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.JobCountArgs<ExtArgs>
+            result: $Utils.Optional<JobCountAggregateOutputType> | number
+          }
+        }
+      }
+      TrackingUpdate: {
+        payload: Prisma.$TrackingUpdatePayload<ExtArgs>
+        fields: Prisma.TrackingUpdateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TrackingUpdateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrackingUpdatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TrackingUpdateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrackingUpdatePayload>
+          }
+          findFirst: {
+            args: Prisma.TrackingUpdateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrackingUpdatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TrackingUpdateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrackingUpdatePayload>
+          }
+          findMany: {
+            args: Prisma.TrackingUpdateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrackingUpdatePayload>[]
+          }
+          create: {
+            args: Prisma.TrackingUpdateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrackingUpdatePayload>
+          }
+          createMany: {
+            args: Prisma.TrackingUpdateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TrackingUpdateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrackingUpdatePayload>[]
+          }
+          delete: {
+            args: Prisma.TrackingUpdateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrackingUpdatePayload>
+          }
+          update: {
+            args: Prisma.TrackingUpdateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrackingUpdatePayload>
+          }
+          deleteMany: {
+            args: Prisma.TrackingUpdateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TrackingUpdateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TrackingUpdateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrackingUpdatePayload>[]
+          }
+          upsert: {
+            args: Prisma.TrackingUpdateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrackingUpdatePayload>
+          }
+          aggregate: {
+            args: Prisma.TrackingUpdateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTrackingUpdate>
+          }
+          groupBy: {
+            args: Prisma.TrackingUpdateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TrackingUpdateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TrackingUpdateCountArgs<ExtArgs>
+            result: $Utils.Optional<TrackingUpdateCountAggregateOutputType> | number
           }
         }
       }
@@ -792,6 +987,8 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    job?: JobOmit
+    trackingUpdate?: TrackingUpdateOmit
   }
 
   /* Types for Logging */
@@ -881,6 +1078,76 @@ export namespace Prisma {
    */
 
 
+  /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    jobsCreated: number
+    jobsDelivered: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    jobsCreated?: boolean | UserCountOutputTypeCountJobsCreatedArgs
+    jobsDelivered?: boolean | UserCountOutputTypeCountJobsDeliveredArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountJobsCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JobWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountJobsDeliveredArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JobWhereInput
+  }
+
+
+  /**
+   * Count Type JobCountOutputType
+   */
+
+  export type JobCountOutputType = {
+    trackingUpdates: number
+  }
+
+  export type JobCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    trackingUpdates?: boolean | JobCountOutputTypeCountTrackingUpdatesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * JobCountOutputType without action
+   */
+  export type JobCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobCountOutputType
+     */
+    select?: JobCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * JobCountOutputType without action
+   */
+  export type JobCountOutputTypeCountTrackingUpdatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TrackingUpdateWhereInput
+  }
+
 
   /**
    * Models
@@ -942,6 +1209,7 @@ export namespace Prisma {
     kycVerifiedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
+    isBusy: boolean | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -966,6 +1234,7 @@ export namespace Prisma {
     kycVerifiedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
+    isBusy: boolean | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -990,6 +1259,7 @@ export namespace Prisma {
     kycVerifiedAt: number
     createdAt: number
     updatedAt: number
+    isBusy: number
     _all: number
   }
 
@@ -1038,6 +1308,7 @@ export namespace Prisma {
     kycVerifiedAt?: true
     createdAt?: true
     updatedAt?: true
+    isBusy?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1062,6 +1333,7 @@ export namespace Prisma {
     kycVerifiedAt?: true
     createdAt?: true
     updatedAt?: true
+    isBusy?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1086,6 +1358,7 @@ export namespace Prisma {
     kycVerifiedAt?: true
     createdAt?: true
     updatedAt?: true
+    isBusy?: true
     _all?: true
   }
 
@@ -1197,6 +1470,7 @@ export namespace Prisma {
     kycVerifiedAt: Date | null
     createdAt: Date
     updatedAt: Date
+    isBusy: boolean
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -1240,6 +1514,10 @@ export namespace Prisma {
     kycVerifiedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    isBusy?: boolean
+    jobsCreated?: boolean | User$jobsCreatedArgs<ExtArgs>
+    jobsDelivered?: boolean | User$jobsDeliveredArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1264,6 +1542,7 @@ export namespace Prisma {
     kycVerifiedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    isBusy?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1288,6 +1567,7 @@ export namespace Prisma {
     kycVerifiedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    isBusy?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1312,13 +1592,24 @@ export namespace Prisma {
     kycVerifiedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    isBusy?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "walletAddress" | "username" | "role" | "email" | "phone" | "avatarUrl" | "bio" | "lat" | "lng" | "reputationScore" | "reviewsCount" | "jobsCompleted" | "jobsPosted" | "earningsTotal" | "distanceTravelledKm" | "kycVerified" | "kycDocumentUrl" | "kycVerifiedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "walletAddress" | "username" | "role" | "email" | "phone" | "avatarUrl" | "bio" | "lat" | "lng" | "reputationScore" | "reviewsCount" | "jobsCompleted" | "jobsPosted" | "earningsTotal" | "distanceTravelledKm" | "kycVerified" | "kycDocumentUrl" | "kycVerifiedAt" | "createdAt" | "updatedAt" | "isBusy", ExtArgs["result"]["user"]>
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    jobsCreated?: boolean | User$jobsCreatedArgs<ExtArgs>
+    jobsDelivered?: boolean | User$jobsDeliveredArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
-    objects: {}
+    objects: {
+      jobsCreated: Prisma.$JobPayload<ExtArgs>[]
+      jobsDelivered: Prisma.$JobPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       walletAddress: string
@@ -1341,6 +1632,7 @@ export namespace Prisma {
       kycVerifiedAt: Date | null
       createdAt: Date
       updatedAt: Date
+      isBusy: boolean
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1735,6 +2027,8 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    jobsCreated<T extends User$jobsCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$jobsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    jobsDelivered<T extends User$jobsDeliveredArgs<ExtArgs> = {}>(args?: Subset<T, User$jobsDeliveredArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1785,6 +2079,7 @@ export namespace Prisma {
     readonly kycVerifiedAt: FieldRef<"User", 'DateTime'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly isBusy: FieldRef<"User", 'Boolean'>
   }
     
 
@@ -1801,6 +2096,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -1820,6 +2119,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1837,6 +2140,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -1886,6 +2193,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where?: UserWhereInput
@@ -1934,6 +2245,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which Users to fetch.
      */
     where?: UserWhereInput
@@ -1976,6 +2291,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to create a User.
      */
@@ -2022,6 +2341,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to update a User.
      */
@@ -2089,6 +2412,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The filter to search for the User to update in case it exists.
      */
     where: UserWhereUniqueInput
@@ -2115,6 +2442,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter which User to delete.
      */
     where: UserWhereUniqueInput
@@ -2135,6 +2466,54 @@ export namespace Prisma {
   }
 
   /**
+   * User.jobsCreated
+   */
+  export type User$jobsCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Job
+     */
+    select?: JobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Job
+     */
+    omit?: JobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobInclude<ExtArgs> | null
+    where?: JobWhereInput
+    orderBy?: JobOrderByWithRelationInput | JobOrderByWithRelationInput[]
+    cursor?: JobWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JobScalarFieldEnum | JobScalarFieldEnum[]
+  }
+
+  /**
+   * User.jobsDelivered
+   */
+  export type User$jobsDeliveredArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Job
+     */
+    select?: JobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Job
+     */
+    omit?: JobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobInclude<ExtArgs> | null
+    where?: JobWhereInput
+    orderBy?: JobOrderByWithRelationInput | JobOrderByWithRelationInput[]
+    cursor?: JobWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JobScalarFieldEnum | JobScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2146,6 +2525,2394 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Job
+   */
+
+  export type AggregateJob = {
+    _count: JobCountAggregateOutputType | null
+    _avg: JobAvgAggregateOutputType | null
+    _sum: JobSumAggregateOutputType | null
+    _min: JobMinAggregateOutputType | null
+    _max: JobMaxAggregateOutputType | null
+  }
+
+  export type JobAvgAggregateOutputType = {
+    reward: number | null
+  }
+
+  export type JobSumAggregateOutputType = {
+    reward: bigint | null
+  }
+
+  export type JobMinAggregateOutputType = {
+    id: string | null
+    creatorAddress: string | null
+    courierAddress: string | null
+    status: $Enums.JobStatus | null
+    reward: bigint | null
+    metadataHash: string | null
+    pickupAddress: string | null
+    dropoffAddress: string | null
+    description: string | null
+    packageType: string | null
+    isFragile: boolean | null
+    isTemperatureSensitive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    eta: string | null
+    isDeleted: boolean | null
+  }
+
+  export type JobMaxAggregateOutputType = {
+    id: string | null
+    creatorAddress: string | null
+    courierAddress: string | null
+    status: $Enums.JobStatus | null
+    reward: bigint | null
+    metadataHash: string | null
+    pickupAddress: string | null
+    dropoffAddress: string | null
+    description: string | null
+    packageType: string | null
+    isFragile: boolean | null
+    isTemperatureSensitive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    eta: string | null
+    isDeleted: boolean | null
+  }
+
+  export type JobCountAggregateOutputType = {
+    id: number
+    creatorAddress: number
+    courierAddress: number
+    status: number
+    reward: number
+    metadataHash: number
+    pickupAddress: number
+    dropoffAddress: number
+    description: number
+    packageType: number
+    isFragile: number
+    isTemperatureSensitive: number
+    createdAt: number
+    updatedAt: number
+    eta: number
+    isDeleted: number
+    _all: number
+  }
+
+
+  export type JobAvgAggregateInputType = {
+    reward?: true
+  }
+
+  export type JobSumAggregateInputType = {
+    reward?: true
+  }
+
+  export type JobMinAggregateInputType = {
+    id?: true
+    creatorAddress?: true
+    courierAddress?: true
+    status?: true
+    reward?: true
+    metadataHash?: true
+    pickupAddress?: true
+    dropoffAddress?: true
+    description?: true
+    packageType?: true
+    isFragile?: true
+    isTemperatureSensitive?: true
+    createdAt?: true
+    updatedAt?: true
+    eta?: true
+    isDeleted?: true
+  }
+
+  export type JobMaxAggregateInputType = {
+    id?: true
+    creatorAddress?: true
+    courierAddress?: true
+    status?: true
+    reward?: true
+    metadataHash?: true
+    pickupAddress?: true
+    dropoffAddress?: true
+    description?: true
+    packageType?: true
+    isFragile?: true
+    isTemperatureSensitive?: true
+    createdAt?: true
+    updatedAt?: true
+    eta?: true
+    isDeleted?: true
+  }
+
+  export type JobCountAggregateInputType = {
+    id?: true
+    creatorAddress?: true
+    courierAddress?: true
+    status?: true
+    reward?: true
+    metadataHash?: true
+    pickupAddress?: true
+    dropoffAddress?: true
+    description?: true
+    packageType?: true
+    isFragile?: true
+    isTemperatureSensitive?: true
+    createdAt?: true
+    updatedAt?: true
+    eta?: true
+    isDeleted?: true
+    _all?: true
+  }
+
+  export type JobAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Job to aggregate.
+     */
+    where?: JobWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Jobs to fetch.
+     */
+    orderBy?: JobOrderByWithRelationInput | JobOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: JobWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Jobs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Jobs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Jobs
+    **/
+    _count?: true | JobCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: JobAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: JobSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: JobMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: JobMaxAggregateInputType
+  }
+
+  export type GetJobAggregateType<T extends JobAggregateArgs> = {
+        [P in keyof T & keyof AggregateJob]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateJob[P]>
+      : GetScalarType<T[P], AggregateJob[P]>
+  }
+
+
+
+
+  export type JobGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JobWhereInput
+    orderBy?: JobOrderByWithAggregationInput | JobOrderByWithAggregationInput[]
+    by: JobScalarFieldEnum[] | JobScalarFieldEnum
+    having?: JobScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: JobCountAggregateInputType | true
+    _avg?: JobAvgAggregateInputType
+    _sum?: JobSumAggregateInputType
+    _min?: JobMinAggregateInputType
+    _max?: JobMaxAggregateInputType
+  }
+
+  export type JobGroupByOutputType = {
+    id: string
+    creatorAddress: string
+    courierAddress: string | null
+    status: $Enums.JobStatus
+    reward: bigint
+    metadataHash: string | null
+    pickupAddress: string
+    dropoffAddress: string
+    description: string | null
+    packageType: string | null
+    isFragile: boolean
+    isTemperatureSensitive: boolean
+    createdAt: Date
+    updatedAt: Date
+    eta: string
+    isDeleted: boolean
+    _count: JobCountAggregateOutputType | null
+    _avg: JobAvgAggregateOutputType | null
+    _sum: JobSumAggregateOutputType | null
+    _min: JobMinAggregateOutputType | null
+    _max: JobMaxAggregateOutputType | null
+  }
+
+  type GetJobGroupByPayload<T extends JobGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<JobGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof JobGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], JobGroupByOutputType[P]>
+            : GetScalarType<T[P], JobGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type JobSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    creatorAddress?: boolean
+    courierAddress?: boolean
+    status?: boolean
+    reward?: boolean
+    metadataHash?: boolean
+    pickupAddress?: boolean
+    dropoffAddress?: boolean
+    description?: boolean
+    packageType?: boolean
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    eta?: boolean
+    isDeleted?: boolean
+    creator?: boolean | UserDefaultArgs<ExtArgs>
+    courier?: boolean | Job$courierArgs<ExtArgs>
+    trackingUpdates?: boolean | Job$trackingUpdatesArgs<ExtArgs>
+    _count?: boolean | JobCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["job"]>
+
+  export type JobSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    creatorAddress?: boolean
+    courierAddress?: boolean
+    status?: boolean
+    reward?: boolean
+    metadataHash?: boolean
+    pickupAddress?: boolean
+    dropoffAddress?: boolean
+    description?: boolean
+    packageType?: boolean
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    eta?: boolean
+    isDeleted?: boolean
+    creator?: boolean | UserDefaultArgs<ExtArgs>
+    courier?: boolean | Job$courierArgs<ExtArgs>
+  }, ExtArgs["result"]["job"]>
+
+  export type JobSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    creatorAddress?: boolean
+    courierAddress?: boolean
+    status?: boolean
+    reward?: boolean
+    metadataHash?: boolean
+    pickupAddress?: boolean
+    dropoffAddress?: boolean
+    description?: boolean
+    packageType?: boolean
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    eta?: boolean
+    isDeleted?: boolean
+    creator?: boolean | UserDefaultArgs<ExtArgs>
+    courier?: boolean | Job$courierArgs<ExtArgs>
+  }, ExtArgs["result"]["job"]>
+
+  export type JobSelectScalar = {
+    id?: boolean
+    creatorAddress?: boolean
+    courierAddress?: boolean
+    status?: boolean
+    reward?: boolean
+    metadataHash?: boolean
+    pickupAddress?: boolean
+    dropoffAddress?: boolean
+    description?: boolean
+    packageType?: boolean
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    eta?: boolean
+    isDeleted?: boolean
+  }
+
+  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "creatorAddress" | "courierAddress" | "status" | "reward" | "metadataHash" | "pickupAddress" | "dropoffAddress" | "description" | "packageType" | "isFragile" | "isTemperatureSensitive" | "createdAt" | "updatedAt" | "eta" | "isDeleted", ExtArgs["result"]["job"]>
+  export type JobInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | UserDefaultArgs<ExtArgs>
+    courier?: boolean | Job$courierArgs<ExtArgs>
+    trackingUpdates?: boolean | Job$trackingUpdatesArgs<ExtArgs>
+    _count?: boolean | JobCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type JobIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | UserDefaultArgs<ExtArgs>
+    courier?: boolean | Job$courierArgs<ExtArgs>
+  }
+  export type JobIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | UserDefaultArgs<ExtArgs>
+    courier?: boolean | Job$courierArgs<ExtArgs>
+  }
+
+  export type $JobPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Job"
+    objects: {
+      creator: Prisma.$UserPayload<ExtArgs>
+      courier: Prisma.$UserPayload<ExtArgs> | null
+      trackingUpdates: Prisma.$TrackingUpdatePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      creatorAddress: string
+      courierAddress: string | null
+      status: $Enums.JobStatus
+      reward: bigint
+      metadataHash: string | null
+      pickupAddress: string
+      dropoffAddress: string
+      description: string | null
+      packageType: string | null
+      isFragile: boolean
+      isTemperatureSensitive: boolean
+      createdAt: Date
+      updatedAt: Date
+      eta: string
+      isDeleted: boolean
+    }, ExtArgs["result"]["job"]>
+    composites: {}
+  }
+
+  type JobGetPayload<S extends boolean | null | undefined | JobDefaultArgs> = $Result.GetResult<Prisma.$JobPayload, S>
+
+  type JobCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<JobFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: JobCountAggregateInputType | true
+    }
+
+  export interface JobDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Job'], meta: { name: 'Job' } }
+    /**
+     * Find zero or one Job that matches the filter.
+     * @param {JobFindUniqueArgs} args - Arguments to find a Job
+     * @example
+     * // Get one Job
+     * const job = await prisma.job.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends JobFindUniqueArgs>(args: SelectSubset<T, JobFindUniqueArgs<ExtArgs>>): Prisma__JobClient<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Job that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {JobFindUniqueOrThrowArgs} args - Arguments to find a Job
+     * @example
+     * // Get one Job
+     * const job = await prisma.job.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends JobFindUniqueOrThrowArgs>(args: SelectSubset<T, JobFindUniqueOrThrowArgs<ExtArgs>>): Prisma__JobClient<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Job that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JobFindFirstArgs} args - Arguments to find a Job
+     * @example
+     * // Get one Job
+     * const job = await prisma.job.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends JobFindFirstArgs>(args?: SelectSubset<T, JobFindFirstArgs<ExtArgs>>): Prisma__JobClient<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Job that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JobFindFirstOrThrowArgs} args - Arguments to find a Job
+     * @example
+     * // Get one Job
+     * const job = await prisma.job.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends JobFindFirstOrThrowArgs>(args?: SelectSubset<T, JobFindFirstOrThrowArgs<ExtArgs>>): Prisma__JobClient<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Jobs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JobFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Jobs
+     * const jobs = await prisma.job.findMany()
+     * 
+     * // Get first 10 Jobs
+     * const jobs = await prisma.job.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const jobWithIdOnly = await prisma.job.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends JobFindManyArgs>(args?: SelectSubset<T, JobFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Job.
+     * @param {JobCreateArgs} args - Arguments to create a Job.
+     * @example
+     * // Create one Job
+     * const Job = await prisma.job.create({
+     *   data: {
+     *     // ... data to create a Job
+     *   }
+     * })
+     * 
+     */
+    create<T extends JobCreateArgs>(args: SelectSubset<T, JobCreateArgs<ExtArgs>>): Prisma__JobClient<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Jobs.
+     * @param {JobCreateManyArgs} args - Arguments to create many Jobs.
+     * @example
+     * // Create many Jobs
+     * const job = await prisma.job.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends JobCreateManyArgs>(args?: SelectSubset<T, JobCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Jobs and returns the data saved in the database.
+     * @param {JobCreateManyAndReturnArgs} args - Arguments to create many Jobs.
+     * @example
+     * // Create many Jobs
+     * const job = await prisma.job.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Jobs and only return the `id`
+     * const jobWithIdOnly = await prisma.job.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends JobCreateManyAndReturnArgs>(args?: SelectSubset<T, JobCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Job.
+     * @param {JobDeleteArgs} args - Arguments to delete one Job.
+     * @example
+     * // Delete one Job
+     * const Job = await prisma.job.delete({
+     *   where: {
+     *     // ... filter to delete one Job
+     *   }
+     * })
+     * 
+     */
+    delete<T extends JobDeleteArgs>(args: SelectSubset<T, JobDeleteArgs<ExtArgs>>): Prisma__JobClient<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Job.
+     * @param {JobUpdateArgs} args - Arguments to update one Job.
+     * @example
+     * // Update one Job
+     * const job = await prisma.job.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends JobUpdateArgs>(args: SelectSubset<T, JobUpdateArgs<ExtArgs>>): Prisma__JobClient<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Jobs.
+     * @param {JobDeleteManyArgs} args - Arguments to filter Jobs to delete.
+     * @example
+     * // Delete a few Jobs
+     * const { count } = await prisma.job.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends JobDeleteManyArgs>(args?: SelectSubset<T, JobDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Jobs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JobUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Jobs
+     * const job = await prisma.job.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends JobUpdateManyArgs>(args: SelectSubset<T, JobUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Jobs and returns the data updated in the database.
+     * @param {JobUpdateManyAndReturnArgs} args - Arguments to update many Jobs.
+     * @example
+     * // Update many Jobs
+     * const job = await prisma.job.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Jobs and only return the `id`
+     * const jobWithIdOnly = await prisma.job.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends JobUpdateManyAndReturnArgs>(args: SelectSubset<T, JobUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Job.
+     * @param {JobUpsertArgs} args - Arguments to update or create a Job.
+     * @example
+     * // Update or create a Job
+     * const job = await prisma.job.upsert({
+     *   create: {
+     *     // ... data to create a Job
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Job we want to update
+     *   }
+     * })
+     */
+    upsert<T extends JobUpsertArgs>(args: SelectSubset<T, JobUpsertArgs<ExtArgs>>): Prisma__JobClient<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Jobs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JobCountArgs} args - Arguments to filter Jobs to count.
+     * @example
+     * // Count the number of Jobs
+     * const count = await prisma.job.count({
+     *   where: {
+     *     // ... the filter for the Jobs we want to count
+     *   }
+     * })
+    **/
+    count<T extends JobCountArgs>(
+      args?: Subset<T, JobCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], JobCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Job.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JobAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends JobAggregateArgs>(args: Subset<T, JobAggregateArgs>): Prisma.PrismaPromise<GetJobAggregateType<T>>
+
+    /**
+     * Group by Job.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JobGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends JobGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: JobGroupByArgs['orderBy'] }
+        : { orderBy?: JobGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, JobGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetJobGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Job model
+   */
+  readonly fields: JobFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Job.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__JobClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    creator<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    courier<T extends Job$courierArgs<ExtArgs> = {}>(args?: Subset<T, Job$courierArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    trackingUpdates<T extends Job$trackingUpdatesArgs<ExtArgs> = {}>(args?: Subset<T, Job$trackingUpdatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TrackingUpdatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Job model
+   */
+  interface JobFieldRefs {
+    readonly id: FieldRef<"Job", 'String'>
+    readonly creatorAddress: FieldRef<"Job", 'String'>
+    readonly courierAddress: FieldRef<"Job", 'String'>
+    readonly status: FieldRef<"Job", 'JobStatus'>
+    readonly reward: FieldRef<"Job", 'BigInt'>
+    readonly metadataHash: FieldRef<"Job", 'String'>
+    readonly pickupAddress: FieldRef<"Job", 'String'>
+    readonly dropoffAddress: FieldRef<"Job", 'String'>
+    readonly description: FieldRef<"Job", 'String'>
+    readonly packageType: FieldRef<"Job", 'String'>
+    readonly isFragile: FieldRef<"Job", 'Boolean'>
+    readonly isTemperatureSensitive: FieldRef<"Job", 'Boolean'>
+    readonly createdAt: FieldRef<"Job", 'DateTime'>
+    readonly updatedAt: FieldRef<"Job", 'DateTime'>
+    readonly eta: FieldRef<"Job", 'String'>
+    readonly isDeleted: FieldRef<"Job", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Job findUnique
+   */
+  export type JobFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Job
+     */
+    select?: JobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Job
+     */
+    omit?: JobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobInclude<ExtArgs> | null
+    /**
+     * Filter, which Job to fetch.
+     */
+    where: JobWhereUniqueInput
+  }
+
+  /**
+   * Job findUniqueOrThrow
+   */
+  export type JobFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Job
+     */
+    select?: JobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Job
+     */
+    omit?: JobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobInclude<ExtArgs> | null
+    /**
+     * Filter, which Job to fetch.
+     */
+    where: JobWhereUniqueInput
+  }
+
+  /**
+   * Job findFirst
+   */
+  export type JobFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Job
+     */
+    select?: JobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Job
+     */
+    omit?: JobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobInclude<ExtArgs> | null
+    /**
+     * Filter, which Job to fetch.
+     */
+    where?: JobWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Jobs to fetch.
+     */
+    orderBy?: JobOrderByWithRelationInput | JobOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Jobs.
+     */
+    cursor?: JobWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Jobs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Jobs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Jobs.
+     */
+    distinct?: JobScalarFieldEnum | JobScalarFieldEnum[]
+  }
+
+  /**
+   * Job findFirstOrThrow
+   */
+  export type JobFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Job
+     */
+    select?: JobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Job
+     */
+    omit?: JobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobInclude<ExtArgs> | null
+    /**
+     * Filter, which Job to fetch.
+     */
+    where?: JobWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Jobs to fetch.
+     */
+    orderBy?: JobOrderByWithRelationInput | JobOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Jobs.
+     */
+    cursor?: JobWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Jobs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Jobs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Jobs.
+     */
+    distinct?: JobScalarFieldEnum | JobScalarFieldEnum[]
+  }
+
+  /**
+   * Job findMany
+   */
+  export type JobFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Job
+     */
+    select?: JobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Job
+     */
+    omit?: JobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobInclude<ExtArgs> | null
+    /**
+     * Filter, which Jobs to fetch.
+     */
+    where?: JobWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Jobs to fetch.
+     */
+    orderBy?: JobOrderByWithRelationInput | JobOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Jobs.
+     */
+    cursor?: JobWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Jobs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Jobs.
+     */
+    skip?: number
+    distinct?: JobScalarFieldEnum | JobScalarFieldEnum[]
+  }
+
+  /**
+   * Job create
+   */
+  export type JobCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Job
+     */
+    select?: JobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Job
+     */
+    omit?: JobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Job.
+     */
+    data: XOR<JobCreateInput, JobUncheckedCreateInput>
+  }
+
+  /**
+   * Job createMany
+   */
+  export type JobCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Jobs.
+     */
+    data: JobCreateManyInput | JobCreateManyInput[]
+  }
+
+  /**
+   * Job createManyAndReturn
+   */
+  export type JobCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Job
+     */
+    select?: JobSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Job
+     */
+    omit?: JobOmit<ExtArgs> | null
+    /**
+     * The data used to create many Jobs.
+     */
+    data: JobCreateManyInput | JobCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Job update
+   */
+  export type JobUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Job
+     */
+    select?: JobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Job
+     */
+    omit?: JobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Job.
+     */
+    data: XOR<JobUpdateInput, JobUncheckedUpdateInput>
+    /**
+     * Choose, which Job to update.
+     */
+    where: JobWhereUniqueInput
+  }
+
+  /**
+   * Job updateMany
+   */
+  export type JobUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Jobs.
+     */
+    data: XOR<JobUpdateManyMutationInput, JobUncheckedUpdateManyInput>
+    /**
+     * Filter which Jobs to update
+     */
+    where?: JobWhereInput
+    /**
+     * Limit how many Jobs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Job updateManyAndReturn
+   */
+  export type JobUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Job
+     */
+    select?: JobSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Job
+     */
+    omit?: JobOmit<ExtArgs> | null
+    /**
+     * The data used to update Jobs.
+     */
+    data: XOR<JobUpdateManyMutationInput, JobUncheckedUpdateManyInput>
+    /**
+     * Filter which Jobs to update
+     */
+    where?: JobWhereInput
+    /**
+     * Limit how many Jobs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Job upsert
+   */
+  export type JobUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Job
+     */
+    select?: JobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Job
+     */
+    omit?: JobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Job to update in case it exists.
+     */
+    where: JobWhereUniqueInput
+    /**
+     * In case the Job found by the `where` argument doesn't exist, create a new Job with this data.
+     */
+    create: XOR<JobCreateInput, JobUncheckedCreateInput>
+    /**
+     * In case the Job was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<JobUpdateInput, JobUncheckedUpdateInput>
+  }
+
+  /**
+   * Job delete
+   */
+  export type JobDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Job
+     */
+    select?: JobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Job
+     */
+    omit?: JobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobInclude<ExtArgs> | null
+    /**
+     * Filter which Job to delete.
+     */
+    where: JobWhereUniqueInput
+  }
+
+  /**
+   * Job deleteMany
+   */
+  export type JobDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Jobs to delete
+     */
+    where?: JobWhereInput
+    /**
+     * Limit how many Jobs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Job.courier
+   */
+  export type Job$courierArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Job.trackingUpdates
+   */
+  export type Job$trackingUpdatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUpdate
+     */
+    select?: TrackingUpdateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUpdate
+     */
+    omit?: TrackingUpdateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUpdateInclude<ExtArgs> | null
+    where?: TrackingUpdateWhereInput
+    orderBy?: TrackingUpdateOrderByWithRelationInput | TrackingUpdateOrderByWithRelationInput[]
+    cursor?: TrackingUpdateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TrackingUpdateScalarFieldEnum | TrackingUpdateScalarFieldEnum[]
+  }
+
+  /**
+   * Job without action
+   */
+  export type JobDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Job
+     */
+    select?: JobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Job
+     */
+    omit?: JobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TrackingUpdate
+   */
+
+  export type AggregateTrackingUpdate = {
+    _count: TrackingUpdateCountAggregateOutputType | null
+    _avg: TrackingUpdateAvgAggregateOutputType | null
+    _sum: TrackingUpdateSumAggregateOutputType | null
+    _min: TrackingUpdateMinAggregateOutputType | null
+    _max: TrackingUpdateMaxAggregateOutputType | null
+  }
+
+  export type TrackingUpdateAvgAggregateOutputType = {
+    lat: number | null
+    lng: number | null
+  }
+
+  export type TrackingUpdateSumAggregateOutputType = {
+    lat: number | null
+    lng: number | null
+  }
+
+  export type TrackingUpdateMinAggregateOutputType = {
+    id: string | null
+    jobId: string | null
+    lat: number | null
+    lng: number | null
+    timestamp: Date | null
+  }
+
+  export type TrackingUpdateMaxAggregateOutputType = {
+    id: string | null
+    jobId: string | null
+    lat: number | null
+    lng: number | null
+    timestamp: Date | null
+  }
+
+  export type TrackingUpdateCountAggregateOutputType = {
+    id: number
+    jobId: number
+    lat: number
+    lng: number
+    timestamp: number
+    _all: number
+  }
+
+
+  export type TrackingUpdateAvgAggregateInputType = {
+    lat?: true
+    lng?: true
+  }
+
+  export type TrackingUpdateSumAggregateInputType = {
+    lat?: true
+    lng?: true
+  }
+
+  export type TrackingUpdateMinAggregateInputType = {
+    id?: true
+    jobId?: true
+    lat?: true
+    lng?: true
+    timestamp?: true
+  }
+
+  export type TrackingUpdateMaxAggregateInputType = {
+    id?: true
+    jobId?: true
+    lat?: true
+    lng?: true
+    timestamp?: true
+  }
+
+  export type TrackingUpdateCountAggregateInputType = {
+    id?: true
+    jobId?: true
+    lat?: true
+    lng?: true
+    timestamp?: true
+    _all?: true
+  }
+
+  export type TrackingUpdateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TrackingUpdate to aggregate.
+     */
+    where?: TrackingUpdateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TrackingUpdates to fetch.
+     */
+    orderBy?: TrackingUpdateOrderByWithRelationInput | TrackingUpdateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TrackingUpdateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TrackingUpdates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TrackingUpdates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TrackingUpdates
+    **/
+    _count?: true | TrackingUpdateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TrackingUpdateAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TrackingUpdateSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TrackingUpdateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TrackingUpdateMaxAggregateInputType
+  }
+
+  export type GetTrackingUpdateAggregateType<T extends TrackingUpdateAggregateArgs> = {
+        [P in keyof T & keyof AggregateTrackingUpdate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTrackingUpdate[P]>
+      : GetScalarType<T[P], AggregateTrackingUpdate[P]>
+  }
+
+
+
+
+  export type TrackingUpdateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TrackingUpdateWhereInput
+    orderBy?: TrackingUpdateOrderByWithAggregationInput | TrackingUpdateOrderByWithAggregationInput[]
+    by: TrackingUpdateScalarFieldEnum[] | TrackingUpdateScalarFieldEnum
+    having?: TrackingUpdateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TrackingUpdateCountAggregateInputType | true
+    _avg?: TrackingUpdateAvgAggregateInputType
+    _sum?: TrackingUpdateSumAggregateInputType
+    _min?: TrackingUpdateMinAggregateInputType
+    _max?: TrackingUpdateMaxAggregateInputType
+  }
+
+  export type TrackingUpdateGroupByOutputType = {
+    id: string
+    jobId: string
+    lat: number
+    lng: number
+    timestamp: Date
+    _count: TrackingUpdateCountAggregateOutputType | null
+    _avg: TrackingUpdateAvgAggregateOutputType | null
+    _sum: TrackingUpdateSumAggregateOutputType | null
+    _min: TrackingUpdateMinAggregateOutputType | null
+    _max: TrackingUpdateMaxAggregateOutputType | null
+  }
+
+  type GetTrackingUpdateGroupByPayload<T extends TrackingUpdateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TrackingUpdateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TrackingUpdateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TrackingUpdateGroupByOutputType[P]>
+            : GetScalarType<T[P], TrackingUpdateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TrackingUpdateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    jobId?: boolean
+    lat?: boolean
+    lng?: boolean
+    timestamp?: boolean
+    job?: boolean | JobDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["trackingUpdate"]>
+
+  export type TrackingUpdateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    jobId?: boolean
+    lat?: boolean
+    lng?: boolean
+    timestamp?: boolean
+    job?: boolean | JobDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["trackingUpdate"]>
+
+  export type TrackingUpdateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    jobId?: boolean
+    lat?: boolean
+    lng?: boolean
+    timestamp?: boolean
+    job?: boolean | JobDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["trackingUpdate"]>
+
+  export type TrackingUpdateSelectScalar = {
+    id?: boolean
+    jobId?: boolean
+    lat?: boolean
+    lng?: boolean
+    timestamp?: boolean
+  }
+
+  export type TrackingUpdateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "jobId" | "lat" | "lng" | "timestamp", ExtArgs["result"]["trackingUpdate"]>
+  export type TrackingUpdateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    job?: boolean | JobDefaultArgs<ExtArgs>
+  }
+  export type TrackingUpdateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    job?: boolean | JobDefaultArgs<ExtArgs>
+  }
+  export type TrackingUpdateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    job?: boolean | JobDefaultArgs<ExtArgs>
+  }
+
+  export type $TrackingUpdatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TrackingUpdate"
+    objects: {
+      job: Prisma.$JobPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      jobId: string
+      lat: number
+      lng: number
+      timestamp: Date
+    }, ExtArgs["result"]["trackingUpdate"]>
+    composites: {}
+  }
+
+  type TrackingUpdateGetPayload<S extends boolean | null | undefined | TrackingUpdateDefaultArgs> = $Result.GetResult<Prisma.$TrackingUpdatePayload, S>
+
+  type TrackingUpdateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TrackingUpdateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TrackingUpdateCountAggregateInputType | true
+    }
+
+  export interface TrackingUpdateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TrackingUpdate'], meta: { name: 'TrackingUpdate' } }
+    /**
+     * Find zero or one TrackingUpdate that matches the filter.
+     * @param {TrackingUpdateFindUniqueArgs} args - Arguments to find a TrackingUpdate
+     * @example
+     * // Get one TrackingUpdate
+     * const trackingUpdate = await prisma.trackingUpdate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TrackingUpdateFindUniqueArgs>(args: SelectSubset<T, TrackingUpdateFindUniqueArgs<ExtArgs>>): Prisma__TrackingUpdateClient<$Result.GetResult<Prisma.$TrackingUpdatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TrackingUpdate that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TrackingUpdateFindUniqueOrThrowArgs} args - Arguments to find a TrackingUpdate
+     * @example
+     * // Get one TrackingUpdate
+     * const trackingUpdate = await prisma.trackingUpdate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TrackingUpdateFindUniqueOrThrowArgs>(args: SelectSubset<T, TrackingUpdateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TrackingUpdateClient<$Result.GetResult<Prisma.$TrackingUpdatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TrackingUpdate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrackingUpdateFindFirstArgs} args - Arguments to find a TrackingUpdate
+     * @example
+     * // Get one TrackingUpdate
+     * const trackingUpdate = await prisma.trackingUpdate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TrackingUpdateFindFirstArgs>(args?: SelectSubset<T, TrackingUpdateFindFirstArgs<ExtArgs>>): Prisma__TrackingUpdateClient<$Result.GetResult<Prisma.$TrackingUpdatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TrackingUpdate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrackingUpdateFindFirstOrThrowArgs} args - Arguments to find a TrackingUpdate
+     * @example
+     * // Get one TrackingUpdate
+     * const trackingUpdate = await prisma.trackingUpdate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TrackingUpdateFindFirstOrThrowArgs>(args?: SelectSubset<T, TrackingUpdateFindFirstOrThrowArgs<ExtArgs>>): Prisma__TrackingUpdateClient<$Result.GetResult<Prisma.$TrackingUpdatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TrackingUpdates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrackingUpdateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TrackingUpdates
+     * const trackingUpdates = await prisma.trackingUpdate.findMany()
+     * 
+     * // Get first 10 TrackingUpdates
+     * const trackingUpdates = await prisma.trackingUpdate.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const trackingUpdateWithIdOnly = await prisma.trackingUpdate.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TrackingUpdateFindManyArgs>(args?: SelectSubset<T, TrackingUpdateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TrackingUpdatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TrackingUpdate.
+     * @param {TrackingUpdateCreateArgs} args - Arguments to create a TrackingUpdate.
+     * @example
+     * // Create one TrackingUpdate
+     * const TrackingUpdate = await prisma.trackingUpdate.create({
+     *   data: {
+     *     // ... data to create a TrackingUpdate
+     *   }
+     * })
+     * 
+     */
+    create<T extends TrackingUpdateCreateArgs>(args: SelectSubset<T, TrackingUpdateCreateArgs<ExtArgs>>): Prisma__TrackingUpdateClient<$Result.GetResult<Prisma.$TrackingUpdatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TrackingUpdates.
+     * @param {TrackingUpdateCreateManyArgs} args - Arguments to create many TrackingUpdates.
+     * @example
+     * // Create many TrackingUpdates
+     * const trackingUpdate = await prisma.trackingUpdate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TrackingUpdateCreateManyArgs>(args?: SelectSubset<T, TrackingUpdateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TrackingUpdates and returns the data saved in the database.
+     * @param {TrackingUpdateCreateManyAndReturnArgs} args - Arguments to create many TrackingUpdates.
+     * @example
+     * // Create many TrackingUpdates
+     * const trackingUpdate = await prisma.trackingUpdate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TrackingUpdates and only return the `id`
+     * const trackingUpdateWithIdOnly = await prisma.trackingUpdate.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TrackingUpdateCreateManyAndReturnArgs>(args?: SelectSubset<T, TrackingUpdateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TrackingUpdatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TrackingUpdate.
+     * @param {TrackingUpdateDeleteArgs} args - Arguments to delete one TrackingUpdate.
+     * @example
+     * // Delete one TrackingUpdate
+     * const TrackingUpdate = await prisma.trackingUpdate.delete({
+     *   where: {
+     *     // ... filter to delete one TrackingUpdate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TrackingUpdateDeleteArgs>(args: SelectSubset<T, TrackingUpdateDeleteArgs<ExtArgs>>): Prisma__TrackingUpdateClient<$Result.GetResult<Prisma.$TrackingUpdatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TrackingUpdate.
+     * @param {TrackingUpdateUpdateArgs} args - Arguments to update one TrackingUpdate.
+     * @example
+     * // Update one TrackingUpdate
+     * const trackingUpdate = await prisma.trackingUpdate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TrackingUpdateUpdateArgs>(args: SelectSubset<T, TrackingUpdateUpdateArgs<ExtArgs>>): Prisma__TrackingUpdateClient<$Result.GetResult<Prisma.$TrackingUpdatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TrackingUpdates.
+     * @param {TrackingUpdateDeleteManyArgs} args - Arguments to filter TrackingUpdates to delete.
+     * @example
+     * // Delete a few TrackingUpdates
+     * const { count } = await prisma.trackingUpdate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TrackingUpdateDeleteManyArgs>(args?: SelectSubset<T, TrackingUpdateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TrackingUpdates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrackingUpdateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TrackingUpdates
+     * const trackingUpdate = await prisma.trackingUpdate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TrackingUpdateUpdateManyArgs>(args: SelectSubset<T, TrackingUpdateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TrackingUpdates and returns the data updated in the database.
+     * @param {TrackingUpdateUpdateManyAndReturnArgs} args - Arguments to update many TrackingUpdates.
+     * @example
+     * // Update many TrackingUpdates
+     * const trackingUpdate = await prisma.trackingUpdate.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TrackingUpdates and only return the `id`
+     * const trackingUpdateWithIdOnly = await prisma.trackingUpdate.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TrackingUpdateUpdateManyAndReturnArgs>(args: SelectSubset<T, TrackingUpdateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TrackingUpdatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TrackingUpdate.
+     * @param {TrackingUpdateUpsertArgs} args - Arguments to update or create a TrackingUpdate.
+     * @example
+     * // Update or create a TrackingUpdate
+     * const trackingUpdate = await prisma.trackingUpdate.upsert({
+     *   create: {
+     *     // ... data to create a TrackingUpdate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TrackingUpdate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TrackingUpdateUpsertArgs>(args: SelectSubset<T, TrackingUpdateUpsertArgs<ExtArgs>>): Prisma__TrackingUpdateClient<$Result.GetResult<Prisma.$TrackingUpdatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TrackingUpdates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrackingUpdateCountArgs} args - Arguments to filter TrackingUpdates to count.
+     * @example
+     * // Count the number of TrackingUpdates
+     * const count = await prisma.trackingUpdate.count({
+     *   where: {
+     *     // ... the filter for the TrackingUpdates we want to count
+     *   }
+     * })
+    **/
+    count<T extends TrackingUpdateCountArgs>(
+      args?: Subset<T, TrackingUpdateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TrackingUpdateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TrackingUpdate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrackingUpdateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TrackingUpdateAggregateArgs>(args: Subset<T, TrackingUpdateAggregateArgs>): Prisma.PrismaPromise<GetTrackingUpdateAggregateType<T>>
+
+    /**
+     * Group by TrackingUpdate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrackingUpdateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TrackingUpdateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TrackingUpdateGroupByArgs['orderBy'] }
+        : { orderBy?: TrackingUpdateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TrackingUpdateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTrackingUpdateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TrackingUpdate model
+   */
+  readonly fields: TrackingUpdateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TrackingUpdate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TrackingUpdateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    job<T extends JobDefaultArgs<ExtArgs> = {}>(args?: Subset<T, JobDefaultArgs<ExtArgs>>): Prisma__JobClient<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TrackingUpdate model
+   */
+  interface TrackingUpdateFieldRefs {
+    readonly id: FieldRef<"TrackingUpdate", 'String'>
+    readonly jobId: FieldRef<"TrackingUpdate", 'String'>
+    readonly lat: FieldRef<"TrackingUpdate", 'Float'>
+    readonly lng: FieldRef<"TrackingUpdate", 'Float'>
+    readonly timestamp: FieldRef<"TrackingUpdate", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TrackingUpdate findUnique
+   */
+  export type TrackingUpdateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUpdate
+     */
+    select?: TrackingUpdateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUpdate
+     */
+    omit?: TrackingUpdateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUpdateInclude<ExtArgs> | null
+    /**
+     * Filter, which TrackingUpdate to fetch.
+     */
+    where: TrackingUpdateWhereUniqueInput
+  }
+
+  /**
+   * TrackingUpdate findUniqueOrThrow
+   */
+  export type TrackingUpdateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUpdate
+     */
+    select?: TrackingUpdateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUpdate
+     */
+    omit?: TrackingUpdateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUpdateInclude<ExtArgs> | null
+    /**
+     * Filter, which TrackingUpdate to fetch.
+     */
+    where: TrackingUpdateWhereUniqueInput
+  }
+
+  /**
+   * TrackingUpdate findFirst
+   */
+  export type TrackingUpdateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUpdate
+     */
+    select?: TrackingUpdateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUpdate
+     */
+    omit?: TrackingUpdateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUpdateInclude<ExtArgs> | null
+    /**
+     * Filter, which TrackingUpdate to fetch.
+     */
+    where?: TrackingUpdateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TrackingUpdates to fetch.
+     */
+    orderBy?: TrackingUpdateOrderByWithRelationInput | TrackingUpdateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TrackingUpdates.
+     */
+    cursor?: TrackingUpdateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TrackingUpdates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TrackingUpdates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TrackingUpdates.
+     */
+    distinct?: TrackingUpdateScalarFieldEnum | TrackingUpdateScalarFieldEnum[]
+  }
+
+  /**
+   * TrackingUpdate findFirstOrThrow
+   */
+  export type TrackingUpdateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUpdate
+     */
+    select?: TrackingUpdateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUpdate
+     */
+    omit?: TrackingUpdateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUpdateInclude<ExtArgs> | null
+    /**
+     * Filter, which TrackingUpdate to fetch.
+     */
+    where?: TrackingUpdateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TrackingUpdates to fetch.
+     */
+    orderBy?: TrackingUpdateOrderByWithRelationInput | TrackingUpdateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TrackingUpdates.
+     */
+    cursor?: TrackingUpdateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TrackingUpdates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TrackingUpdates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TrackingUpdates.
+     */
+    distinct?: TrackingUpdateScalarFieldEnum | TrackingUpdateScalarFieldEnum[]
+  }
+
+  /**
+   * TrackingUpdate findMany
+   */
+  export type TrackingUpdateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUpdate
+     */
+    select?: TrackingUpdateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUpdate
+     */
+    omit?: TrackingUpdateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUpdateInclude<ExtArgs> | null
+    /**
+     * Filter, which TrackingUpdates to fetch.
+     */
+    where?: TrackingUpdateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TrackingUpdates to fetch.
+     */
+    orderBy?: TrackingUpdateOrderByWithRelationInput | TrackingUpdateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TrackingUpdates.
+     */
+    cursor?: TrackingUpdateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TrackingUpdates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TrackingUpdates.
+     */
+    skip?: number
+    distinct?: TrackingUpdateScalarFieldEnum | TrackingUpdateScalarFieldEnum[]
+  }
+
+  /**
+   * TrackingUpdate create
+   */
+  export type TrackingUpdateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUpdate
+     */
+    select?: TrackingUpdateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUpdate
+     */
+    omit?: TrackingUpdateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUpdateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TrackingUpdate.
+     */
+    data: XOR<TrackingUpdateCreateInput, TrackingUpdateUncheckedCreateInput>
+  }
+
+  /**
+   * TrackingUpdate createMany
+   */
+  export type TrackingUpdateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TrackingUpdates.
+     */
+    data: TrackingUpdateCreateManyInput | TrackingUpdateCreateManyInput[]
+  }
+
+  /**
+   * TrackingUpdate createManyAndReturn
+   */
+  export type TrackingUpdateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUpdate
+     */
+    select?: TrackingUpdateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUpdate
+     */
+    omit?: TrackingUpdateOmit<ExtArgs> | null
+    /**
+     * The data used to create many TrackingUpdates.
+     */
+    data: TrackingUpdateCreateManyInput | TrackingUpdateCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUpdateIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TrackingUpdate update
+   */
+  export type TrackingUpdateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUpdate
+     */
+    select?: TrackingUpdateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUpdate
+     */
+    omit?: TrackingUpdateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUpdateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TrackingUpdate.
+     */
+    data: XOR<TrackingUpdateUpdateInput, TrackingUpdateUncheckedUpdateInput>
+    /**
+     * Choose, which TrackingUpdate to update.
+     */
+    where: TrackingUpdateWhereUniqueInput
+  }
+
+  /**
+   * TrackingUpdate updateMany
+   */
+  export type TrackingUpdateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TrackingUpdates.
+     */
+    data: XOR<TrackingUpdateUpdateManyMutationInput, TrackingUpdateUncheckedUpdateManyInput>
+    /**
+     * Filter which TrackingUpdates to update
+     */
+    where?: TrackingUpdateWhereInput
+    /**
+     * Limit how many TrackingUpdates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TrackingUpdate updateManyAndReturn
+   */
+  export type TrackingUpdateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUpdate
+     */
+    select?: TrackingUpdateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUpdate
+     */
+    omit?: TrackingUpdateOmit<ExtArgs> | null
+    /**
+     * The data used to update TrackingUpdates.
+     */
+    data: XOR<TrackingUpdateUpdateManyMutationInput, TrackingUpdateUncheckedUpdateManyInput>
+    /**
+     * Filter which TrackingUpdates to update
+     */
+    where?: TrackingUpdateWhereInput
+    /**
+     * Limit how many TrackingUpdates to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUpdateIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TrackingUpdate upsert
+   */
+  export type TrackingUpdateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUpdate
+     */
+    select?: TrackingUpdateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUpdate
+     */
+    omit?: TrackingUpdateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUpdateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TrackingUpdate to update in case it exists.
+     */
+    where: TrackingUpdateWhereUniqueInput
+    /**
+     * In case the TrackingUpdate found by the `where` argument doesn't exist, create a new TrackingUpdate with this data.
+     */
+    create: XOR<TrackingUpdateCreateInput, TrackingUpdateUncheckedCreateInput>
+    /**
+     * In case the TrackingUpdate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TrackingUpdateUpdateInput, TrackingUpdateUncheckedUpdateInput>
+  }
+
+  /**
+   * TrackingUpdate delete
+   */
+  export type TrackingUpdateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUpdate
+     */
+    select?: TrackingUpdateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUpdate
+     */
+    omit?: TrackingUpdateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUpdateInclude<ExtArgs> | null
+    /**
+     * Filter which TrackingUpdate to delete.
+     */
+    where: TrackingUpdateWhereUniqueInput
+  }
+
+  /**
+   * TrackingUpdate deleteMany
+   */
+  export type TrackingUpdateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TrackingUpdates to delete
+     */
+    where?: TrackingUpdateWhereInput
+    /**
+     * Limit how many TrackingUpdates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TrackingUpdate without action
+   */
+  export type TrackingUpdateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUpdate
+     */
+    select?: TrackingUpdateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUpdate
+     */
+    omit?: TrackingUpdateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUpdateInclude<ExtArgs> | null
   }
 
 
@@ -2181,10 +4948,44 @@ export namespace Prisma {
     kycDocumentUrl: 'kycDocumentUrl',
     kycVerifiedAt: 'kycVerifiedAt',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    isBusy: 'isBusy'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const JobScalarFieldEnum: {
+    id: 'id',
+    creatorAddress: 'creatorAddress',
+    courierAddress: 'courierAddress',
+    status: 'status',
+    reward: 'reward',
+    metadataHash: 'metadataHash',
+    pickupAddress: 'pickupAddress',
+    dropoffAddress: 'dropoffAddress',
+    description: 'description',
+    packageType: 'packageType',
+    isFragile: 'isFragile',
+    isTemperatureSensitive: 'isTemperatureSensitive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    eta: 'eta',
+    isDeleted: 'isDeleted'
+  };
+
+  export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum]
+
+
+  export const TrackingUpdateScalarFieldEnum: {
+    id: 'id',
+    jobId: 'jobId',
+    lat: 'lat',
+    lng: 'lng',
+    timestamp: 'timestamp'
+  };
+
+  export type TrackingUpdateScalarFieldEnum = (typeof TrackingUpdateScalarFieldEnum)[keyof typeof TrackingUpdateScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -2255,6 +5056,13 @@ export namespace Prisma {
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
     
+
+
+  /**
+   * Reference to a field of type 'JobStatus'
+   */
+  export type EnumJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobStatus'>
+    
   /**
    * Deep Input Types
    */
@@ -2285,6 +5093,9 @@ export namespace Prisma {
     kycVerifiedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    isBusy?: BoolFilter<"User"> | boolean
+    jobsCreated?: JobListRelationFilter
+    jobsDelivered?: JobListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -2309,6 +5120,9 @@ export namespace Prisma {
     kycVerifiedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    isBusy?: SortOrder
+    jobsCreated?: JobOrderByRelationAggregateInput
+    jobsDelivered?: JobOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -2336,6 +5150,9 @@ export namespace Prisma {
     kycVerifiedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    isBusy?: BoolFilter<"User"> | boolean
+    jobsCreated?: JobListRelationFilter
+    jobsDelivered?: JobListRelationFilter
   }, "id" | "walletAddress" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -2360,6 +5177,7 @@ export namespace Prisma {
     kycVerifiedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    isBusy?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -2392,6 +5210,182 @@ export namespace Prisma {
     kycVerifiedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    isBusy?: BoolWithAggregatesFilter<"User"> | boolean
+  }
+
+  export type JobWhereInput = {
+    AND?: JobWhereInput | JobWhereInput[]
+    OR?: JobWhereInput[]
+    NOT?: JobWhereInput | JobWhereInput[]
+    id?: StringFilter<"Job"> | string
+    creatorAddress?: StringFilter<"Job"> | string
+    courierAddress?: StringNullableFilter<"Job"> | string | null
+    status?: EnumJobStatusFilter<"Job"> | $Enums.JobStatus
+    reward?: BigIntFilter<"Job"> | bigint | number
+    metadataHash?: StringNullableFilter<"Job"> | string | null
+    pickupAddress?: StringFilter<"Job"> | string
+    dropoffAddress?: StringFilter<"Job"> | string
+    description?: StringNullableFilter<"Job"> | string | null
+    packageType?: StringNullableFilter<"Job"> | string | null
+    isFragile?: BoolFilter<"Job"> | boolean
+    isTemperatureSensitive?: BoolFilter<"Job"> | boolean
+    createdAt?: DateTimeFilter<"Job"> | Date | string
+    updatedAt?: DateTimeFilter<"Job"> | Date | string
+    eta?: StringFilter<"Job"> | string
+    isDeleted?: BoolFilter<"Job"> | boolean
+    creator?: XOR<UserScalarRelationFilter, UserWhereInput>
+    courier?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    trackingUpdates?: TrackingUpdateListRelationFilter
+  }
+
+  export type JobOrderByWithRelationInput = {
+    id?: SortOrder
+    creatorAddress?: SortOrder
+    courierAddress?: SortOrderInput | SortOrder
+    status?: SortOrder
+    reward?: SortOrder
+    metadataHash?: SortOrderInput | SortOrder
+    pickupAddress?: SortOrder
+    dropoffAddress?: SortOrder
+    description?: SortOrderInput | SortOrder
+    packageType?: SortOrderInput | SortOrder
+    isFragile?: SortOrder
+    isTemperatureSensitive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    eta?: SortOrder
+    isDeleted?: SortOrder
+    creator?: UserOrderByWithRelationInput
+    courier?: UserOrderByWithRelationInput
+    trackingUpdates?: TrackingUpdateOrderByRelationAggregateInput
+  }
+
+  export type JobWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: JobWhereInput | JobWhereInput[]
+    OR?: JobWhereInput[]
+    NOT?: JobWhereInput | JobWhereInput[]
+    creatorAddress?: StringFilter<"Job"> | string
+    courierAddress?: StringNullableFilter<"Job"> | string | null
+    status?: EnumJobStatusFilter<"Job"> | $Enums.JobStatus
+    reward?: BigIntFilter<"Job"> | bigint | number
+    metadataHash?: StringNullableFilter<"Job"> | string | null
+    pickupAddress?: StringFilter<"Job"> | string
+    dropoffAddress?: StringFilter<"Job"> | string
+    description?: StringNullableFilter<"Job"> | string | null
+    packageType?: StringNullableFilter<"Job"> | string | null
+    isFragile?: BoolFilter<"Job"> | boolean
+    isTemperatureSensitive?: BoolFilter<"Job"> | boolean
+    createdAt?: DateTimeFilter<"Job"> | Date | string
+    updatedAt?: DateTimeFilter<"Job"> | Date | string
+    eta?: StringFilter<"Job"> | string
+    isDeleted?: BoolFilter<"Job"> | boolean
+    creator?: XOR<UserScalarRelationFilter, UserWhereInput>
+    courier?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    trackingUpdates?: TrackingUpdateListRelationFilter
+  }, "id">
+
+  export type JobOrderByWithAggregationInput = {
+    id?: SortOrder
+    creatorAddress?: SortOrder
+    courierAddress?: SortOrderInput | SortOrder
+    status?: SortOrder
+    reward?: SortOrder
+    metadataHash?: SortOrderInput | SortOrder
+    pickupAddress?: SortOrder
+    dropoffAddress?: SortOrder
+    description?: SortOrderInput | SortOrder
+    packageType?: SortOrderInput | SortOrder
+    isFragile?: SortOrder
+    isTemperatureSensitive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    eta?: SortOrder
+    isDeleted?: SortOrder
+    _count?: JobCountOrderByAggregateInput
+    _avg?: JobAvgOrderByAggregateInput
+    _max?: JobMaxOrderByAggregateInput
+    _min?: JobMinOrderByAggregateInput
+    _sum?: JobSumOrderByAggregateInput
+  }
+
+  export type JobScalarWhereWithAggregatesInput = {
+    AND?: JobScalarWhereWithAggregatesInput | JobScalarWhereWithAggregatesInput[]
+    OR?: JobScalarWhereWithAggregatesInput[]
+    NOT?: JobScalarWhereWithAggregatesInput | JobScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Job"> | string
+    creatorAddress?: StringWithAggregatesFilter<"Job"> | string
+    courierAddress?: StringNullableWithAggregatesFilter<"Job"> | string | null
+    status?: EnumJobStatusWithAggregatesFilter<"Job"> | $Enums.JobStatus
+    reward?: BigIntWithAggregatesFilter<"Job"> | bigint | number
+    metadataHash?: StringNullableWithAggregatesFilter<"Job"> | string | null
+    pickupAddress?: StringWithAggregatesFilter<"Job"> | string
+    dropoffAddress?: StringWithAggregatesFilter<"Job"> | string
+    description?: StringNullableWithAggregatesFilter<"Job"> | string | null
+    packageType?: StringNullableWithAggregatesFilter<"Job"> | string | null
+    isFragile?: BoolWithAggregatesFilter<"Job"> | boolean
+    isTemperatureSensitive?: BoolWithAggregatesFilter<"Job"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Job"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Job"> | Date | string
+    eta?: StringWithAggregatesFilter<"Job"> | string
+    isDeleted?: BoolWithAggregatesFilter<"Job"> | boolean
+  }
+
+  export type TrackingUpdateWhereInput = {
+    AND?: TrackingUpdateWhereInput | TrackingUpdateWhereInput[]
+    OR?: TrackingUpdateWhereInput[]
+    NOT?: TrackingUpdateWhereInput | TrackingUpdateWhereInput[]
+    id?: StringFilter<"TrackingUpdate"> | string
+    jobId?: StringFilter<"TrackingUpdate"> | string
+    lat?: FloatFilter<"TrackingUpdate"> | number
+    lng?: FloatFilter<"TrackingUpdate"> | number
+    timestamp?: DateTimeFilter<"TrackingUpdate"> | Date | string
+    job?: XOR<JobScalarRelationFilter, JobWhereInput>
+  }
+
+  export type TrackingUpdateOrderByWithRelationInput = {
+    id?: SortOrder
+    jobId?: SortOrder
+    lat?: SortOrder
+    lng?: SortOrder
+    timestamp?: SortOrder
+    job?: JobOrderByWithRelationInput
+  }
+
+  export type TrackingUpdateWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TrackingUpdateWhereInput | TrackingUpdateWhereInput[]
+    OR?: TrackingUpdateWhereInput[]
+    NOT?: TrackingUpdateWhereInput | TrackingUpdateWhereInput[]
+    jobId?: StringFilter<"TrackingUpdate"> | string
+    lat?: FloatFilter<"TrackingUpdate"> | number
+    lng?: FloatFilter<"TrackingUpdate"> | number
+    timestamp?: DateTimeFilter<"TrackingUpdate"> | Date | string
+    job?: XOR<JobScalarRelationFilter, JobWhereInput>
+  }, "id">
+
+  export type TrackingUpdateOrderByWithAggregationInput = {
+    id?: SortOrder
+    jobId?: SortOrder
+    lat?: SortOrder
+    lng?: SortOrder
+    timestamp?: SortOrder
+    _count?: TrackingUpdateCountOrderByAggregateInput
+    _avg?: TrackingUpdateAvgOrderByAggregateInput
+    _max?: TrackingUpdateMaxOrderByAggregateInput
+    _min?: TrackingUpdateMinOrderByAggregateInput
+    _sum?: TrackingUpdateSumOrderByAggregateInput
+  }
+
+  export type TrackingUpdateScalarWhereWithAggregatesInput = {
+    AND?: TrackingUpdateScalarWhereWithAggregatesInput | TrackingUpdateScalarWhereWithAggregatesInput[]
+    OR?: TrackingUpdateScalarWhereWithAggregatesInput[]
+    NOT?: TrackingUpdateScalarWhereWithAggregatesInput | TrackingUpdateScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TrackingUpdate"> | string
+    jobId?: StringWithAggregatesFilter<"TrackingUpdate"> | string
+    lat?: FloatWithAggregatesFilter<"TrackingUpdate"> | number
+    lng?: FloatWithAggregatesFilter<"TrackingUpdate"> | number
+    timestamp?: DateTimeWithAggregatesFilter<"TrackingUpdate"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -2416,6 +5410,9 @@ export namespace Prisma {
     kycVerifiedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isBusy?: boolean
+    jobsCreated?: JobCreateNestedManyWithoutCreatorInput
+    jobsDelivered?: JobCreateNestedManyWithoutCourierInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -2440,6 +5437,9 @@ export namespace Prisma {
     kycVerifiedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isBusy?: boolean
+    jobsCreated?: JobUncheckedCreateNestedManyWithoutCreatorInput
+    jobsDelivered?: JobUncheckedCreateNestedManyWithoutCourierInput
   }
 
   export type UserUpdateInput = {
@@ -2464,6 +5464,9 @@ export namespace Prisma {
     kycVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isBusy?: BoolFieldUpdateOperationsInput | boolean
+    jobsCreated?: JobUpdateManyWithoutCreatorNestedInput
+    jobsDelivered?: JobUpdateManyWithoutCourierNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -2488,6 +5491,9 @@ export namespace Prisma {
     kycVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isBusy?: BoolFieldUpdateOperationsInput | boolean
+    jobsCreated?: JobUncheckedUpdateManyWithoutCreatorNestedInput
+    jobsDelivered?: JobUncheckedUpdateManyWithoutCourierNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -2512,6 +5518,7 @@ export namespace Prisma {
     kycVerifiedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isBusy?: boolean
   }
 
   export type UserUpdateManyMutationInput = {
@@ -2536,6 +5543,7 @@ export namespace Prisma {
     kycVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isBusy?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -2560,6 +5568,197 @@ export namespace Prisma {
     kycVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isBusy?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type JobCreateInput = {
+    id?: string
+    status?: $Enums.JobStatus
+    reward: bigint | number
+    metadataHash?: string | null
+    pickupAddress: string
+    dropoffAddress: string
+    description?: string | null
+    packageType?: string | null
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    eta: string
+    isDeleted?: boolean
+    creator: UserCreateNestedOneWithoutJobsCreatedInput
+    courier?: UserCreateNestedOneWithoutJobsDeliveredInput
+    trackingUpdates?: TrackingUpdateCreateNestedManyWithoutJobInput
+  }
+
+  export type JobUncheckedCreateInput = {
+    id?: string
+    creatorAddress: string
+    courierAddress?: string | null
+    status?: $Enums.JobStatus
+    reward: bigint | number
+    metadataHash?: string | null
+    pickupAddress: string
+    dropoffAddress: string
+    description?: string | null
+    packageType?: string | null
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    eta: string
+    isDeleted?: boolean
+    trackingUpdates?: TrackingUpdateUncheckedCreateNestedManyWithoutJobInput
+  }
+
+  export type JobUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    reward?: BigIntFieldUpdateOperationsInput | bigint | number
+    metadataHash?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupAddress?: StringFieldUpdateOperationsInput | string
+    dropoffAddress?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    eta?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    creator?: UserUpdateOneRequiredWithoutJobsCreatedNestedInput
+    courier?: UserUpdateOneWithoutJobsDeliveredNestedInput
+    trackingUpdates?: TrackingUpdateUpdateManyWithoutJobNestedInput
+  }
+
+  export type JobUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    creatorAddress?: StringFieldUpdateOperationsInput | string
+    courierAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    reward?: BigIntFieldUpdateOperationsInput | bigint | number
+    metadataHash?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupAddress?: StringFieldUpdateOperationsInput | string
+    dropoffAddress?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    eta?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    trackingUpdates?: TrackingUpdateUncheckedUpdateManyWithoutJobNestedInput
+  }
+
+  export type JobCreateManyInput = {
+    id?: string
+    creatorAddress: string
+    courierAddress?: string | null
+    status?: $Enums.JobStatus
+    reward: bigint | number
+    metadataHash?: string | null
+    pickupAddress: string
+    dropoffAddress: string
+    description?: string | null
+    packageType?: string | null
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    eta: string
+    isDeleted?: boolean
+  }
+
+  export type JobUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    reward?: BigIntFieldUpdateOperationsInput | bigint | number
+    metadataHash?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupAddress?: StringFieldUpdateOperationsInput | string
+    dropoffAddress?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    eta?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type JobUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    creatorAddress?: StringFieldUpdateOperationsInput | string
+    courierAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    reward?: BigIntFieldUpdateOperationsInput | bigint | number
+    metadataHash?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupAddress?: StringFieldUpdateOperationsInput | string
+    dropoffAddress?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    eta?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type TrackingUpdateCreateInput = {
+    id?: string
+    lat: number
+    lng: number
+    timestamp?: Date | string
+    job: JobCreateNestedOneWithoutTrackingUpdatesInput
+  }
+
+  export type TrackingUpdateUncheckedCreateInput = {
+    id?: string
+    jobId: string
+    lat: number
+    lng: number
+    timestamp?: Date | string
+  }
+
+  export type TrackingUpdateUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lat?: FloatFieldUpdateOperationsInput | number
+    lng?: FloatFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    job?: JobUpdateOneRequiredWithoutTrackingUpdatesNestedInput
+  }
+
+  export type TrackingUpdateUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jobId?: StringFieldUpdateOperationsInput | string
+    lat?: FloatFieldUpdateOperationsInput | number
+    lng?: FloatFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TrackingUpdateCreateManyInput = {
+    id?: string
+    jobId: string
+    lat: number
+    lng: number
+    timestamp?: Date | string
+  }
+
+  export type TrackingUpdateUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lat?: FloatFieldUpdateOperationsInput | number
+    lng?: FloatFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TrackingUpdateUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jobId?: StringFieldUpdateOperationsInput | string
+    lat?: FloatFieldUpdateOperationsInput | number
+    lng?: FloatFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -2668,9 +5867,19 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type JobListRelationFilter = {
+    every?: JobWhereInput
+    some?: JobWhereInput
+    none?: JobWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type JobOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -2695,6 +5904,7 @@ export namespace Prisma {
     kycVerifiedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    isBusy?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -2730,6 +5940,7 @@ export namespace Prisma {
     kycVerifiedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    isBusy?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -2754,6 +5965,7 @@ export namespace Prisma {
     kycVerifiedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    isBusy?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -2911,6 +6123,175 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type EnumJobStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.JobStatus | EnumJobStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.JobStatus[]
+    notIn?: $Enums.JobStatus[]
+    not?: NestedEnumJobStatusFilter<$PrismaModel> | $Enums.JobStatus
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
+  export type TrackingUpdateListRelationFilter = {
+    every?: TrackingUpdateWhereInput
+    some?: TrackingUpdateWhereInput
+    none?: TrackingUpdateWhereInput
+  }
+
+  export type TrackingUpdateOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type JobCountOrderByAggregateInput = {
+    id?: SortOrder
+    creatorAddress?: SortOrder
+    courierAddress?: SortOrder
+    status?: SortOrder
+    reward?: SortOrder
+    metadataHash?: SortOrder
+    pickupAddress?: SortOrder
+    dropoffAddress?: SortOrder
+    description?: SortOrder
+    packageType?: SortOrder
+    isFragile?: SortOrder
+    isTemperatureSensitive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    eta?: SortOrder
+    isDeleted?: SortOrder
+  }
+
+  export type JobAvgOrderByAggregateInput = {
+    reward?: SortOrder
+  }
+
+  export type JobMaxOrderByAggregateInput = {
+    id?: SortOrder
+    creatorAddress?: SortOrder
+    courierAddress?: SortOrder
+    status?: SortOrder
+    reward?: SortOrder
+    metadataHash?: SortOrder
+    pickupAddress?: SortOrder
+    dropoffAddress?: SortOrder
+    description?: SortOrder
+    packageType?: SortOrder
+    isFragile?: SortOrder
+    isTemperatureSensitive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    eta?: SortOrder
+    isDeleted?: SortOrder
+  }
+
+  export type JobMinOrderByAggregateInput = {
+    id?: SortOrder
+    creatorAddress?: SortOrder
+    courierAddress?: SortOrder
+    status?: SortOrder
+    reward?: SortOrder
+    metadataHash?: SortOrder
+    pickupAddress?: SortOrder
+    dropoffAddress?: SortOrder
+    description?: SortOrder
+    packageType?: SortOrder
+    isFragile?: SortOrder
+    isTemperatureSensitive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    eta?: SortOrder
+    isDeleted?: SortOrder
+  }
+
+  export type JobSumOrderByAggregateInput = {
+    reward?: SortOrder
+  }
+
+  export type EnumJobStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.JobStatus | EnumJobStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.JobStatus[]
+    notIn?: $Enums.JobStatus[]
+    not?: NestedEnumJobStatusWithAggregatesFilter<$PrismaModel> | $Enums.JobStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumJobStatusFilter<$PrismaModel>
+    _max?: NestedEnumJobStatusFilter<$PrismaModel>
+  }
+
+  export type JobScalarRelationFilter = {
+    is?: JobWhereInput
+    isNot?: JobWhereInput
+  }
+
+  export type TrackingUpdateCountOrderByAggregateInput = {
+    id?: SortOrder
+    jobId?: SortOrder
+    lat?: SortOrder
+    lng?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type TrackingUpdateAvgOrderByAggregateInput = {
+    lat?: SortOrder
+    lng?: SortOrder
+  }
+
+  export type TrackingUpdateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    jobId?: SortOrder
+    lat?: SortOrder
+    lng?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type TrackingUpdateMinOrderByAggregateInput = {
+    id?: SortOrder
+    jobId?: SortOrder
+    lat?: SortOrder
+    lng?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type TrackingUpdateSumOrderByAggregateInput = {
+    lat?: SortOrder
+    lng?: SortOrder
+  }
+
+  export type JobCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<JobCreateWithoutCreatorInput, JobUncheckedCreateWithoutCreatorInput> | JobCreateWithoutCreatorInput[] | JobUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: JobCreateOrConnectWithoutCreatorInput | JobCreateOrConnectWithoutCreatorInput[]
+    createMany?: JobCreateManyCreatorInputEnvelope
+    connect?: JobWhereUniqueInput | JobWhereUniqueInput[]
+  }
+
+  export type JobCreateNestedManyWithoutCourierInput = {
+    create?: XOR<JobCreateWithoutCourierInput, JobUncheckedCreateWithoutCourierInput> | JobCreateWithoutCourierInput[] | JobUncheckedCreateWithoutCourierInput[]
+    connectOrCreate?: JobCreateOrConnectWithoutCourierInput | JobCreateOrConnectWithoutCourierInput[]
+    createMany?: JobCreateManyCourierInputEnvelope
+    connect?: JobWhereUniqueInput | JobWhereUniqueInput[]
+  }
+
+  export type JobUncheckedCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<JobCreateWithoutCreatorInput, JobUncheckedCreateWithoutCreatorInput> | JobCreateWithoutCreatorInput[] | JobUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: JobCreateOrConnectWithoutCreatorInput | JobCreateOrConnectWithoutCreatorInput[]
+    createMany?: JobCreateManyCreatorInputEnvelope
+    connect?: JobWhereUniqueInput | JobWhereUniqueInput[]
+  }
+
+  export type JobUncheckedCreateNestedManyWithoutCourierInput = {
+    create?: XOR<JobCreateWithoutCourierInput, JobUncheckedCreateWithoutCourierInput> | JobCreateWithoutCourierInput[] | JobUncheckedCreateWithoutCourierInput[]
+    connectOrCreate?: JobCreateOrConnectWithoutCourierInput | JobCreateOrConnectWithoutCourierInput[]
+    createMany?: JobCreateManyCourierInputEnvelope
+    connect?: JobWhereUniqueInput | JobWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -2965,6 +6346,152 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type JobUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<JobCreateWithoutCreatorInput, JobUncheckedCreateWithoutCreatorInput> | JobCreateWithoutCreatorInput[] | JobUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: JobCreateOrConnectWithoutCreatorInput | JobCreateOrConnectWithoutCreatorInput[]
+    upsert?: JobUpsertWithWhereUniqueWithoutCreatorInput | JobUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: JobCreateManyCreatorInputEnvelope
+    set?: JobWhereUniqueInput | JobWhereUniqueInput[]
+    disconnect?: JobWhereUniqueInput | JobWhereUniqueInput[]
+    delete?: JobWhereUniqueInput | JobWhereUniqueInput[]
+    connect?: JobWhereUniqueInput | JobWhereUniqueInput[]
+    update?: JobUpdateWithWhereUniqueWithoutCreatorInput | JobUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: JobUpdateManyWithWhereWithoutCreatorInput | JobUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: JobScalarWhereInput | JobScalarWhereInput[]
+  }
+
+  export type JobUpdateManyWithoutCourierNestedInput = {
+    create?: XOR<JobCreateWithoutCourierInput, JobUncheckedCreateWithoutCourierInput> | JobCreateWithoutCourierInput[] | JobUncheckedCreateWithoutCourierInput[]
+    connectOrCreate?: JobCreateOrConnectWithoutCourierInput | JobCreateOrConnectWithoutCourierInput[]
+    upsert?: JobUpsertWithWhereUniqueWithoutCourierInput | JobUpsertWithWhereUniqueWithoutCourierInput[]
+    createMany?: JobCreateManyCourierInputEnvelope
+    set?: JobWhereUniqueInput | JobWhereUniqueInput[]
+    disconnect?: JobWhereUniqueInput | JobWhereUniqueInput[]
+    delete?: JobWhereUniqueInput | JobWhereUniqueInput[]
+    connect?: JobWhereUniqueInput | JobWhereUniqueInput[]
+    update?: JobUpdateWithWhereUniqueWithoutCourierInput | JobUpdateWithWhereUniqueWithoutCourierInput[]
+    updateMany?: JobUpdateManyWithWhereWithoutCourierInput | JobUpdateManyWithWhereWithoutCourierInput[]
+    deleteMany?: JobScalarWhereInput | JobScalarWhereInput[]
+  }
+
+  export type JobUncheckedUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<JobCreateWithoutCreatorInput, JobUncheckedCreateWithoutCreatorInput> | JobCreateWithoutCreatorInput[] | JobUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: JobCreateOrConnectWithoutCreatorInput | JobCreateOrConnectWithoutCreatorInput[]
+    upsert?: JobUpsertWithWhereUniqueWithoutCreatorInput | JobUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: JobCreateManyCreatorInputEnvelope
+    set?: JobWhereUniqueInput | JobWhereUniqueInput[]
+    disconnect?: JobWhereUniqueInput | JobWhereUniqueInput[]
+    delete?: JobWhereUniqueInput | JobWhereUniqueInput[]
+    connect?: JobWhereUniqueInput | JobWhereUniqueInput[]
+    update?: JobUpdateWithWhereUniqueWithoutCreatorInput | JobUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: JobUpdateManyWithWhereWithoutCreatorInput | JobUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: JobScalarWhereInput | JobScalarWhereInput[]
+  }
+
+  export type JobUncheckedUpdateManyWithoutCourierNestedInput = {
+    create?: XOR<JobCreateWithoutCourierInput, JobUncheckedCreateWithoutCourierInput> | JobCreateWithoutCourierInput[] | JobUncheckedCreateWithoutCourierInput[]
+    connectOrCreate?: JobCreateOrConnectWithoutCourierInput | JobCreateOrConnectWithoutCourierInput[]
+    upsert?: JobUpsertWithWhereUniqueWithoutCourierInput | JobUpsertWithWhereUniqueWithoutCourierInput[]
+    createMany?: JobCreateManyCourierInputEnvelope
+    set?: JobWhereUniqueInput | JobWhereUniqueInput[]
+    disconnect?: JobWhereUniqueInput | JobWhereUniqueInput[]
+    delete?: JobWhereUniqueInput | JobWhereUniqueInput[]
+    connect?: JobWhereUniqueInput | JobWhereUniqueInput[]
+    update?: JobUpdateWithWhereUniqueWithoutCourierInput | JobUpdateWithWhereUniqueWithoutCourierInput[]
+    updateMany?: JobUpdateManyWithWhereWithoutCourierInput | JobUpdateManyWithWhereWithoutCourierInput[]
+    deleteMany?: JobScalarWhereInput | JobScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutJobsCreatedInput = {
+    create?: XOR<UserCreateWithoutJobsCreatedInput, UserUncheckedCreateWithoutJobsCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutJobsCreatedInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutJobsDeliveredInput = {
+    create?: XOR<UserCreateWithoutJobsDeliveredInput, UserUncheckedCreateWithoutJobsDeliveredInput>
+    connectOrCreate?: UserCreateOrConnectWithoutJobsDeliveredInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TrackingUpdateCreateNestedManyWithoutJobInput = {
+    create?: XOR<TrackingUpdateCreateWithoutJobInput, TrackingUpdateUncheckedCreateWithoutJobInput> | TrackingUpdateCreateWithoutJobInput[] | TrackingUpdateUncheckedCreateWithoutJobInput[]
+    connectOrCreate?: TrackingUpdateCreateOrConnectWithoutJobInput | TrackingUpdateCreateOrConnectWithoutJobInput[]
+    createMany?: TrackingUpdateCreateManyJobInputEnvelope
+    connect?: TrackingUpdateWhereUniqueInput | TrackingUpdateWhereUniqueInput[]
+  }
+
+  export type TrackingUpdateUncheckedCreateNestedManyWithoutJobInput = {
+    create?: XOR<TrackingUpdateCreateWithoutJobInput, TrackingUpdateUncheckedCreateWithoutJobInput> | TrackingUpdateCreateWithoutJobInput[] | TrackingUpdateUncheckedCreateWithoutJobInput[]
+    connectOrCreate?: TrackingUpdateCreateOrConnectWithoutJobInput | TrackingUpdateCreateOrConnectWithoutJobInput[]
+    createMany?: TrackingUpdateCreateManyJobInputEnvelope
+    connect?: TrackingUpdateWhereUniqueInput | TrackingUpdateWhereUniqueInput[]
+  }
+
+  export type EnumJobStatusFieldUpdateOperationsInput = {
+    set?: $Enums.JobStatus
+  }
+
+  export type UserUpdateOneRequiredWithoutJobsCreatedNestedInput = {
+    create?: XOR<UserCreateWithoutJobsCreatedInput, UserUncheckedCreateWithoutJobsCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutJobsCreatedInput
+    upsert?: UserUpsertWithoutJobsCreatedInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutJobsCreatedInput, UserUpdateWithoutJobsCreatedInput>, UserUncheckedUpdateWithoutJobsCreatedInput>
+  }
+
+  export type UserUpdateOneWithoutJobsDeliveredNestedInput = {
+    create?: XOR<UserCreateWithoutJobsDeliveredInput, UserUncheckedCreateWithoutJobsDeliveredInput>
+    connectOrCreate?: UserCreateOrConnectWithoutJobsDeliveredInput
+    upsert?: UserUpsertWithoutJobsDeliveredInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutJobsDeliveredInput, UserUpdateWithoutJobsDeliveredInput>, UserUncheckedUpdateWithoutJobsDeliveredInput>
+  }
+
+  export type TrackingUpdateUpdateManyWithoutJobNestedInput = {
+    create?: XOR<TrackingUpdateCreateWithoutJobInput, TrackingUpdateUncheckedCreateWithoutJobInput> | TrackingUpdateCreateWithoutJobInput[] | TrackingUpdateUncheckedCreateWithoutJobInput[]
+    connectOrCreate?: TrackingUpdateCreateOrConnectWithoutJobInput | TrackingUpdateCreateOrConnectWithoutJobInput[]
+    upsert?: TrackingUpdateUpsertWithWhereUniqueWithoutJobInput | TrackingUpdateUpsertWithWhereUniqueWithoutJobInput[]
+    createMany?: TrackingUpdateCreateManyJobInputEnvelope
+    set?: TrackingUpdateWhereUniqueInput | TrackingUpdateWhereUniqueInput[]
+    disconnect?: TrackingUpdateWhereUniqueInput | TrackingUpdateWhereUniqueInput[]
+    delete?: TrackingUpdateWhereUniqueInput | TrackingUpdateWhereUniqueInput[]
+    connect?: TrackingUpdateWhereUniqueInput | TrackingUpdateWhereUniqueInput[]
+    update?: TrackingUpdateUpdateWithWhereUniqueWithoutJobInput | TrackingUpdateUpdateWithWhereUniqueWithoutJobInput[]
+    updateMany?: TrackingUpdateUpdateManyWithWhereWithoutJobInput | TrackingUpdateUpdateManyWithWhereWithoutJobInput[]
+    deleteMany?: TrackingUpdateScalarWhereInput | TrackingUpdateScalarWhereInput[]
+  }
+
+  export type TrackingUpdateUncheckedUpdateManyWithoutJobNestedInput = {
+    create?: XOR<TrackingUpdateCreateWithoutJobInput, TrackingUpdateUncheckedCreateWithoutJobInput> | TrackingUpdateCreateWithoutJobInput[] | TrackingUpdateUncheckedCreateWithoutJobInput[]
+    connectOrCreate?: TrackingUpdateCreateOrConnectWithoutJobInput | TrackingUpdateCreateOrConnectWithoutJobInput[]
+    upsert?: TrackingUpdateUpsertWithWhereUniqueWithoutJobInput | TrackingUpdateUpsertWithWhereUniqueWithoutJobInput[]
+    createMany?: TrackingUpdateCreateManyJobInputEnvelope
+    set?: TrackingUpdateWhereUniqueInput | TrackingUpdateWhereUniqueInput[]
+    disconnect?: TrackingUpdateWhereUniqueInput | TrackingUpdateWhereUniqueInput[]
+    delete?: TrackingUpdateWhereUniqueInput | TrackingUpdateWhereUniqueInput[]
+    connect?: TrackingUpdateWhereUniqueInput | TrackingUpdateWhereUniqueInput[]
+    update?: TrackingUpdateUpdateWithWhereUniqueWithoutJobInput | TrackingUpdateUpdateWithWhereUniqueWithoutJobInput[]
+    updateMany?: TrackingUpdateUpdateManyWithWhereWithoutJobInput | TrackingUpdateUpdateManyWithWhereWithoutJobInput[]
+    deleteMany?: TrackingUpdateScalarWhereInput | TrackingUpdateScalarWhereInput[]
+  }
+
+  export type JobCreateNestedOneWithoutTrackingUpdatesInput = {
+    create?: XOR<JobCreateWithoutTrackingUpdatesInput, JobUncheckedCreateWithoutTrackingUpdatesInput>
+    connectOrCreate?: JobCreateOrConnectWithoutTrackingUpdatesInput
+    connect?: JobWhereUniqueInput
+  }
+
+  export type JobUpdateOneRequiredWithoutTrackingUpdatesNestedInput = {
+    create?: XOR<JobCreateWithoutTrackingUpdatesInput, JobUncheckedCreateWithoutTrackingUpdatesInput>
+    connectOrCreate?: JobCreateOrConnectWithoutTrackingUpdatesInput
+    upsert?: JobUpsertWithoutTrackingUpdatesInput
+    connect?: JobWhereUniqueInput
+    update?: XOR<XOR<JobUpdateToOneWithWhereWithoutTrackingUpdatesInput, JobUpdateWithoutTrackingUpdatesInput>, JobUncheckedUpdateWithoutTrackingUpdatesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -3226,6 +6753,729 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumJobStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.JobStatus | EnumJobStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.JobStatus[]
+    notIn?: $Enums.JobStatus[]
+    not?: NestedEnumJobStatusFilter<$PrismaModel> | $Enums.JobStatus
+  }
+
+  export type NestedEnumJobStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.JobStatus | EnumJobStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.JobStatus[]
+    notIn?: $Enums.JobStatus[]
+    not?: NestedEnumJobStatusWithAggregatesFilter<$PrismaModel> | $Enums.JobStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumJobStatusFilter<$PrismaModel>
+    _max?: NestedEnumJobStatusFilter<$PrismaModel>
+  }
+
+  export type JobCreateWithoutCreatorInput = {
+    id?: string
+    status?: $Enums.JobStatus
+    reward: bigint | number
+    metadataHash?: string | null
+    pickupAddress: string
+    dropoffAddress: string
+    description?: string | null
+    packageType?: string | null
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    eta: string
+    isDeleted?: boolean
+    courier?: UserCreateNestedOneWithoutJobsDeliveredInput
+    trackingUpdates?: TrackingUpdateCreateNestedManyWithoutJobInput
+  }
+
+  export type JobUncheckedCreateWithoutCreatorInput = {
+    id?: string
+    courierAddress?: string | null
+    status?: $Enums.JobStatus
+    reward: bigint | number
+    metadataHash?: string | null
+    pickupAddress: string
+    dropoffAddress: string
+    description?: string | null
+    packageType?: string | null
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    eta: string
+    isDeleted?: boolean
+    trackingUpdates?: TrackingUpdateUncheckedCreateNestedManyWithoutJobInput
+  }
+
+  export type JobCreateOrConnectWithoutCreatorInput = {
+    where: JobWhereUniqueInput
+    create: XOR<JobCreateWithoutCreatorInput, JobUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type JobCreateManyCreatorInputEnvelope = {
+    data: JobCreateManyCreatorInput | JobCreateManyCreatorInput[]
+  }
+
+  export type JobCreateWithoutCourierInput = {
+    id?: string
+    status?: $Enums.JobStatus
+    reward: bigint | number
+    metadataHash?: string | null
+    pickupAddress: string
+    dropoffAddress: string
+    description?: string | null
+    packageType?: string | null
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    eta: string
+    isDeleted?: boolean
+    creator: UserCreateNestedOneWithoutJobsCreatedInput
+    trackingUpdates?: TrackingUpdateCreateNestedManyWithoutJobInput
+  }
+
+  export type JobUncheckedCreateWithoutCourierInput = {
+    id?: string
+    creatorAddress: string
+    status?: $Enums.JobStatus
+    reward: bigint | number
+    metadataHash?: string | null
+    pickupAddress: string
+    dropoffAddress: string
+    description?: string | null
+    packageType?: string | null
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    eta: string
+    isDeleted?: boolean
+    trackingUpdates?: TrackingUpdateUncheckedCreateNestedManyWithoutJobInput
+  }
+
+  export type JobCreateOrConnectWithoutCourierInput = {
+    where: JobWhereUniqueInput
+    create: XOR<JobCreateWithoutCourierInput, JobUncheckedCreateWithoutCourierInput>
+  }
+
+  export type JobCreateManyCourierInputEnvelope = {
+    data: JobCreateManyCourierInput | JobCreateManyCourierInput[]
+  }
+
+  export type JobUpsertWithWhereUniqueWithoutCreatorInput = {
+    where: JobWhereUniqueInput
+    update: XOR<JobUpdateWithoutCreatorInput, JobUncheckedUpdateWithoutCreatorInput>
+    create: XOR<JobCreateWithoutCreatorInput, JobUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type JobUpdateWithWhereUniqueWithoutCreatorInput = {
+    where: JobWhereUniqueInput
+    data: XOR<JobUpdateWithoutCreatorInput, JobUncheckedUpdateWithoutCreatorInput>
+  }
+
+  export type JobUpdateManyWithWhereWithoutCreatorInput = {
+    where: JobScalarWhereInput
+    data: XOR<JobUpdateManyMutationInput, JobUncheckedUpdateManyWithoutCreatorInput>
+  }
+
+  export type JobScalarWhereInput = {
+    AND?: JobScalarWhereInput | JobScalarWhereInput[]
+    OR?: JobScalarWhereInput[]
+    NOT?: JobScalarWhereInput | JobScalarWhereInput[]
+    id?: StringFilter<"Job"> | string
+    creatorAddress?: StringFilter<"Job"> | string
+    courierAddress?: StringNullableFilter<"Job"> | string | null
+    status?: EnumJobStatusFilter<"Job"> | $Enums.JobStatus
+    reward?: BigIntFilter<"Job"> | bigint | number
+    metadataHash?: StringNullableFilter<"Job"> | string | null
+    pickupAddress?: StringFilter<"Job"> | string
+    dropoffAddress?: StringFilter<"Job"> | string
+    description?: StringNullableFilter<"Job"> | string | null
+    packageType?: StringNullableFilter<"Job"> | string | null
+    isFragile?: BoolFilter<"Job"> | boolean
+    isTemperatureSensitive?: BoolFilter<"Job"> | boolean
+    createdAt?: DateTimeFilter<"Job"> | Date | string
+    updatedAt?: DateTimeFilter<"Job"> | Date | string
+    eta?: StringFilter<"Job"> | string
+    isDeleted?: BoolFilter<"Job"> | boolean
+  }
+
+  export type JobUpsertWithWhereUniqueWithoutCourierInput = {
+    where: JobWhereUniqueInput
+    update: XOR<JobUpdateWithoutCourierInput, JobUncheckedUpdateWithoutCourierInput>
+    create: XOR<JobCreateWithoutCourierInput, JobUncheckedCreateWithoutCourierInput>
+  }
+
+  export type JobUpdateWithWhereUniqueWithoutCourierInput = {
+    where: JobWhereUniqueInput
+    data: XOR<JobUpdateWithoutCourierInput, JobUncheckedUpdateWithoutCourierInput>
+  }
+
+  export type JobUpdateManyWithWhereWithoutCourierInput = {
+    where: JobScalarWhereInput
+    data: XOR<JobUpdateManyMutationInput, JobUncheckedUpdateManyWithoutCourierInput>
+  }
+
+  export type UserCreateWithoutJobsCreatedInput = {
+    id?: string
+    walletAddress: string
+    username?: string | null
+    role?: $Enums.Role
+    email?: string | null
+    phone?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    lat?: number | null
+    lng?: number | null
+    reputationScore?: number
+    reviewsCount?: number
+    jobsCompleted?: number
+    jobsPosted?: number
+    earningsTotal?: bigint | number
+    distanceTravelledKm?: number
+    kycVerified?: boolean
+    kycDocumentUrl?: string | null
+    kycVerifiedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isBusy?: boolean
+    jobsDelivered?: JobCreateNestedManyWithoutCourierInput
+  }
+
+  export type UserUncheckedCreateWithoutJobsCreatedInput = {
+    id?: string
+    walletAddress: string
+    username?: string | null
+    role?: $Enums.Role
+    email?: string | null
+    phone?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    lat?: number | null
+    lng?: number | null
+    reputationScore?: number
+    reviewsCount?: number
+    jobsCompleted?: number
+    jobsPosted?: number
+    earningsTotal?: bigint | number
+    distanceTravelledKm?: number
+    kycVerified?: boolean
+    kycDocumentUrl?: string | null
+    kycVerifiedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isBusy?: boolean
+    jobsDelivered?: JobUncheckedCreateNestedManyWithoutCourierInput
+  }
+
+  export type UserCreateOrConnectWithoutJobsCreatedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutJobsCreatedInput, UserUncheckedCreateWithoutJobsCreatedInput>
+  }
+
+  export type UserCreateWithoutJobsDeliveredInput = {
+    id?: string
+    walletAddress: string
+    username?: string | null
+    role?: $Enums.Role
+    email?: string | null
+    phone?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    lat?: number | null
+    lng?: number | null
+    reputationScore?: number
+    reviewsCount?: number
+    jobsCompleted?: number
+    jobsPosted?: number
+    earningsTotal?: bigint | number
+    distanceTravelledKm?: number
+    kycVerified?: boolean
+    kycDocumentUrl?: string | null
+    kycVerifiedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isBusy?: boolean
+    jobsCreated?: JobCreateNestedManyWithoutCreatorInput
+  }
+
+  export type UserUncheckedCreateWithoutJobsDeliveredInput = {
+    id?: string
+    walletAddress: string
+    username?: string | null
+    role?: $Enums.Role
+    email?: string | null
+    phone?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    lat?: number | null
+    lng?: number | null
+    reputationScore?: number
+    reviewsCount?: number
+    jobsCompleted?: number
+    jobsPosted?: number
+    earningsTotal?: bigint | number
+    distanceTravelledKm?: number
+    kycVerified?: boolean
+    kycDocumentUrl?: string | null
+    kycVerifiedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isBusy?: boolean
+    jobsCreated?: JobUncheckedCreateNestedManyWithoutCreatorInput
+  }
+
+  export type UserCreateOrConnectWithoutJobsDeliveredInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutJobsDeliveredInput, UserUncheckedCreateWithoutJobsDeliveredInput>
+  }
+
+  export type TrackingUpdateCreateWithoutJobInput = {
+    id?: string
+    lat: number
+    lng: number
+    timestamp?: Date | string
+  }
+
+  export type TrackingUpdateUncheckedCreateWithoutJobInput = {
+    id?: string
+    lat: number
+    lng: number
+    timestamp?: Date | string
+  }
+
+  export type TrackingUpdateCreateOrConnectWithoutJobInput = {
+    where: TrackingUpdateWhereUniqueInput
+    create: XOR<TrackingUpdateCreateWithoutJobInput, TrackingUpdateUncheckedCreateWithoutJobInput>
+  }
+
+  export type TrackingUpdateCreateManyJobInputEnvelope = {
+    data: TrackingUpdateCreateManyJobInput | TrackingUpdateCreateManyJobInput[]
+  }
+
+  export type UserUpsertWithoutJobsCreatedInput = {
+    update: XOR<UserUpdateWithoutJobsCreatedInput, UserUncheckedUpdateWithoutJobsCreatedInput>
+    create: XOR<UserCreateWithoutJobsCreatedInput, UserUncheckedCreateWithoutJobsCreatedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutJobsCreatedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutJobsCreatedInput, UserUncheckedUpdateWithoutJobsCreatedInput>
+  }
+
+  export type UserUpdateWithoutJobsCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    walletAddress?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    reputationScore?: FloatFieldUpdateOperationsInput | number
+    reviewsCount?: IntFieldUpdateOperationsInput | number
+    jobsCompleted?: IntFieldUpdateOperationsInput | number
+    jobsPosted?: IntFieldUpdateOperationsInput | number
+    earningsTotal?: BigIntFieldUpdateOperationsInput | bigint | number
+    distanceTravelledKm?: FloatFieldUpdateOperationsInput | number
+    kycVerified?: BoolFieldUpdateOperationsInput | boolean
+    kycDocumentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    kycVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isBusy?: BoolFieldUpdateOperationsInput | boolean
+    jobsDelivered?: JobUpdateManyWithoutCourierNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutJobsCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    walletAddress?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    reputationScore?: FloatFieldUpdateOperationsInput | number
+    reviewsCount?: IntFieldUpdateOperationsInput | number
+    jobsCompleted?: IntFieldUpdateOperationsInput | number
+    jobsPosted?: IntFieldUpdateOperationsInput | number
+    earningsTotal?: BigIntFieldUpdateOperationsInput | bigint | number
+    distanceTravelledKm?: FloatFieldUpdateOperationsInput | number
+    kycVerified?: BoolFieldUpdateOperationsInput | boolean
+    kycDocumentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    kycVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isBusy?: BoolFieldUpdateOperationsInput | boolean
+    jobsDelivered?: JobUncheckedUpdateManyWithoutCourierNestedInput
+  }
+
+  export type UserUpsertWithoutJobsDeliveredInput = {
+    update: XOR<UserUpdateWithoutJobsDeliveredInput, UserUncheckedUpdateWithoutJobsDeliveredInput>
+    create: XOR<UserCreateWithoutJobsDeliveredInput, UserUncheckedCreateWithoutJobsDeliveredInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutJobsDeliveredInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutJobsDeliveredInput, UserUncheckedUpdateWithoutJobsDeliveredInput>
+  }
+
+  export type UserUpdateWithoutJobsDeliveredInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    walletAddress?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    reputationScore?: FloatFieldUpdateOperationsInput | number
+    reviewsCount?: IntFieldUpdateOperationsInput | number
+    jobsCompleted?: IntFieldUpdateOperationsInput | number
+    jobsPosted?: IntFieldUpdateOperationsInput | number
+    earningsTotal?: BigIntFieldUpdateOperationsInput | bigint | number
+    distanceTravelledKm?: FloatFieldUpdateOperationsInput | number
+    kycVerified?: BoolFieldUpdateOperationsInput | boolean
+    kycDocumentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    kycVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isBusy?: BoolFieldUpdateOperationsInput | boolean
+    jobsCreated?: JobUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutJobsDeliveredInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    walletAddress?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    reputationScore?: FloatFieldUpdateOperationsInput | number
+    reviewsCount?: IntFieldUpdateOperationsInput | number
+    jobsCompleted?: IntFieldUpdateOperationsInput | number
+    jobsPosted?: IntFieldUpdateOperationsInput | number
+    earningsTotal?: BigIntFieldUpdateOperationsInput | bigint | number
+    distanceTravelledKm?: FloatFieldUpdateOperationsInput | number
+    kycVerified?: BoolFieldUpdateOperationsInput | boolean
+    kycDocumentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    kycVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isBusy?: BoolFieldUpdateOperationsInput | boolean
+    jobsCreated?: JobUncheckedUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type TrackingUpdateUpsertWithWhereUniqueWithoutJobInput = {
+    where: TrackingUpdateWhereUniqueInput
+    update: XOR<TrackingUpdateUpdateWithoutJobInput, TrackingUpdateUncheckedUpdateWithoutJobInput>
+    create: XOR<TrackingUpdateCreateWithoutJobInput, TrackingUpdateUncheckedCreateWithoutJobInput>
+  }
+
+  export type TrackingUpdateUpdateWithWhereUniqueWithoutJobInput = {
+    where: TrackingUpdateWhereUniqueInput
+    data: XOR<TrackingUpdateUpdateWithoutJobInput, TrackingUpdateUncheckedUpdateWithoutJobInput>
+  }
+
+  export type TrackingUpdateUpdateManyWithWhereWithoutJobInput = {
+    where: TrackingUpdateScalarWhereInput
+    data: XOR<TrackingUpdateUpdateManyMutationInput, TrackingUpdateUncheckedUpdateManyWithoutJobInput>
+  }
+
+  export type TrackingUpdateScalarWhereInput = {
+    AND?: TrackingUpdateScalarWhereInput | TrackingUpdateScalarWhereInput[]
+    OR?: TrackingUpdateScalarWhereInput[]
+    NOT?: TrackingUpdateScalarWhereInput | TrackingUpdateScalarWhereInput[]
+    id?: StringFilter<"TrackingUpdate"> | string
+    jobId?: StringFilter<"TrackingUpdate"> | string
+    lat?: FloatFilter<"TrackingUpdate"> | number
+    lng?: FloatFilter<"TrackingUpdate"> | number
+    timestamp?: DateTimeFilter<"TrackingUpdate"> | Date | string
+  }
+
+  export type JobCreateWithoutTrackingUpdatesInput = {
+    id?: string
+    status?: $Enums.JobStatus
+    reward: bigint | number
+    metadataHash?: string | null
+    pickupAddress: string
+    dropoffAddress: string
+    description?: string | null
+    packageType?: string | null
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    eta: string
+    isDeleted?: boolean
+    creator: UserCreateNestedOneWithoutJobsCreatedInput
+    courier?: UserCreateNestedOneWithoutJobsDeliveredInput
+  }
+
+  export type JobUncheckedCreateWithoutTrackingUpdatesInput = {
+    id?: string
+    creatorAddress: string
+    courierAddress?: string | null
+    status?: $Enums.JobStatus
+    reward: bigint | number
+    metadataHash?: string | null
+    pickupAddress: string
+    dropoffAddress: string
+    description?: string | null
+    packageType?: string | null
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    eta: string
+    isDeleted?: boolean
+  }
+
+  export type JobCreateOrConnectWithoutTrackingUpdatesInput = {
+    where: JobWhereUniqueInput
+    create: XOR<JobCreateWithoutTrackingUpdatesInput, JobUncheckedCreateWithoutTrackingUpdatesInput>
+  }
+
+  export type JobUpsertWithoutTrackingUpdatesInput = {
+    update: XOR<JobUpdateWithoutTrackingUpdatesInput, JobUncheckedUpdateWithoutTrackingUpdatesInput>
+    create: XOR<JobCreateWithoutTrackingUpdatesInput, JobUncheckedCreateWithoutTrackingUpdatesInput>
+    where?: JobWhereInput
+  }
+
+  export type JobUpdateToOneWithWhereWithoutTrackingUpdatesInput = {
+    where?: JobWhereInput
+    data: XOR<JobUpdateWithoutTrackingUpdatesInput, JobUncheckedUpdateWithoutTrackingUpdatesInput>
+  }
+
+  export type JobUpdateWithoutTrackingUpdatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    reward?: BigIntFieldUpdateOperationsInput | bigint | number
+    metadataHash?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupAddress?: StringFieldUpdateOperationsInput | string
+    dropoffAddress?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    eta?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    creator?: UserUpdateOneRequiredWithoutJobsCreatedNestedInput
+    courier?: UserUpdateOneWithoutJobsDeliveredNestedInput
+  }
+
+  export type JobUncheckedUpdateWithoutTrackingUpdatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    creatorAddress?: StringFieldUpdateOperationsInput | string
+    courierAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    reward?: BigIntFieldUpdateOperationsInput | bigint | number
+    metadataHash?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupAddress?: StringFieldUpdateOperationsInput | string
+    dropoffAddress?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    eta?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type JobCreateManyCreatorInput = {
+    id?: string
+    courierAddress?: string | null
+    status?: $Enums.JobStatus
+    reward: bigint | number
+    metadataHash?: string | null
+    pickupAddress: string
+    dropoffAddress: string
+    description?: string | null
+    packageType?: string | null
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    eta: string
+    isDeleted?: boolean
+  }
+
+  export type JobCreateManyCourierInput = {
+    id?: string
+    creatorAddress: string
+    status?: $Enums.JobStatus
+    reward: bigint | number
+    metadataHash?: string | null
+    pickupAddress: string
+    dropoffAddress: string
+    description?: string | null
+    packageType?: string | null
+    isFragile?: boolean
+    isTemperatureSensitive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    eta: string
+    isDeleted?: boolean
+  }
+
+  export type JobUpdateWithoutCreatorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    reward?: BigIntFieldUpdateOperationsInput | bigint | number
+    metadataHash?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupAddress?: StringFieldUpdateOperationsInput | string
+    dropoffAddress?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    eta?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    courier?: UserUpdateOneWithoutJobsDeliveredNestedInput
+    trackingUpdates?: TrackingUpdateUpdateManyWithoutJobNestedInput
+  }
+
+  export type JobUncheckedUpdateWithoutCreatorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    courierAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    reward?: BigIntFieldUpdateOperationsInput | bigint | number
+    metadataHash?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupAddress?: StringFieldUpdateOperationsInput | string
+    dropoffAddress?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    eta?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    trackingUpdates?: TrackingUpdateUncheckedUpdateManyWithoutJobNestedInput
+  }
+
+  export type JobUncheckedUpdateManyWithoutCreatorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    courierAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    reward?: BigIntFieldUpdateOperationsInput | bigint | number
+    metadataHash?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupAddress?: StringFieldUpdateOperationsInput | string
+    dropoffAddress?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    eta?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type JobUpdateWithoutCourierInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    reward?: BigIntFieldUpdateOperationsInput | bigint | number
+    metadataHash?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupAddress?: StringFieldUpdateOperationsInput | string
+    dropoffAddress?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    eta?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    creator?: UserUpdateOneRequiredWithoutJobsCreatedNestedInput
+    trackingUpdates?: TrackingUpdateUpdateManyWithoutJobNestedInput
+  }
+
+  export type JobUncheckedUpdateWithoutCourierInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    creatorAddress?: StringFieldUpdateOperationsInput | string
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    reward?: BigIntFieldUpdateOperationsInput | bigint | number
+    metadataHash?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupAddress?: StringFieldUpdateOperationsInput | string
+    dropoffAddress?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    eta?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    trackingUpdates?: TrackingUpdateUncheckedUpdateManyWithoutJobNestedInput
+  }
+
+  export type JobUncheckedUpdateManyWithoutCourierInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    creatorAddress?: StringFieldUpdateOperationsInput | string
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    reward?: BigIntFieldUpdateOperationsInput | bigint | number
+    metadataHash?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupAddress?: StringFieldUpdateOperationsInput | string
+    dropoffAddress?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    packageType?: NullableStringFieldUpdateOperationsInput | string | null
+    isFragile?: BoolFieldUpdateOperationsInput | boolean
+    isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    eta?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type TrackingUpdateCreateManyJobInput = {
+    id?: string
+    lat: number
+    lng: number
+    timestamp?: Date | string
+  }
+
+  export type TrackingUpdateUpdateWithoutJobInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lat?: FloatFieldUpdateOperationsInput | number
+    lng?: FloatFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TrackingUpdateUncheckedUpdateWithoutJobInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lat?: FloatFieldUpdateOperationsInput | number
+    lng?: FloatFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TrackingUpdateUncheckedUpdateManyWithoutJobInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lat?: FloatFieldUpdateOperationsInput | number
+    lng?: FloatFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

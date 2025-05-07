@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "./generated/prisma"
@@ -42,9 +36,61 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  jobsCreated   Job[] @relation("JobsCreated")
+  jobsDelivered Job[] @relation("JobsDelivered")
+
+  isBusy Boolean @default(false)
+}
+
+model Job {
+  id             String @id @default(cuid())
+  creator        User   @relation("JobsCreated", fields: [creatorAddress], references: [walletAddress])
+  creatorAddress String
+
+  courier        User?   @relation("JobsDelivered", fields: [courierAddress], references: [walletAddress])
+  courierAddress String?
+
+  status                 JobStatus @default(ACTIVE)
+  reward                 BigInt
+  metadataHash           String?
+  pickupAddress          String
+  dropoffAddress         String
+  description            String?
+  packageType            String?
+  isFragile              Boolean   @default(false)
+  isTemperatureSensitive Boolean   @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  eta       String
+  isDeleted Boolean  @default(false)
+
+  trackingUpdates TrackingUpdate[]
+
+  @@index([creatorAddress])
+  @@index([courierAddress])
+  @@index([status])
+}
+
+model TrackingUpdate {
+  id        String   @id @default(cuid())
+  job       Job      @relation(fields: [jobId], references: [id])
+  jobId     String
+  lat       Float
+  lng       Float
+  timestamp DateTime @default(now())
 }
 
 enum Role {
   COURIER
   NORMAL_USER
+  ADMIN
+}
+
+enum JobStatus {
+  ACTIVE
+  IN_PROGRESS
+  DELIVERED
+  CANCELLED
 }
