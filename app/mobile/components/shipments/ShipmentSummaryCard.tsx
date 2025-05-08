@@ -4,20 +4,25 @@ import { Link, router } from "expo-router"
 import { ColorValue, Text, TouchableOpacity } from "react-native"
 import { View } from "react-native"
 import { Status } from "../ui/Status"
+import { truncateText } from "@/helpers/trunctateText"
+import { JobStatus } from "@/@types/delivery_jobs"
 
 export const ShipmentSummaryCard = ({
   item_name = "",
-  tracking_id = 0,
+  tracking_id = 0 || "",
   from_place = "",
   to_place = "",
-  status = "pending" as
-    | "pending"
-    | "in-transit"
-    | "completed"
-    | "cancelled"
-    | "failed",
+  status = JobStatus.ACTIVE,
   lineHeight = 50,
 }) => {
+  const formatted_status =
+    status === JobStatus.ACTIVE
+      ? "pending"
+      : status === JobStatus.CANCELLED
+      ? "cancelled"
+      : status === JobStatus.DELIVERED
+      ? "completed"
+      : "in-transit"
   return (
     <TouchableOpacity
       activeOpacity={1}
@@ -60,11 +65,11 @@ export const ShipmentSummaryCard = ({
             <View>
               <Text style={{ fontSize: 16, fontWeight: 500 }}>{item_name}</Text>
               <Text style={{ fontSize: 12, fontWeight: 300 }}>
-                Tracking ID: {tracking_id}
+                Tracking ID: {truncateText(tracking_id, 8)}
               </Text>
             </View>
           </View>
-          <Status status={status} />
+          <Status status={formatted_status} />
         </View>
 
         <View style={{ flexDirection: "row", gap: 0 }}>
@@ -79,18 +84,20 @@ export const ShipmentSummaryCard = ({
                 borderColor: "#5465FF",
               }}
             />
-            <Ionicons name="location" size={24} color={appColors.primary} />
+            <Ionicons name="location" size={24} color={appColors.success} />
           </View>
-          <View style={{ justifyContent: "space-between" }}>
+          <View style={{ justifyContent: "space-between", width: "100%" }}>
             <View>
               <Text style={{ fontSize: 12, fontWeight: 300 }}>From:</Text>
-              <Text style={{ fontSize: 14, fontWeight: 500 }}>
+              <Text style={{ fontSize: 13, width: "75%", fontWeight: 500 }}>
                 {from_place}
               </Text>
             </View>
             <View>
               <Text style={{ fontSize: 12, fontWeight: 300 }}>To:</Text>
-              <Text style={{ fontSize: 14, fontWeight: 500 }}>{to_place}</Text>
+              <Text style={{ fontSize: 13, width: "75%", fontWeight: 500 }}>
+                {to_place}
+              </Text>
             </View>
           </View>
         </View>

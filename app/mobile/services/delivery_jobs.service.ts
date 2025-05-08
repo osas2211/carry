@@ -3,6 +3,11 @@ import { api } from "@/api/api.instance"
 import { API_URL } from "@/constants/urls"
 
 export const createDeliverJob = async (formData: CreateDeliveryJobDto) => {
-  const response = await api.post(`${API_URL}/jobs`, formData)
+  const response = await api.post(`/jobs`, formData)
   return response.data as DeliveryJobI
+}
+
+export const getUserShipments = async () => {
+  const response = await api.get(`/jobs/user-shipments`)
+  return response.data as { data: DeliveryJobI[] }
 }

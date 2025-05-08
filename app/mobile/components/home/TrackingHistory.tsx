@@ -1,20 +1,13 @@
-import { View, Text, TouchableOpacity } from "react-native"
+import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native"
 import React from "react"
 import { Link, router } from "expo-router"
 import { appColors } from "@/constants/Colors"
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons"
+import { useGetUserShipments } from "@/hooks/api-hooks/useDeliveryJobs"
 
 export const TrackingHistory = () => {
-  const shipments = [
-    {
-      tracking_id: 6724528398,
-      item_name: "Dell Precision 15 5570",
-    },
-    {
-      tracking_id: 6724528398,
-      item_name: "Macbook Pro M1 2023",
-    },
-  ]
+  const { data, isLoading } = useGetUserShipments()
+  const shipments = data?.data
   return (
     <View style={{ gap: 12 }}>
       <View
@@ -30,22 +23,28 @@ export const TrackingHistory = () => {
         </Link>
       </View>
 
-      <View style={{ gap: 12 }}>
-        {shipments.map((shipment, index) => {
-          return (
-            <TrackingItemCard
-              key={index}
-              item_name={shipment.item_name}
-              tracking_id={shipment.tracking_id}
-            />
-          )
-        })}
-      </View>
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <View style={{ gap: 12 }}>
+          {shipments?.slice(0, 2)?.map((shipment, index) => {
+            return (
+              <TrackingItemCard
+                key={index}
+                item_name={
+                  shipment.packageType || "Package slated for delivery"
+                }
+                tracking_id={shipment.id}
+              />
+            )
+          })}
+        </View>
+      )}
     </View>
   )
 }
 
-const TrackingItemCard = ({ item_name = "", tracking_id = 0 }) => {
+const TrackingItemCard = ({ item_name = "", tracking_id = "" }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.8}

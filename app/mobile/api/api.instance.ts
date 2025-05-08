@@ -21,7 +21,7 @@ api.interceptors.request.use(
     const token = getItem(SERVER_AUTH_TOKEN)
 
 
-    if (signature) {
+    if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
     if (publicKey) {

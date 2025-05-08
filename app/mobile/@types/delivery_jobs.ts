@@ -37,8 +37,8 @@ export interface DeliveryJobI {
 }
 
 export enum JobStatus {
-  ACTIVE,
-  IN_PROGRESS,
-  DELIVERED,
-  CANCELLED,
+  ACTIVE = "ACTIVE",
+  IN_PROGRESS = "IN_PROGRESS",
+  DELIVERED = "DELIVERED",
+  CANCELLED = "CANCELLED",
 }

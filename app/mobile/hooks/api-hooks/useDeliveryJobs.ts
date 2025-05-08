@@ -1,6 +1,6 @@
 import { CreateDeliveryJobDto } from "@/@types/delivery_jobs"
-import { createDeliverJob } from "@/services/delivery_jobs.service"
-import { useMutation } from "@tanstack/react-query"
+import { createDeliverJob, getUserShipments } from "@/services/delivery_jobs.service"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import {
   ALERT_TYPE,
   Dialog,
@@ -29,5 +29,12 @@ export const useCreateDeliveryJob = () => {
       })
 
     }
+  })
+}
+
+export const useGetUserShipments = () => {
+  return useQuery({
+    queryKey: ["all-shipments"],
+    queryFn: () => getUserShipments()
   })
 }
