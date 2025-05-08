@@ -14,6 +14,7 @@ export const ShipmentSummaryCard = ({
   to_place = "",
   status = JobStatus.ACTIVE,
   lineHeight = 50,
+  withBlueBg = false,
 }) => {
   const formatted_status =
     status === JobStatus.ACTIVE
@@ -27,10 +28,11 @@ export const ShipmentSummaryCard = ({
     <TouchableOpacity
       activeOpacity={1}
       onPress={() => router.push(`/shipment/${tracking_id}`)}
+      style={{ position: "relative" }}
     >
       <View
         style={{
-          backgroundColor: appColors.background,
+          backgroundColor: withBlueBg ? appColors.blue : appColors.background,
           // elevation: 1,
           shadowColor: "#444447",
           padding: 16,
@@ -51,7 +53,7 @@ export const ShipmentSummaryCard = ({
                 height: 40,
                 width: 40,
                 borderRadius: 40,
-                backgroundColor: "#C6C5B9",
+                backgroundColor: withBlueBg ? "#fff" : "#C6C5B9",
                 justifyContent: "center",
                 alignItems: "center",
               }}
@@ -63,8 +65,22 @@ export const ShipmentSummaryCard = ({
               />
             </View>
             <View>
-              <Text style={{ fontSize: 16, fontWeight: 500 }}>{item_name}</Text>
-              <Text style={{ fontSize: 12, fontWeight: 300 }}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: 500,
+                  color: withBlueBg ? appColors.background : appColors.text,
+                }}
+              >
+                {item_name}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 12,
+                  fontWeight: 300,
+                  color: withBlueBg ? appColors.background : appColors.text,
+                }}
+              >
                 Tracking ID: {truncateText(tracking_id, 8)}
               </Text>
             </View>
@@ -81,21 +97,51 @@ export const ShipmentSummaryCard = ({
                 width: 1,
                 borderRightWidth: 1,
                 borderStyle: "dashed",
-                borderColor: "#5465FF",
+                borderColor: withBlueBg ? "#fff" : "#5465FF",
               }}
             />
             <Ionicons name="location" size={24} color={appColors.success} />
           </View>
           <View style={{ justifyContent: "space-between", width: "100%" }}>
             <View>
-              <Text style={{ fontSize: 12, fontWeight: 300 }}>From:</Text>
-              <Text style={{ fontSize: 13, width: "75%", fontWeight: 500 }}>
+              <Text
+                style={{
+                  fontSize: 12,
+                  fontWeight: 300,
+                  color: withBlueBg ? appColors.background : appColors.text,
+                }}
+              >
+                From:
+              </Text>
+              <Text
+                style={{
+                  fontSize: 13,
+                  width: "75%",
+                  fontWeight: 500,
+                  color: withBlueBg ? appColors.background : appColors.text,
+                }}
+              >
                 {from_place}
               </Text>
             </View>
             <View>
-              <Text style={{ fontSize: 12, fontWeight: 300 }}>To:</Text>
-              <Text style={{ fontSize: 13, width: "75%", fontWeight: 500 }}>
+              <Text
+                style={{
+                  fontSize: 12,
+                  fontWeight: 300,
+                  color: withBlueBg ? appColors.background : appColors.text,
+                }}
+              >
+                To:
+              </Text>
+              <Text
+                style={{
+                  fontSize: 13,
+                  width: "75%",
+                  fontWeight: 500,
+                  color: withBlueBg ? appColors.background : appColors.text,
+                }}
+              >
                 {to_place}
               </Text>
             </View>
@@ -106,11 +152,26 @@ export const ShipmentSummaryCard = ({
             textDecorationLine: "underline",
             fontSize: 12,
             paddingLeft: 10,
+            color: withBlueBg ? appColors.background : appColors.text,
           }}
         >
           View details
         </Text>
       </View>
+      {withBlueBg && (
+        <View
+          style={{
+            position: "absolute",
+            top: 6,
+            left: 6,
+            width: "100%",
+            height: "100%",
+            backgroundColor: appColors.text,
+            borderRadius: 10,
+            zIndex: -1,
+          }}
+        ></View>
+      )}
     </TouchableOpacity>
   )
 }

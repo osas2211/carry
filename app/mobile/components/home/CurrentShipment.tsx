@@ -36,6 +36,7 @@ export const CurrentShipment = () => {
                 from_place={shipment.pickupAddress}
                 to_place={shipment.dropoffAddress}
                 status={shipment.status}
+                withBlueBg={true}
               />
             )
           })}
