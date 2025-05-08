@@ -4,21 +4,25 @@ import { Link, router } from "expo-router"
 import { ColorValue, Text, TouchableOpacity } from "react-native"
 import { View } from "react-native"
 import { Status } from "../ui/Status"
+import { JobStatus } from "@/@types/delivery_jobs"
 
 export const CourierShipmentSummaryCard = ({
   item_name = "",
-  tracking_id = 0,
+  tracking_id = 0 || "",
   from_place = "",
   to_place = "",
-  status = "rejected" as
-    | "rejected"
-    | "accepted"
-    | "completed"
-    | "cancelled"
-    | "assigned",
+  status = JobStatus.ASSIGNED,
 
   lineHeight = 50,
 }) => {
+  const formatted_status =
+    status === JobStatus.ASSIGNED
+      ? "assigned"
+      : status === JobStatus.CANCELLED
+      ? "cancelled"
+      : status === JobStatus.DELIVERED
+      ? "completed"
+      : "in-transit"
   return (
     <TouchableOpacity
       activeOpacity={1}
@@ -67,7 +71,7 @@ export const CourierShipmentSummaryCard = ({
               </Text>
             </View>
           </View>
-          <Status status={status} />
+          <Status status={formatted_status} />
         </View>
 
         <View style={{ flexDirection: "row", gap: 0 }}>

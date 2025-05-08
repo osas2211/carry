@@ -10,3 +10,8 @@ export const generateUserToken = async (pubKey: string) => {
   const response = await api.post(`/users/generate-server-token`, { pubKey })
   return response.data as { token: string }
 }
+
+export const getCouriers = async () => {
+  const response = await api.get(`/users/couriers`)
+  return response.data.couriers as UserProfile[]
+}

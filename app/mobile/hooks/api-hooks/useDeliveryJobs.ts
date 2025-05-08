@@ -1,5 +1,5 @@
 import { CreateDeliveryJobDto } from "@/@types/delivery_jobs"
-import { createDeliverJob, getUserShipments } from "@/services/delivery_jobs.service"
+import { createDeliverJob, getSingleShipment, getUserShipments } from "@/services/delivery_jobs.service"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import {
   ALERT_TYPE,
@@ -36,5 +36,12 @@ export const useGetUserShipments = () => {
   return useQuery({
     queryKey: ["all-shipments"],
     queryFn: () => getUserShipments()
+  })
+}
+
+export const useGetSingleShipment = (shipment_id: string) => {
+  return useQuery({
+    queryKey: ["shipment", shipment_id],
+    queryFn: () => getSingleShipment(shipment_id)
   })
 }
