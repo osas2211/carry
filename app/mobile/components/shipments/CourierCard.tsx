@@ -4,41 +4,77 @@ import { UserProfile } from "@/@types/user"
 import { Avatar } from "../ui/Avatar"
 import { Button } from "../ui/Button"
 import { appColors } from "@/constants/Colors"
+import { DeliveryJobI } from "@/@types/delivery_jobs"
+import {
+  useAssignToCourier,
+  useGetSingleShipment,
+} from "@/hooks/api-hooks/useDeliveryJobs"
+import { useLocalSearchParams } from "expo-router"
+import {
+  ALERT_TYPE,
+  AlertNotificationRoot,
+  Dialog,
+} from "react-native-alert-notification"
 
-const CourierCard = ({ courier }: { courier: UserProfile }) => {
+const CourierCard = ({
+  courier,
+  shipment,
+  handleCloseModalPress,
+}: {
+  courier: UserProfile
+  shipment: DeliveryJobI
+  handleCloseModalPress: () => void
+}) => {
+  const { tracking_id } = useLocalSearchParams()
+  const { refetch } = useGetSingleShipment(shipment.id as string)
+  const mutation = useAssignToCourier()
+  const handleAssign = async () => {
+    await mutation.mutateAsync({
+      id: shipment.id,
+      courierAddress: courier.walletAddress,
+    })
+    await refetch()
+    setTimeout(() => {
+      handleCloseModalPress()
+    }, 3000)
+  }
   return (
-    <View style={{ gap: 16 }}>
-      <View style={styles.infoContainer}>
-        <View
-          style={{
-            flexDirection: "row",
-            gap: 7,
-            alignItems: "center",
-            width: "55%",
-          }}
-        >
-          <Avatar src={courier.avatarUrl || ""} size={50} />
+    <AlertNotificationRoot>
+      <View style={{ gap: 16 }}>
+        <View style={styles.infoContainer}>
+          <View
+            style={{
+              flexDirection: "row",
+              gap: 7,
+              alignItems: "center",
+              width: "55%",
+            }}
+          >
+            <Avatar src={courier.avatarUrl || ""} size={50} />
+            <View>
+              <Text style={{ fontWeight: 500 }}>{courier?.username}</Text>
+              <Text style={{ fontWeight: 300, fontSize: 12 }}>5 Min away</Text>
+            </View>
+          </View>
           <View>
-            <Text style={{ fontWeight: 500 }}>{courier?.username}</Text>
-            <Text style={{ fontWeight: 300, fontSize: 12 }}>5 Min away</Text>
+            <Text style={{ fontWeight: 500, textAlign: "right" }}>
+              #{courier?.reputation?.score} Rank /
+              <Text style={{ fontWeight: 300, fontSize: 12 }}> by area</Text>
+            </Text>
+            <Text style={{ fontWeight: 300, fontSize: 12, textAlign: "right" }}>
+              {courier?.jobsCompleted} completed
+            </Text>
           </View>
         </View>
-        <View>
-          <Text style={{ fontWeight: 500, textAlign: "right" }}>
-            #{courier?.reputation?.score} Rank /
-            <Text style={{ fontWeight: 300, fontSize: 12 }}> by area</Text>
-          </Text>
-          <Text style={{ fontWeight: 300, fontSize: 12, textAlign: "right" }}>
-            {courier?.jobsCompleted} completed
-          </Text>
-        </View>
+        <Button
+          title="Assign Courier"
+          bgColor={appColors.primary}
+          textColor={appColors.text}
+          isLoading={mutation.isPending}
+          onPress={handleAssign}
+        />
       </View>
-      <Button
-        title="Assign Courier"
-        bgColor={appColors.primary}
-        textColor={appColors.text}
-      />
-    </View>
+    </AlertNotificationRoot>
   )
 }
 

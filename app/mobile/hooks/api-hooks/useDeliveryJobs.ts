@@ -1,5 +1,5 @@
 import { CreateDeliveryJobDto } from "@/@types/delivery_jobs"
-import { createDeliverJob, getSingleShipment, getUserShipments } from "@/services/delivery_jobs.service"
+import { assignShipmentToCourier, createDeliverJob, getSingleShipment, getUserShipments } from "@/services/delivery_jobs.service"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import {
   ALERT_TYPE,
@@ -24,6 +24,33 @@ export const useCreateDeliveryJob = () => {
         type: ALERT_TYPE.SUCCESS,
         title: 'Success',
         textBody: 'Successfully created shipment',
+        button: 'close',
+
+      })
+
+    }
+  })
+}
+
+export const useAssignToCourier = () => {
+  const hey = async (id: string, courier: string) => { }
+  return useMutation({
+    mutationFn: ({ id, courierAddress }: { id: string, courierAddress: string }) => {
+      return assignShipmentToCourier(id, courierAddress)
+      // return hey(id, courierAddress)
+    },
+    onError: (error) => {
+      Dialog.show({
+        type: ALERT_TYPE.DANGER,
+        title: 'Error',
+        textBody: error.message,
+        button: 'close',
+      })
+    }, onSuccess: () => {
+      Dialog.show({
+        type: ALERT_TYPE.SUCCESS,
+        title: 'Success',
+        textBody: 'Successfully assigned shipment to courier',
         button: 'close',
 
       })

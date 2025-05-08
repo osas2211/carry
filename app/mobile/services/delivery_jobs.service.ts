@@ -4,7 +4,12 @@ import { API_URL } from "@/constants/urls"
 
 export const createDeliverJob = async (formData: CreateDeliveryJobDto) => {
   const response = await api.post(`/jobs`, formData)
-  return response.data as DeliveryJobI
+  return response.data.deliveryJob as DeliveryJobI
+}
+
+export const assignShipmentToCourier = async (tracking_id: string, courierAddress: string) => {
+  const response = await api.patch(`/jobs/${tracking_id}/assign`, { courierAddress })
+  return response.data.data as DeliveryJobI
 }
 
 export const getUserShipments = async () => {

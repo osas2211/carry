@@ -20,6 +20,7 @@ import shipments from "@/app/(tabs)/shipments"
 import { DeliveryJobI } from "@/@types/delivery_jobs"
 import { useGetCouriers } from "@/hooks/api-hooks/useUser"
 import CourierCard from "./CourierCard"
+import { ALERT_TYPE, Dialog } from "react-native-alert-notification"
 
 const AssignToCourier = ({ shipment }: { shipment: DeliveryJobI }) => {
   const pathname = usePathname()
@@ -33,15 +34,20 @@ const AssignToCourier = ({ shipment }: { shipment: DeliveryJobI }) => {
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present()
   }, [])
+  const handleCloseModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.close()
+  }, [])
   const handleSheetChanges = useCallback((index: number) => {
     console.log("handleSheetChanges", index)
   }, [])
 
   useEffect(() => {
-    if (shipment?.status === "ACTIVE") {
+    if (!shipment?.courierAddress) {
       handlePresentModalPress()
+    } else {
+      // handleCloseModalPress()
     }
-  }, [shipment, pathname])
+  }, [shipment.courierAddress, pathname])
   return (
     <BottomSheetModalProvider>
       <BottomSheetModal
@@ -73,7 +79,14 @@ const AssignToCourier = ({ shipment }: { shipment: DeliveryJobI }) => {
             <ScrollView showsVerticalScrollIndicator={false}>
               <View style={{ gap: 20 }}>
                 {couriers?.map((courier, index) => {
-                  return <CourierCard key={index} courier={courier} />
+                  return (
+                    <CourierCard
+                      key={index}
+                      courier={courier}
+                      shipment={shipment}
+                      handleCloseModalPress={handleCloseModalPress}
+                    />
+                  )
                 })}
               </View>
             </ScrollView>
