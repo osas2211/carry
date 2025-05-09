@@ -8,19 +8,26 @@ import { Map } from "../ui/Map"
 import { Button } from "../ui/Button"
 import Entypo from "@expo/vector-icons/Entypo"
 import { router } from "expo-router"
+import { JobStatus } from "@/@types/delivery_jobs"
+import { truncateText } from "@/helpers/trunctateText"
 
 export const ShipmentMetaInfo = ({
   item_name = "",
-  tracking_id = 0,
+  tracking_id = 0 || "",
   from_place = "",
   to_place = "",
-  status = "pending" as
-    | "pending"
-    | "in-transit"
-    | "completed"
-    | "cancelled"
-    | "failed",
+  status = JobStatus.ACTIVE,
 }) => {
+  const formatted_status =
+    status === JobStatus.ACTIVE
+      ? "pending"
+      : status === JobStatus.ASSIGNED
+      ? "assigned"
+      : status === JobStatus.CANCELLED
+      ? "cancelled"
+      : status === JobStatus.DELIVERED
+      ? "completed"
+      : "in-transit"
   return (
     <View>
       <View
@@ -58,11 +65,11 @@ export const ShipmentMetaInfo = ({
             <View>
               <Text style={{ fontSize: 16, fontWeight: 500 }}>{item_name}</Text>
               <Text style={{ fontSize: 12, fontWeight: 300 }}>
-                Tracking ID: {tracking_id}
+                Tracking ID: {truncateText(tracking_id, 7)}
               </Text>
             </View>
           </View>
-          <Status status={status} />
+          <Status status={formatted_status} />
         </View>
 
         <View style={{ position: "relative" }}>

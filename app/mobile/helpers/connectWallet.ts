@@ -17,13 +17,16 @@ import { generateUserToken } from '@/services/user.service'
 const authorizationResultCache = createDefaultAuthorizationResultCache()
 const addressSelector = createDefaultAddressSelector()
 
+// @ts-ignore 
 export const wallet = new SolanaMobileWalletAdapter({
   appIdentity: {
     name: 'SpeedFi',
-    uri: "https://www.zhap.org/",
+    // uri: "https://www.zhap.org/", 
   },
   authorizationResultCache,
   cluster: "testnet",
+  // chain: "testnet",
+
   addressSelector,
   onWalletNotFound: async () => {
     console.error('Wallet not found')
@@ -31,7 +34,6 @@ export const wallet = new SolanaMobileWalletAdapter({
   },
 })
 
-const message = "Sign in to SpeedFi with your wallet"
 
 export const connectWallet = async () => {
   await wallet.disconnect()
@@ -39,6 +41,7 @@ export const connectWallet = async () => {
   const authData = await wallet.performAuthorization({
     statement: "Sign in to SpeedFi with your wallet",
   })
+  // console.log(authData)
 
   const publicKey = wallet.publicKey?.toString() || ""
   const authToken = authData.auth_token
@@ -53,7 +56,6 @@ export const connectWallet = async () => {
   saveValue(BASE_58_PUBLIC_KEY, wallet.publicKey?.toBase58() || "")
   saveValue(AUTH_TOKEN, authToken)
   saveValue(SERVER_AUTH_TOKEN, serverToken.token)
-
 
   return { pubKey: publicKey, token: authToken }
 }

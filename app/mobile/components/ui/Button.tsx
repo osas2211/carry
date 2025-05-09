@@ -36,10 +36,11 @@ export const Button = ({
   icon?: ReactNode
   disabled?: boolean
   isLoading?: boolean
+  withBlackBehind?: boolean
 }) => {
   return (
     <TouchableOpacity
-      activeOpacity={0.9}
+      activeOpacity={0.7}
       onPress={!disabled ? onPress : () => {}}
       style={{
         backgroundColor:
@@ -54,6 +55,8 @@ export const Button = ({
         flexDirection: "row",
         gap: 5,
         opacity: isLoading || disabled ? 0.6 : 1,
+        position: "relative",
+        zIndex: 1,
       }}
     >
       {icon}
@@ -73,6 +76,18 @@ export const Button = ({
           {title}
         </Text>
       )}
+      {/* <View
+        style={{
+          backgroundColor: appColors.text,
+          position: "absolute",
+          top: 5,
+          left: 5,
+          // zIndex: -1,
+          width: "100%",
+          height: "100%",
+          borderRadius: borderRadius || 10,
+        }}
+      ></View> */}
     </TouchableOpacity>
   )
 }

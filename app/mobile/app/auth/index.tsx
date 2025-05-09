@@ -31,11 +31,11 @@ export default function Onboarding() {
       const pubKey = await getValue(USER_PUBLIC_KEY)
       const data: UserProfile = (await api.get(`/users/${pubKey}`)).data
       saveValue(USER_ROLE, data.role)
-
+      // console.log("COnnected")
       await saveValue(HAS_ONBOARDED, "true")
       router.replace("/")
     } catch (error: any) {
-      console.log(error?.status)
+      console.log(error?.message)
       if (error?.status == 404) {
         router.push("/onboarding")
       }

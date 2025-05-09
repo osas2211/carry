@@ -13,8 +13,10 @@ export default function index() {
         edges={["top"]}
         style={{ flex: 1, backgroundColor: "white" }}
       >
-        <View style={{ paddingInline: 16, paddingBottom: 50, gap: 15 }}>
-          <ScreenHeader title="Shipment Details" />
+        <View style={{ gap: 15 }}>
+          <View style={{ paddingInline: 16 }}>
+            <ScreenHeader title="Shipment Details" />
+          </View>
           <ScrollView showsVerticalScrollIndicator={false}>
             <ShipmentDetails />
           </ScrollView>

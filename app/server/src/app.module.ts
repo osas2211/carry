@@ -9,6 +9,7 @@ import { DeliveryJobsService } from './delivery_jobs/delivery_jobs.service'
 import { WalletAuthMiddleware } from './middleware/wallet-auth'
 import { JwtModule, JwtService } from '@nestjs/jwt'
 import { ConfigModule } from '@nestjs/config'
+import { DeliveryJobsGateway } from './delivery_jobs/delivery_jobs.gateway';
 
 
 
@@ -22,12 +23,12 @@ import { ConfigModule } from '@nestjs/config'
     }),
   ],
   controllers: [AppController, UsersController, DeliveryJobsController,],
-  providers: [AppService, UsersService, PrismaService, DeliveryJobsService],
+  providers: [AppService, UsersService, PrismaService, DeliveryJobsService, DeliveryJobsGateway],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(WalletAuthMiddleware)
-      .forRoutes('users/profile', "jobs") // Apply it to specific routes
+      .forRoutes('users/profile', "jobs", "jobs/user-shipments") // Apply it to specific routes
   }
 }

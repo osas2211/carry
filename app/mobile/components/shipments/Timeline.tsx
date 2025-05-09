@@ -5,26 +5,18 @@ import { appColors } from "@/constants/Colors"
 import moment from "moment"
 import { Button } from "../ui/Button"
 import { ContactDeliveryPerson } from "./ContactDeliveryPerson"
+import { DeliveryJobI } from "@/@types/delivery_jobs"
 
-export const Timeline = ({
-  from_place = "",
-  to_place = "",
-  status = "pending" as
-    | "pending"
-    | "in-transit"
-    | "completed"
-    | "cancelled"
-    | "failed",
-}) => {
+export const Timeline = ({ shipment }: { shipment: DeliveryJobI }) => {
   const [step, setStep] = useState(1)
   useEffect(() => {
-    if (status === "in-transit") {
+    if (shipment.status === "ACTIVE") {
       setStep(2)
     }
-    if (status === "completed") {
+    if (shipment.status === "DELIVERED") {
       setStep(3)
     }
-  }, [status])
+  }, [shipment])
   return (
     <View>
       <View
@@ -74,11 +66,15 @@ export const Timeline = ({
             color={step === 3 ? appColors.primary : "#CCCCCC"}
           />
         </View>
-        <View style={{ justifyContent: "space-between" }}>
-          <TimelineDetails status="From:" time="" description={from_place} />
+        <View style={{ justifyContent: "space-between", width: "94%" }}>
+          <TimelineDetails
+            status="From:"
+            time={shipment.createdAt}
+            description={shipment?.pickupAddress}
+          />
           <TimelineDetails
             status="Pending"
-            time=""
+            time={shipment.createdAt}
             description={"Waiting for pickup"}
           />
           <TimelineDetails
@@ -86,7 +82,11 @@ export const Timeline = ({
             time=""
             description={"Package has been picked up"}
           />
-          <TimelineDetails status="Delivered" time="" description={to_place} />
+          <TimelineDetails
+            status="Delivered"
+            time=""
+            description={shipment?.dropoffAddress}
+          />
         </View>
       </View>
       {/* <Button title="Track Live" /> */}
@@ -117,12 +117,14 @@ const TimelineDetails = ({ time = "", description = "", status = "" }) => {
       >
         <Text style={{ fontSize: 12, fontWeight: 300 }}>{status}</Text>
         <Text style={{ fontSize: 12, fontWeight: 300 }}>
-          {moment().format("LL")}
+          {moment(time || new Date().toISOString()).format("LL")}
         </Text>
       </View>
-      <Text style={{ fontSize: 14, fontWeight: 500 }}>{description}</Text>
+      <Text style={{ fontSize: 13, fontWeight: 500, width: "95%" }}>
+        {description}
+      </Text>
       <Text style={{ fontSize: 12, fontWeight: 300 }}>
-        {moment().format("LT")}
+        {moment(time || new Date().toISOString()).format("LT")}
       </Text>
     </View>
   )

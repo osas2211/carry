@@ -8,8 +8,8 @@ const NormalUserHome = () => {
   return (
     <>
       <TrackOrder />
-      <TrackingHistory />
       <CurrentShipment />
+      <TrackingHistory />
     </>
   )
 }

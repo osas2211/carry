@@ -30,15 +30,16 @@ export interface DeliveryJobI {
   packageType: string | null
   isFragile: boolean
   isTemperatureSensitive: boolean
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
   eta: string
   isDeleted: boolean
 }
 
 export enum JobStatus {
-  ACTIVE,
-  IN_PROGRESS,
-  DELIVERED,
-  CANCELLED,
+  ACTIVE = "ACTIVE",
+  IN_PROGRESS = "IN_PROGRESS",
+  DELIVERED = "DELIVERED",
+  CANCELLED = "CANCELLED",
+  ASSIGNED = "ASSIGNED",
 }
