@@ -32,7 +32,7 @@ export const CourierShipments = () => {
             <Empty />
           ) : (
             <View style={{ gap: 12 }}>
-              {shipments?.slice(0, 1).map((shipment, index) => {
+              {shipments?.map((shipment, index) => {
                 return (
                   <CourierShipmentSummaryCard
                     key={index}
