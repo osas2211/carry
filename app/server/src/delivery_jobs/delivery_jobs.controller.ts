@@ -41,12 +41,18 @@ export class DeliveryJobsController {
     return this.jobService.assignToCourier(id, body.courierAddress)
   }
 
-  @Patch(":id")
+  @UseGuards(WalletAuthMiddleware)
+  @Patch(":id/pickup")
+  async pickup_package(@Param("id") id: string) {
+    return this.jobService.pickup_package(id)
+  }
+
+  @Patch(":id/confirm")
   async confirmDelivery(@Param("id") id: string) {
     return this.jobService.confirmDelivery(id)
   }
 
-  @Patch(":id")
+  @Patch(":id/cancel")
   async cancelDelivery(@Param("id") id: string) {
     return this.jobService.cancelDelivery(id)
   }

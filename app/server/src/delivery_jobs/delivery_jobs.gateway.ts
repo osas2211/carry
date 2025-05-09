@@ -1,5 +1,5 @@
 import { MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets'
-import { JobStatus } from '@prisma/client'
+import { Job, JobStatus } from '@prisma/client'
 import { Server, Socket } from 'socket.io'
 
 @WebSocketGateway({ cors: true })
@@ -15,6 +15,12 @@ export class DeliveryJobsGateway {
   handleJobStatus(@MessageBody() data: { shipment_id: string, status: JobStatus }) {
     console.log(data)
     this.server.emit(`shipment-status-${data?.shipment_id}`, data)
+  }
+
+  @SubscribeMessage('events')
+  handleAssignCourier(@MessageBody() data: { courierAddress: string, shipment: Job }) {
+    console.log(data)
+    this.server.emit(`courier-${data?.courierAddress}`, data)
   }
 
 

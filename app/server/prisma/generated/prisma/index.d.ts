@@ -44,7 +44,9 @@ export type Role = (typeof Role)[keyof typeof Role]
 
 export const JobStatus: {
   ACTIVE: 'ACTIVE',
+  ASSIGNED: 'ASSIGNED',
   IN_PROGRESS: 'IN_PROGRESS',
+  PICKED_UP: 'PICKED_UP',
   DELIVERED: 'DELIVERED',
   CANCELLED: 'CANCELLED'
 };

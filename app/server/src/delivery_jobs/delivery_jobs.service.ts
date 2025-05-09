@@ -27,12 +27,12 @@ export class DeliveryJobsService {
   async getUserDeliveryJobs(walletAddress: string) {
     const user = await this.prisma.user.findUnique({ where: { walletAddress } })
     const user_role = user?.role
-    const jobs = await this.prisma.job.findMany({ where: user_role === "NORMAL_USER" ? { creatorAddress: walletAddress } : { courierAddress: walletAddress }, orderBy: { createdAt: "desc" } })
+    const jobs = await this.prisma.job.findMany({ where: user_role === "NORMAL_USER" ? { creatorAddress: walletAddress } : { courierAddress: walletAddress }, orderBy: { updatedAt: "asc" } })
     return { data: jobs }
   }
 
   async getAllDeliveryJobs(walletAddress?: string) {
-    const jobs = await this.prisma.job.findMany()
+    const jobs = await this.prisma.job.findMany({ orderBy: { createdAt: "asc" } })
     return { data: jobs }
   }
 
@@ -57,14 +57,15 @@ export class DeliveryJobsService {
       throw new NotAcceptableException("Delivery job is already taken or not available to be taken.")
     }
     const updatedJob = await this.prisma.job.update({ where: { id }, data: { courierAddress }, include: { courier: true, creator: true } })
+    this.events.handleAssignCourier({ courierAddress, shipment: updatedJob })
     return { data: updatedJob, success: true, message: "Delivery job successfully accepted" }
   }
 
   async acceptDeliveryJob(id: string, courierAddress: string) {
     const courier = await this.prisma.user.findUnique({ where: { walletAddress: courierAddress } })
-    // if (courier?.isBusy === true) {
-    //   throw new NotAcceptableException({ message: "Courier can not go on multiple jobs" })
-    // }
+    if (courier?.isBusy === true) {
+      throw new NotAcceptableException({ message: "Courier can not go on multiple jobs" })
+    }
     const job = await this.prisma.job.findUnique({ where: { id } })
     if (!job) {
       throw new NotFoundException("Delivery Job not found")
@@ -78,7 +79,7 @@ export class DeliveryJobsService {
     return { data: updatedJob, success: true, message: "Delivery job successfully accepted" }
   }
 
-  async confirmDelivery(id: string) {
+  async pickup_package(id: string) {
     const job = await this.prisma.job.findUnique({ where: { id } })
     if (!job?.courierAddress) {
       throw new BadRequestException("No courier assigned to this delivery job")
@@ -89,8 +90,25 @@ export class DeliveryJobsService {
     if (job?.status !== "IN_PROGRESS") {
       throw new NotAcceptableException("Delivery job not slated for delivery.")
     }
+    const updatedJob = await this.prisma.job.update({ where: { id }, data: { status: "PICKED_UP" }, include: { courier: true, creator: true } })
+    this.events.handleJobStatus({ shipment_id: updatedJob.id, status: updatedJob.status })
+    return { data: updatedJob, success: true, message: "Package has been successfully delivered" }
+  }
+
+  async confirmDelivery(id: string) {
+    const job = await this.prisma.job.findUnique({ where: { id } })
+    if (!job?.courierAddress) {
+      throw new BadRequestException("No courier assigned to this delivery job")
+    }
+    if (!job) {
+      throw new NotFoundException("Delivery Job not found")
+    }
+    if (job?.status !== "PICKED_UP") {
+      throw new NotAcceptableException("Package hasn't been picked up")
+    }
     const updatedJob = await this.prisma.job.update({ where: { id }, data: { status: "DELIVERED" }, include: { courier: true, creator: true } })
     await this.prisma.user.update({ where: { walletAddress: job.courierAddress }, data: { isBusy: false } })
+    this.events.handleJobStatus({ shipment_id: updatedJob.id, status: updatedJob.status })
     return { data: updatedJob, success: true, message: "Package has been successfully delivered" }
   }
 
@@ -103,6 +121,7 @@ export class DeliveryJobsService {
       throw new NotAcceptableException("Delivery job cannot be cancelled at this point.")
     }
     const updatedJob = await this.prisma.job.update({ where: { id }, data: { status: "CANCELLED", }, include: { creator: true } })
+    this.events.handleJobStatus({ shipment_id: updatedJob.id, status: updatedJob.status })
     return { data: updatedJob, success: true, message: "Delivery job successfully cancelled" }
 
   }
