@@ -63,12 +63,11 @@ export const useAcceptShipment = () => {
     mutationFn: (id: string) => {
       return acceptShipment(id,)
     },
-    onError: (error) => {
-      console.log(JSON.stringify(error))
+    onError: (error: any) => {
       Dialog.show({
         type: ALERT_TYPE.DANGER,
         title: 'Error',
-        textBody: error.message,
+        textBody: error?.response?.data?.message || error.message,
         button: 'close',
       })
     }, onSuccess: () => {
