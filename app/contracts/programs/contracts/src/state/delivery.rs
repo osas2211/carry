@@ -16,4 +16,5 @@ pub struct Delivery {
     pub escrow: Pubkey,
     pub bump: u8,
     pub escrow_bump: u8,
+    pub rider_rated: bool,
 }

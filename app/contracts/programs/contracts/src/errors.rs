@@ -9,11 +9,23 @@ pub enum CustomError {
     JobNotAcceptedYet,
 
     #[msg("Creator can't be courier")]
-    CreatorAcceptJobBlocked,
+    JobBlocked,
 
     #[msg("No courier has been assigned.")]
     NoCourierAssigned,
 
     #[msg("The provided courier account does not match the assigned courier.")]
     InvalidCourierAccount,
+
+    #[msg("No URI found for this rating")]
+    NoMatchingUri,
+
+    #[msg("NFT Ownership required to accept jobs ")]
+    NftOwnershipRequired,
+
+    #[msg("NFT is not part of the verified collection.")]
+    CollectionNotVerified,
+
+    #[msg("You can only give one review per delivery")]
+    RiderAlreadyReviewed,
 }

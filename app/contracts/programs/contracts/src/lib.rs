@@ -16,6 +16,11 @@ declare_id!("9TYPgvadsErCiq1PiZ3Us9fY52eLFVhTHnZ9gZUNiEVT");
 pub mod contracts {
     use super::*;
 
+    // INITIALIZE CONFIGS
+    pub fn initialize_config(ctx: Context<InitializeConfig>, ranges: Vec<RangeUri>) -> Result<()> {
+        _initialize_config(ctx, ranges)
+    }
+
     // CREATE DELIVERY
     pub fn create_delivery(
         ctx: Context<CreateDeliveryJob>,
@@ -27,16 +32,22 @@ pub mod contracts {
     }
 
     // CONFIRM DELIVERY
-    pub fn confirm_delivery(ctx: Context<ConfirmDeliveryStatus>, _index: u64) -> Result<()> {
-        _confirm_delivery(ctx, _index)
+    pub fn confirm_delivery(ctx: Context<ConfirmDeliveryStatus>, index: u64) -> Result<()> {
+        _confirm_delivery(ctx, index)
     }
 
     // ACCEPT DELIVERY JOB
-    pub fn accept_delivery_job(
-        ctx: Context<CourierDeliveryAcceptJob>,
-        _index: u64,
-        creator: Pubkey,
-    ) -> Result<()> {
-        _accept_delivery_job(ctx, _index, creator)
+    pub fn accept_delivery_job(ctx: Context<CourierDeliveryAcceptJob>, index: u64) -> Result<()> {
+        _accept_delivery_job(ctx, index)
+    }
+
+    // REGISTER AS RIDER
+    pub fn register_rider(ctx: Context<RegisterRider>) -> Result<()> {
+        _register_rider(ctx)
+    }
+
+    // GIVE A RIDER REVIEW FOR A DELIVERY
+    pub fn review_rider(ctx: Context<ReviewRiderCtx>, index: u64, rating: u64) -> Result<()> {
+        _review_rider(ctx, rating, index)
     }
 }
