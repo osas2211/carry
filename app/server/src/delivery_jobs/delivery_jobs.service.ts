@@ -64,7 +64,7 @@ export class DeliveryJobsService {
   async acceptDeliveryJob(id: string, courierAddress: string) {
     const courier = await this.prisma.user.findUnique({ where: { walletAddress: courierAddress } })
     if (courier?.isBusy === true) {
-      throw new NotAcceptableException({ message: "Courier can not go on multiple jobs" })
+      throw new NotAcceptableException("Courier can not go on multiple jobs")
     }
     const job = await this.prisma.job.findUnique({ where: { id } })
     if (!job) {
