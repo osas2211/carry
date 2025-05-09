@@ -17,7 +17,7 @@ export class UsersController {
     return this.usersService.generateServerToken(body.pubKey)
   }
 
-  @Get("/riders")
+  @Get("/couriers")
   async getAllCourier() {
     return this.usersService.getAllCourier()
   }
