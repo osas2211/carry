@@ -9,19 +9,20 @@ export default function tracking() {
   return (
     <>
       <Stack.Screen options={{ headerShown: false }} />
-      <SafeAreaView
+      {/* <SafeAreaView
         edges={["top"]}
         style={{ flex: 1, backgroundColor: "white" }}
       >
-        <View style={{ paddingBottom: 50, gap: 15 }}>
-          <View style={{ paddingInline: 16 }}>
-            <ScreenHeader title="Live Tracking" />
-          </View>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <LiveTracking />
-          </ScrollView>
-        </View>
-      </SafeAreaView>
+        
+      </SafeAreaView> */}
+      <View style={{ paddingBottom: 0, gap: 15, flex: 1 }}>
+        {/* <View style={{ paddingInline: 16 }}>
+          <ScreenHeader title="Live Tracking" />
+        </View> */}
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <LiveTracking />
+        </ScrollView>
+      </View>
     </>
   )
 }

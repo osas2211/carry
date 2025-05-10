@@ -7,9 +7,9 @@ import { useLocalSearchParams } from "expo-router"
 export const LiveTracking = () => {
   const { tracking_id } = useLocalSearchParams()
   return (
-    <View style={{}}>
+    <View style={{ height: "100%" }}>
       <View>
-        <Map rounded={false} height={450} />
+        <Map rounded={false} height={550} />
       </View>
       <View style={{ padding: 16, gap: 15 }}>
         <Text style={{ fontSize: 18, fontWeight: 500 }}>
