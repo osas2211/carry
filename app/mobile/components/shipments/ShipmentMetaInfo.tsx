@@ -1,5 +1,5 @@
 import { View, Text } from "react-native"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons"
 import { Status } from "../ui/Status"
 import { appColors } from "@/constants/Colors"
@@ -8,8 +8,9 @@ import { Map } from "../ui/Map"
 import { Button } from "../ui/Button"
 import Entypo from "@expo/vector-icons/Entypo"
 import { router } from "expo-router"
-import { JobStatus } from "@/@types/delivery_jobs"
+import { DeliveryJobI, JobStatus } from "@/@types/delivery_jobs"
 import { truncateText } from "@/helpers/trunctateText"
+import Geocoder from "react-native-geocoding"
 
 export const ShipmentMetaInfo = ({
   item_name = "",
@@ -17,6 +18,7 @@ export const ShipmentMetaInfo = ({
   from_place = "",
   to_place = "",
   status = JobStatus.ACTIVE,
+  shipment = {} as DeliveryJobI,
 }) => {
   const formatted_status =
     status === JobStatus.ACTIVE
@@ -30,7 +32,27 @@ export const ShipmentMetaInfo = ({
       : status === JobStatus.IN_PROGRESS
       ? "waiting for pickup"
       : "in-transit"
+  const [fromLocation, setFromLocation] = useState({ lat: 0, lng: 0 })
+  const [toLocation, setToLocation] = useState({ lat: 0, lng: 0 })
 
+  useEffect(() => {
+    if (shipment) {
+      Geocoder.from(shipment?.pickupAddress || "")
+        .then((json) => {
+          const location = json.results[0].geometry.location
+          setFromLocation(location)
+        })
+        .catch((error) => console.warn(error))
+
+      Geocoder.from(shipment?.dropoffAddress || "")
+        .then((json) => {
+          const location = json.results[0].geometry.location
+          setToLocation(location)
+        })
+
+        .catch((error) => console.warn(error))
+    }
+  }, [shipment])
   return (
     <View>
       <View
@@ -74,22 +96,27 @@ export const ShipmentMetaInfo = ({
           </View>
           <Status status={formatted_status} />
         </View>
-
-        <View style={{ position: "relative" }}>
-          <Map />
-          <View style={{ position: "absolute", bottom: 10, left: 10 }}>
-            <Button
-              title="Track Live"
-              height={36}
-              width={120}
-              bgColor={appColors.primary}
-              textColor={appColors.text}
-              fontSize={14}
-              icon={<Entypo name="location" size={16} color="black" />}
-              onPress={() => router.push(`/shipment/${tracking_id}/tracking`)}
-            />
-          </View>
-        </View>
+        {shipment.dropoffAddress && shipment.pickupAddress && (
+          <>
+            <View style={{ position: "relative" }}>
+              <Map from_cordinate={fromLocation} to_cordinate={toLocation} />
+              <View style={{ position: "absolute", bottom: 10, left: 10 }}>
+                <Button
+                  title="Track Live"
+                  height={36}
+                  width={120}
+                  bgColor={appColors.primary}
+                  textColor={appColors.text}
+                  fontSize={14}
+                  icon={<Entypo name="location" size={16} color="black" />}
+                  onPress={() =>
+                    router.push(`/shipment/${tracking_id}/tracking`)
+                  }
+                />
+              </View>
+            </View>
+          </>
+        )}
       </View>
     </View>
   )

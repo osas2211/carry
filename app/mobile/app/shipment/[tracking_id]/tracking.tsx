@@ -4,6 +4,10 @@ import { Stack } from "expo-router"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { ScreenHeader } from "@/components/ui/ScreenHeader"
 import { LiveTracking } from "@/components/shipments/LiveTracking"
+import Geocoder from "react-native-geocoding"
+
+// Initialize the module (needs to be done only once)
+Geocoder.init(process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY || "")
 
 export default function tracking() {
   return (

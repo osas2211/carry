@@ -1,5 +1,5 @@
 import { View, Text } from "react-native"
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { Map } from "../ui/Map"
 import { ContactDeliveryPerson } from "./ContactDeliveryPerson"
 import { useLocalSearchParams } from "expo-router"
@@ -8,6 +8,7 @@ import {
   useGetUserShipments,
 } from "@/hooks/api-hooks/useDeliveryJobs"
 import { socket } from "@/helpers/socket"
+import Geocoder from "react-native-geocoding"
 
 export const LiveTracking = () => {
   const { tracking_id } = useLocalSearchParams()
@@ -24,10 +25,41 @@ export const LiveTracking = () => {
       refetchAll()
     })
   })
+  const [fromLocation, setFromLocation] = useState({ lat: 0, lng: 0 })
+  const [toLocation, setToLocation] = useState({ lat: 0, lng: 0 })
+
+  useEffect(() => {
+    if (shipment) {
+      Geocoder.from(shipment?.pickupAddress || "")
+        .then((json) => {
+          const location = json.results[0].geometry.location
+          setFromLocation(location)
+        })
+        .catch((error) => console.warn(error))
+
+      Geocoder.from(shipment?.dropoffAddress || "")
+        .then((json) => {
+          const location = json.results[0].geometry.location
+          setToLocation(location)
+        })
+
+        .catch((error) => console.warn(error))
+    }
+  }, [shipment])
+
+  // Search by address
+
   return (
     <View style={{ height: "100%" }}>
       <View>
-        <Map rounded={false} height={550} />
+        {shipment && (
+          <Map
+            rounded={false}
+            height={550}
+            from_cordinate={fromLocation}
+            to_cordinate={toLocation}
+          />
+        )}
       </View>
       <View style={{ padding: 16, gap: 15 }}>
         <Text style={{ fontSize: 18, fontWeight: 500 }}>
