@@ -27,7 +27,10 @@ export const ShipmentMetaInfo = ({
       ? "cancelled"
       : status === JobStatus.DELIVERED
       ? "completed"
+      : status === JobStatus.IN_PROGRESS
+      ? "waiting for pickup"
       : "in-transit"
+
   return (
     <View>
       <View

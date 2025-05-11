@@ -32,6 +32,9 @@ export interface DeliveryJobI {
   isTemperatureSensitive: boolean
   createdAt: string
   updatedAt: string
+  acceptedAt: string
+  pickedUpAt: string
+  deliveredAt: string
   eta: string
   isDeleted: boolean
 }
@@ -42,4 +45,5 @@ export enum JobStatus {
   DELIVERED = "DELIVERED",
   CANCELLED = "CANCELLED",
   ASSIGNED = "ASSIGNED",
+  PICKED_UP = "PICKED_UP",
 }

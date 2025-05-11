@@ -1,5 +1,5 @@
 import { CreateDeliveryJobDto } from "@/@types/delivery_jobs"
-import { acceptShipment, assignShipmentToCourier, createDeliverJob, getSingleShipment, getUserShipments } from "@/services/delivery_jobs.service"
+import { acceptShipment, assignShipmentToCourier, createDeliverJob, deliverShipment, getSingleShipment, getUserShipments, pickupShipment } from "@/services/delivery_jobs.service"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import {
   ALERT_TYPE,
@@ -12,11 +12,11 @@ export const useCreateDeliveryJob = () => {
     mutationFn: (formData: CreateDeliveryJobDto) => {
       return createDeliverJob(formData)
     },
-    onError: (error) => {
+    onError: (error: any) => {
       Dialog.show({
         type: ALERT_TYPE.DANGER,
         title: 'Error',
-        textBody: error.message,
+        textBody: error?.response?.data?.message || error.message,
         button: 'close',
       })
     }, onSuccess: () => {
@@ -38,11 +38,11 @@ export const useAssignToCourier = () => {
       return assignShipmentToCourier(id, courierAddress)
       // return hey(id, courierAddress)
     },
-    onError: (error) => {
+    onError: (error: any) => {
       Dialog.show({
         type: ALERT_TYPE.DANGER,
         title: 'Error',
-        textBody: error.message,
+        textBody: error?.response?.data?.message || error.message,
         button: 'close',
       })
     }, onSuccess: () => {
@@ -75,6 +75,54 @@ export const useAcceptShipment = () => {
         type: ALERT_TYPE.SUCCESS,
         title: 'Success',
         textBody: 'Successfully accepted shipment',
+        button: 'close',
+      })
+
+    }
+  })
+}
+
+export const usePickupShipment = () => {
+  return useMutation({
+    mutationFn: (id: string) => {
+      return pickupShipment(id,)
+    },
+    onError: (error: any) => {
+      Dialog.show({
+        type: ALERT_TYPE.DANGER,
+        title: 'Error',
+        textBody: error?.response?.data?.message || error.message,
+        button: 'close',
+      })
+    }, onSuccess: () => {
+      Dialog.show({
+        type: ALERT_TYPE.SUCCESS,
+        title: 'Success',
+        textBody: 'Successfully picked up shipment',
+        button: 'close',
+      })
+
+    }
+  })
+}
+
+export const useDeliveryShipment = () => {
+  return useMutation({
+    mutationFn: (id: string) => {
+      return deliverShipment(id)
+    },
+    onError: (error: any) => {
+      Dialog.show({
+        type: ALERT_TYPE.DANGER,
+        title: 'Error',
+        textBody: error?.response?.data?.message || error.message,
+        button: 'close',
+      })
+    }, onSuccess: () => {
+      Dialog.show({
+        type: ALERT_TYPE.SUCCESS,
+        title: 'Success',
+        textBody: 'Successfully delivered shipment',
         button: 'close',
       })
 

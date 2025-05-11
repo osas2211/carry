@@ -25,12 +25,15 @@ export const CourierShipmentSummaryCard = ({
 }) => {
   const isAssigned =
     status === JobStatus.ASSIGNED || status === JobStatus.ACTIVE
+
   const formatted_status = isAssigned
     ? "assigned"
     : status === JobStatus.CANCELLED
     ? "cancelled"
     : status === JobStatus.DELIVERED
     ? "completed"
+    : status === JobStatus.IN_PROGRESS
+    ? "waiting for pickup"
     : "in-transit"
   const { refetch: refetchAll } = useGetUserShipments()
 

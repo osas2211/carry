@@ -11,14 +11,17 @@ export const Status = ({
     | "failed"
     | "rejected"
     | "accepted"
-    | "assigned",
+    | "assigned"
+    | "waiting for pickup",
 }) => {
   const statusBgColor: ColorValue =
     status === "pending" || status === "assigned"
       ? appColors.pending
       : status === "completed"
       ? appColors.success
-      : status === "in-transit" || status === "accepted"
+      : status === "in-transit" ||
+        status === "accepted" ||
+        status === "waiting for pickup"
       ? appColors.blue
       : appColors.error
   const statusTextColor: ColorValue =

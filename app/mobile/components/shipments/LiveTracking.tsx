@@ -1,11 +1,29 @@
 import { View, Text } from "react-native"
-import React from "react"
+import React, { useEffect } from "react"
 import { Map } from "../ui/Map"
 import { ContactDeliveryPerson } from "./ContactDeliveryPerson"
 import { useLocalSearchParams } from "expo-router"
+import {
+  useGetSingleShipment,
+  useGetUserShipments,
+} from "@/hooks/api-hooks/useDeliveryJobs"
+import { socket } from "@/helpers/socket"
 
 export const LiveTracking = () => {
   const { tracking_id } = useLocalSearchParams()
+  const {
+    data: shipment,
+    isLoading,
+    refetch,
+  } = useGetSingleShipment(tracking_id as string)
+  const { refetch: refetchAll } = useGetUserShipments()
+
+  useEffect(() => {
+    socket.on(`shipment-status-${tracking_id}`, (data) => {
+      refetch()
+      refetchAll()
+    })
+  })
   return (
     <View style={{ height: "100%" }}>
       <View>
@@ -36,7 +54,11 @@ export const LiveTracking = () => {
 
           <View>
             <Text style={{ fontSize: 13, fontWeight: 300 }}>Status</Text>
-            <Text style={{ fontSize: 15, fontWeight: 500 }}>In Transit</Text>
+            <Text style={{ fontSize: 15, fontWeight: 500 }}>
+              {shipment?.status === "PICKED_UP"
+                ? "In Transit"
+                : shipment?.status}
+            </Text>
           </View>
         </View>
 

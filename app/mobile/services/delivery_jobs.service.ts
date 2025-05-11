@@ -17,6 +17,16 @@ export const acceptShipment = async (tracking_id: string) => {
   return response.data.data as DeliveryJobI
 }
 
+export const pickupShipment = async (tracking_id: string) => {
+  const response = await api.patch(`/jobs/${tracking_id}/pickup`)
+  return response.data.data as DeliveryJobI
+}
+
+export const deliverShipment = async (tracking_id: string) => {
+  const response = await api.patch(`/jobs/${tracking_id}/confirm`)
+  return response.data.data as DeliveryJobI
+}
+
 export const getUserShipments = async () => {
   const response = await api.get(`/jobs/user-shipments`)
   return response.data as { data: DeliveryJobI[] }

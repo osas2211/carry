@@ -23,6 +23,7 @@ export const Button = ({
   icon,
   disabled,
   isLoading,
+  elevation,
 }: {
   onPress?: () => void
   title: ReactNode
@@ -37,6 +38,7 @@ export const Button = ({
   disabled?: boolean
   isLoading?: boolean
   withBlackBehind?: boolean
+  elevation?: number
 }) => {
   return (
     <TouchableOpacity
@@ -57,6 +59,7 @@ export const Button = ({
         opacity: isLoading || disabled ? 0.6 : 1,
         position: "relative",
         zIndex: 1,
+        elevation: elevation || 0,
       }}
     >
       {icon}
