@@ -73,7 +73,7 @@ export class DeliveryJobsService {
     if (job?.status !== "ACTIVE" && job?.status !== "CANCELLED") {
       throw new NotAcceptableException("Delivery job is already taken or not available to be taken.")
     }
-    const updatedJob = await this.prisma.job.update({ where: { id }, data: { status: "IN_PROGRESS", courierAddress }, include: { courier: true, creator: true } })
+    const updatedJob = await this.prisma.job.update({ where: { id }, data: { status: "IN_PROGRESS", courierAddress, acceptedAt: new Date() }, include: { courier: true, creator: true } })
     await this.prisma.user.update({ where: { walletAddress: courierAddress }, data: { isBusy: true } })
     this.events.handleJobStatus({ shipment_id: updatedJob.id, status: updatedJob.status })
     return { data: updatedJob, success: true, message: "Delivery job successfully accepted" }
@@ -87,10 +87,15 @@ export class DeliveryJobsService {
     if (!job) {
       throw new NotFoundException("Delivery Job not found")
     }
+    if (job?.status === "PICKED_UP") {
+      throw new NotAcceptableException("Package has been picked up already")
+    }
     if (job?.status !== "IN_PROGRESS") {
       throw new NotAcceptableException("Delivery job not slated for delivery.")
     }
-    const updatedJob = await this.prisma.job.update({ where: { id }, data: { status: "PICKED_UP" }, include: { courier: true, creator: true } })
+
+
+    const updatedJob = await this.prisma.job.update({ where: { id }, data: { status: "PICKED_UP", pickedUpAt: new Date() }, include: { courier: true, creator: true } })
     this.events.handleJobStatus({ shipment_id: updatedJob.id, status: updatedJob.status })
     return { data: updatedJob, success: true, message: "Package has been successfully delivered" }
   }
@@ -106,7 +111,7 @@ export class DeliveryJobsService {
     if (job?.status !== "PICKED_UP") {
       throw new NotAcceptableException("Package hasn't been picked up")
     }
-    const updatedJob = await this.prisma.job.update({ where: { id }, data: { status: "DELIVERED" }, include: { courier: true, creator: true } })
+    const updatedJob = await this.prisma.job.update({ where: { id }, data: { status: "DELIVERED", deliveredAt: new Date() }, include: { courier: true, creator: true } })
     await this.prisma.user.update({ where: { walletAddress: job.courierAddress }, data: { isBusy: false } })
     this.events.handleJobStatus({ shipment_id: updatedJob.id, status: updatedJob.status })
     return { data: updatedJob, success: true, message: "Package has been successfully delivered" }

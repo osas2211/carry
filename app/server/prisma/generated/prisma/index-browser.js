@@ -154,6 +154,9 @@ exports.Prisma.JobScalarFieldEnum = {
   isTemperatureSensitive: 'isTemperatureSensitive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  acceptedAt: 'acceptedAt',
+  pickedUpAt: 'pickedUpAt',
+  deliveredAt: 'deliveredAt',
   eta: 'eta',
   isDeleted: 'isDeleted'
 };

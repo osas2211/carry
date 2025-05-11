@@ -47,11 +47,13 @@ export class DeliveryJobsController {
     return this.jobService.pickup_package(id)
   }
 
+  @UseGuards(WalletAuthMiddleware)
   @Patch(":id/confirm")
   async confirmDelivery(@Param("id") id: string) {
     return this.jobService.confirmDelivery(id)
   }
 
+  @UseGuards(WalletAuthMiddleware)
   @Patch(":id/cancel")
   async cancelDelivery(@Param("id") id: string) {
     return this.jobService.cancelDelivery(id)

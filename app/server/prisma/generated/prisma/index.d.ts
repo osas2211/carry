@@ -2569,6 +2569,9 @@ export namespace Prisma {
     isTemperatureSensitive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
+    acceptedAt: Date | null
+    pickedUpAt: Date | null
+    deliveredAt: Date | null
     eta: string | null
     isDeleted: boolean | null
   }
@@ -2588,6 +2591,9 @@ export namespace Prisma {
     isTemperatureSensitive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
+    acceptedAt: Date | null
+    pickedUpAt: Date | null
+    deliveredAt: Date | null
     eta: string | null
     isDeleted: boolean | null
   }
@@ -2607,6 +2613,9 @@ export namespace Prisma {
     isTemperatureSensitive: number
     createdAt: number
     updatedAt: number
+    acceptedAt: number
+    pickedUpAt: number
+    deliveredAt: number
     eta: number
     isDeleted: number
     _all: number
@@ -2636,6 +2645,9 @@ export namespace Prisma {
     isTemperatureSensitive?: true
     createdAt?: true
     updatedAt?: true
+    acceptedAt?: true
+    pickedUpAt?: true
+    deliveredAt?: true
     eta?: true
     isDeleted?: true
   }
@@ -2655,6 +2667,9 @@ export namespace Prisma {
     isTemperatureSensitive?: true
     createdAt?: true
     updatedAt?: true
+    acceptedAt?: true
+    pickedUpAt?: true
+    deliveredAt?: true
     eta?: true
     isDeleted?: true
   }
@@ -2674,6 +2689,9 @@ export namespace Prisma {
     isTemperatureSensitive?: true
     createdAt?: true
     updatedAt?: true
+    acceptedAt?: true
+    pickedUpAt?: true
+    deliveredAt?: true
     eta?: true
     isDeleted?: true
     _all?: true
@@ -2780,6 +2798,9 @@ export namespace Prisma {
     isTemperatureSensitive: boolean
     createdAt: Date
     updatedAt: Date
+    acceptedAt: Date
+    pickedUpAt: Date
+    deliveredAt: Date
     eta: string
     isDeleted: boolean
     _count: JobCountAggregateOutputType | null
@@ -2818,6 +2839,9 @@ export namespace Prisma {
     isTemperatureSensitive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    acceptedAt?: boolean
+    pickedUpAt?: boolean
+    deliveredAt?: boolean
     eta?: boolean
     isDeleted?: boolean
     creator?: boolean | UserDefaultArgs<ExtArgs>
@@ -2841,6 +2865,9 @@ export namespace Prisma {
     isTemperatureSensitive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    acceptedAt?: boolean
+    pickedUpAt?: boolean
+    deliveredAt?: boolean
     eta?: boolean
     isDeleted?: boolean
     creator?: boolean | UserDefaultArgs<ExtArgs>
@@ -2862,6 +2889,9 @@ export namespace Prisma {
     isTemperatureSensitive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    acceptedAt?: boolean
+    pickedUpAt?: boolean
+    deliveredAt?: boolean
     eta?: boolean
     isDeleted?: boolean
     creator?: boolean | UserDefaultArgs<ExtArgs>
@@ -2883,11 +2913,14 @@ export namespace Prisma {
     isTemperatureSensitive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    acceptedAt?: boolean
+    pickedUpAt?: boolean
+    deliveredAt?: boolean
     eta?: boolean
     isDeleted?: boolean
   }
 
-  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "creatorAddress" | "courierAddress" | "status" | "reward" | "metadataHash" | "pickupAddress" | "dropoffAddress" | "description" | "packageType" | "isFragile" | "isTemperatureSensitive" | "createdAt" | "updatedAt" | "eta" | "isDeleted", ExtArgs["result"]["job"]>
+  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "creatorAddress" | "courierAddress" | "status" | "reward" | "metadataHash" | "pickupAddress" | "dropoffAddress" | "description" | "packageType" | "isFragile" | "isTemperatureSensitive" | "createdAt" | "updatedAt" | "acceptedAt" | "pickedUpAt" | "deliveredAt" | "eta" | "isDeleted", ExtArgs["result"]["job"]>
   export type JobInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     creator?: boolean | UserDefaultArgs<ExtArgs>
     courier?: boolean | Job$courierArgs<ExtArgs>
@@ -2925,6 +2958,9 @@ export namespace Prisma {
       isTemperatureSensitive: boolean
       createdAt: Date
       updatedAt: Date
+      acceptedAt: Date
+      pickedUpAt: Date
+      deliveredAt: Date
       eta: string
       isDeleted: boolean
     }, ExtArgs["result"]["job"]>
@@ -3367,6 +3403,9 @@ export namespace Prisma {
     readonly isTemperatureSensitive: FieldRef<"Job", 'Boolean'>
     readonly createdAt: FieldRef<"Job", 'DateTime'>
     readonly updatedAt: FieldRef<"Job", 'DateTime'>
+    readonly acceptedAt: FieldRef<"Job", 'DateTime'>
+    readonly pickedUpAt: FieldRef<"Job", 'DateTime'>
+    readonly deliveredAt: FieldRef<"Job", 'DateTime'>
     readonly eta: FieldRef<"Job", 'String'>
     readonly isDeleted: FieldRef<"Job", 'Boolean'>
   }
@@ -4972,6 +5011,9 @@ export namespace Prisma {
     isTemperatureSensitive: 'isTemperatureSensitive',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
+    acceptedAt: 'acceptedAt',
+    pickedUpAt: 'pickedUpAt',
+    deliveredAt: 'deliveredAt',
     eta: 'eta',
     isDeleted: 'isDeleted'
   };
@@ -5233,6 +5275,9 @@ export namespace Prisma {
     isTemperatureSensitive?: BoolFilter<"Job"> | boolean
     createdAt?: DateTimeFilter<"Job"> | Date | string
     updatedAt?: DateTimeFilter<"Job"> | Date | string
+    acceptedAt?: DateTimeFilter<"Job"> | Date | string
+    pickedUpAt?: DateTimeFilter<"Job"> | Date | string
+    deliveredAt?: DateTimeFilter<"Job"> | Date | string
     eta?: StringFilter<"Job"> | string
     isDeleted?: BoolFilter<"Job"> | boolean
     creator?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -5255,6 +5300,9 @@ export namespace Prisma {
     isTemperatureSensitive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    acceptedAt?: SortOrder
+    pickedUpAt?: SortOrder
+    deliveredAt?: SortOrder
     eta?: SortOrder
     isDeleted?: SortOrder
     creator?: UserOrderByWithRelationInput
@@ -5280,6 +5328,9 @@ export namespace Prisma {
     isTemperatureSensitive?: BoolFilter<"Job"> | boolean
     createdAt?: DateTimeFilter<"Job"> | Date | string
     updatedAt?: DateTimeFilter<"Job"> | Date | string
+    acceptedAt?: DateTimeFilter<"Job"> | Date | string
+    pickedUpAt?: DateTimeFilter<"Job"> | Date | string
+    deliveredAt?: DateTimeFilter<"Job"> | Date | string
     eta?: StringFilter<"Job"> | string
     isDeleted?: BoolFilter<"Job"> | boolean
     creator?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -5302,6 +5353,9 @@ export namespace Prisma {
     isTemperatureSensitive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    acceptedAt?: SortOrder
+    pickedUpAt?: SortOrder
+    deliveredAt?: SortOrder
     eta?: SortOrder
     isDeleted?: SortOrder
     _count?: JobCountOrderByAggregateInput
@@ -5329,6 +5383,9 @@ export namespace Prisma {
     isTemperatureSensitive?: BoolWithAggregatesFilter<"Job"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Job"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Job"> | Date | string
+    acceptedAt?: DateTimeWithAggregatesFilter<"Job"> | Date | string
+    pickedUpAt?: DateTimeWithAggregatesFilter<"Job"> | Date | string
+    deliveredAt?: DateTimeWithAggregatesFilter<"Job"> | Date | string
     eta?: StringWithAggregatesFilter<"Job"> | string
     isDeleted?: BoolWithAggregatesFilter<"Job"> | boolean
   }
@@ -5586,6 +5643,9 @@ export namespace Prisma {
     isTemperatureSensitive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedAt?: Date | string
+    pickedUpAt?: Date | string
+    deliveredAt?: Date | string
     eta: string
     isDeleted?: boolean
     creator: UserCreateNestedOneWithoutJobsCreatedInput
@@ -5608,6 +5668,9 @@ export namespace Prisma {
     isTemperatureSensitive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedAt?: Date | string
+    pickedUpAt?: Date | string
+    deliveredAt?: Date | string
     eta: string
     isDeleted?: boolean
     trackingUpdates?: TrackingUpdateUncheckedCreateNestedManyWithoutJobInput
@@ -5626,6 +5689,9 @@ export namespace Prisma {
     isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pickedUpAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     creator?: UserUpdateOneRequiredWithoutJobsCreatedNestedInput
@@ -5648,6 +5714,9 @@ export namespace Prisma {
     isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pickedUpAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     trackingUpdates?: TrackingUpdateUncheckedUpdateManyWithoutJobNestedInput
@@ -5668,6 +5737,9 @@ export namespace Prisma {
     isTemperatureSensitive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedAt?: Date | string
+    pickedUpAt?: Date | string
+    deliveredAt?: Date | string
     eta: string
     isDeleted?: boolean
   }
@@ -5685,6 +5757,9 @@ export namespace Prisma {
     isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pickedUpAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
@@ -5704,6 +5779,9 @@ export namespace Prisma {
     isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pickedUpAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
@@ -6167,6 +6245,9 @@ export namespace Prisma {
     isTemperatureSensitive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    acceptedAt?: SortOrder
+    pickedUpAt?: SortOrder
+    deliveredAt?: SortOrder
     eta?: SortOrder
     isDeleted?: SortOrder
   }
@@ -6190,6 +6271,9 @@ export namespace Prisma {
     isTemperatureSensitive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    acceptedAt?: SortOrder
+    pickedUpAt?: SortOrder
+    deliveredAt?: SortOrder
     eta?: SortOrder
     isDeleted?: SortOrder
   }
@@ -6209,6 +6293,9 @@ export namespace Prisma {
     isTemperatureSensitive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    acceptedAt?: SortOrder
+    pickedUpAt?: SortOrder
+    deliveredAt?: SortOrder
     eta?: SortOrder
     isDeleted?: SortOrder
   }
@@ -6787,6 +6874,9 @@ export namespace Prisma {
     isTemperatureSensitive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedAt?: Date | string
+    pickedUpAt?: Date | string
+    deliveredAt?: Date | string
     eta: string
     isDeleted?: boolean
     courier?: UserCreateNestedOneWithoutJobsDeliveredInput
@@ -6807,6 +6897,9 @@ export namespace Prisma {
     isTemperatureSensitive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedAt?: Date | string
+    pickedUpAt?: Date | string
+    deliveredAt?: Date | string
     eta: string
     isDeleted?: boolean
     trackingUpdates?: TrackingUpdateUncheckedCreateNestedManyWithoutJobInput
@@ -6834,6 +6927,9 @@ export namespace Prisma {
     isTemperatureSensitive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedAt?: Date | string
+    pickedUpAt?: Date | string
+    deliveredAt?: Date | string
     eta: string
     isDeleted?: boolean
     creator: UserCreateNestedOneWithoutJobsCreatedInput
@@ -6854,6 +6950,9 @@ export namespace Prisma {
     isTemperatureSensitive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedAt?: Date | string
+    pickedUpAt?: Date | string
+    deliveredAt?: Date | string
     eta: string
     isDeleted?: boolean
     trackingUpdates?: TrackingUpdateUncheckedCreateNestedManyWithoutJobInput
@@ -6902,6 +7001,9 @@ export namespace Prisma {
     isTemperatureSensitive?: BoolFilter<"Job"> | boolean
     createdAt?: DateTimeFilter<"Job"> | Date | string
     updatedAt?: DateTimeFilter<"Job"> | Date | string
+    acceptedAt?: DateTimeFilter<"Job"> | Date | string
+    pickedUpAt?: DateTimeFilter<"Job"> | Date | string
+    deliveredAt?: DateTimeFilter<"Job"> | Date | string
     eta?: StringFilter<"Job"> | string
     isDeleted?: BoolFilter<"Job"> | boolean
   }
@@ -7225,6 +7327,9 @@ export namespace Prisma {
     isTemperatureSensitive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedAt?: Date | string
+    pickedUpAt?: Date | string
+    deliveredAt?: Date | string
     eta: string
     isDeleted?: boolean
     creator: UserCreateNestedOneWithoutJobsCreatedInput
@@ -7246,6 +7351,9 @@ export namespace Prisma {
     isTemperatureSensitive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedAt?: Date | string
+    pickedUpAt?: Date | string
+    deliveredAt?: Date | string
     eta: string
     isDeleted?: boolean
   }
@@ -7279,6 +7387,9 @@ export namespace Prisma {
     isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pickedUpAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     creator?: UserUpdateOneRequiredWithoutJobsCreatedNestedInput
@@ -7300,6 +7411,9 @@ export namespace Prisma {
     isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pickedUpAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
@@ -7318,6 +7432,9 @@ export namespace Prisma {
     isTemperatureSensitive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedAt?: Date | string
+    pickedUpAt?: Date | string
+    deliveredAt?: Date | string
     eta: string
     isDeleted?: boolean
   }
@@ -7336,6 +7453,9 @@ export namespace Prisma {
     isTemperatureSensitive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedAt?: Date | string
+    pickedUpAt?: Date | string
+    deliveredAt?: Date | string
     eta: string
     isDeleted?: boolean
   }
@@ -7353,6 +7473,9 @@ export namespace Prisma {
     isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pickedUpAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     courier?: UserUpdateOneWithoutJobsDeliveredNestedInput
@@ -7373,6 +7496,9 @@ export namespace Prisma {
     isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pickedUpAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     trackingUpdates?: TrackingUpdateUncheckedUpdateManyWithoutJobNestedInput
@@ -7392,6 +7518,9 @@ export namespace Prisma {
     isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pickedUpAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
@@ -7409,6 +7538,9 @@ export namespace Prisma {
     isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pickedUpAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     creator?: UserUpdateOneRequiredWithoutJobsCreatedNestedInput
@@ -7429,6 +7561,9 @@ export namespace Prisma {
     isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pickedUpAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     trackingUpdates?: TrackingUpdateUncheckedUpdateManyWithoutJobNestedInput
@@ -7448,6 +7583,9 @@ export namespace Prisma {
     isTemperatureSensitive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pickedUpAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     eta?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
