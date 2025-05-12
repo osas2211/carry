@@ -18,7 +18,7 @@ export default function index() {
         style={{ flex: 1, backgroundColor: "white" }}
       >
         <View style={{ gap: 15 }}>
-          <View style={{ paddingInline: 16 }}>
+          <View style={{ paddingInline: 16, padding: 16 }}>
             <ScreenHeader title="Shipment Details" />
           </View>
           <ScrollView showsVerticalScrollIndicator={false}>

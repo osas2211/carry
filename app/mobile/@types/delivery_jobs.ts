@@ -1,3 +1,5 @@
+import { UserProfile } from "./user"
+
 export interface CreateDeliveryJobDto {
   reward: number
   pickupAddress: string
@@ -22,7 +24,7 @@ export interface DeliveryJobI {
   creatorAddress: string
   courierAddress: string | null
   status: JobStatus
-  reward: bigint
+  reward: number
   metadataHash: string | null
   pickupAddress: string
   dropoffAddress: string
@@ -37,6 +39,8 @@ export interface DeliveryJobI {
   deliveredAt: string
   eta: string
   isDeleted: boolean
+  courier?: UserProfile
+  creator?: UserProfile
 }
 
 export enum JobStatus {

@@ -5,6 +5,8 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { ScreenHeader } from "@/components/ui/ScreenHeader"
 import { LiveTracking } from "@/components/shipments/LiveTracking"
 import Geocoder from "react-native-geocoding"
+import { Dimensions } from "react-native"
+const screen = Dimensions.get("screen")
 
 // Initialize the module (needs to be done only once)
 Geocoder.init(process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY || "")
@@ -23,9 +25,9 @@ export default function tracking() {
         {/* <View style={{ paddingInline: 16 }}>
           <ScreenHeader title="Live Tracking" />
         </View> */}
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={{ flex: 1, height: screen.height }}>
           <LiveTracking />
-        </ScrollView>
+        </View>
       </View>
     </>
   )

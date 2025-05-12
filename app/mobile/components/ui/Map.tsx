@@ -61,6 +61,7 @@ export function Map({
             latitude: to_cordinate.lat,
             longitude: to_cordinate.lng,
           }}
+          precision="high"
           apikey={process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY || ""}
           strokeWidth={5}
           strokeColor={appColors.blue}
