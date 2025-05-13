@@ -161,7 +161,7 @@ const LiveTrackingDetails = ({ shipment }: { shipment: DeliveryJobI }) => {
                   bgColor={appColors.success}
                   icon={<AntDesign name="message1" size={24} color="black" />}
                 />
-                <Text style={{ fontWeight: 500 }}>Contact driver</Text>
+                <Text style={{ fontWeight: 500 }}>Contact courier</Text>
               </View>
               <View style={{ alignItems: "center", gap: 10 }}>
                 <IconAvatar

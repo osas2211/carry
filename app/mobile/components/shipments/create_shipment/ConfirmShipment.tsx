@@ -8,9 +8,13 @@ import { CreateShipmentFormI } from "./create-form-type"
 import { haversineDistance } from "@/helpers/haversineDistance"
 import moment from "moment"
 import { calculateETA } from "@/helpers/CalculateETA"
-import { useCreateDeliveryJob } from "@/hooks/api-hooks/useDeliveryJobs"
+import {
+  useCreateDeliveryJob,
+  useGetUserShipments,
+} from "@/hooks/api-hooks/useDeliveryJobs"
 import { CreateDeliveryJobDto } from "@/@types/delivery_jobs"
 import { LAMPORTS } from "@/constants/units"
+import { router } from "expo-router"
 
 export const ConfirmShipment = ({
   setStep,
@@ -33,7 +37,8 @@ export const ConfirmShipment = ({
   const cost = reward.toPrecision(3)
 
   const createShipment = useCreateDeliveryJob()
-  const handleConfirm = () => {
+  const { refetch } = useGetUserShipments()
+  const handleConfirm = async () => {
     const payload: CreateDeliveryJobDto = {
       reward: Number(cost) * LAMPORTS,
       pickupAddress: form.from?.formatted_address || "",
@@ -42,7 +47,9 @@ export const ConfirmShipment = ({
       eta: eta_date,
       isFragile: form.isFragile,
     }
-    createShipment.mutate(payload)
+    const data = await createShipment.mutateAsync(payload)
+    refetch()
+    router.push(`/shipment/${data.id}`)
   }
   return (
     <Animated.View>
