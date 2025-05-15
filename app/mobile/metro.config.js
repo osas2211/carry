@@ -6,10 +6,10 @@ const config = getDefaultConfig(__dirname);
 
 const resolveRequestWithPackageExports = (context, moduleName, platform) => {
   if (moduleName === "@privy-io/expo/ui") {
-    console.log(context);
+    // console.log(context);
     const ctx = {
       ...context,
-      unstable_enablePackageExports: true,
+      unstable_enablePackageExports: false,
       isESMImport: true,
     };
     return ctx.resolveRequest(ctx, moduleName, platform);
