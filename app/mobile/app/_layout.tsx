@@ -1,5 +1,6 @@
 import { PrivyProvider } from "@privy-io/expo";
-import { PrivyElements } from "@privy-io/expo/ui";
+
+// import { PrivyElements } from "@privy-io/expo/ui";
 // import "react-native-get-random-values";
 import Constants from "expo-constants";
 import {
@@ -96,7 +97,7 @@ export default function RootLayout() {
           </AlertNotificationRoot>
         </PushNotifcationRoot>
       </QueryClientProvider>
-      <PrivyElements />
+      {/* <PrivyElements /> */}
     </PrivyProvider >
   )
 }

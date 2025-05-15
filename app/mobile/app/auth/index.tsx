@@ -1,6 +1,6 @@
-import { usePrivy, getUserEmbeddedSolanaWallet } from "@privy-io/expo"
-import { useLogin } from "@privy-io/expo/ui";
-import { Image, Text, TextInput, View } from "react-native"
+import { usePrivy, getUserEmbeddedSolanaWallet, useLoginWithEmail, } from "@privy-io/expo"
+
+import { Image, Text, TextInput, View, Button as ReactButton } from "react-native"
 import React, { useState } from "react"
 import { onboardingStyle } from "@/styles/onboarding"
 // @ts-ignore
@@ -26,14 +26,26 @@ import { AxiosError } from "axios"
 import { UserProfile } from "@/@types/user"
 import { generateUserToken } from "@/services/user.service"
 import { PublicKey } from "@solana/web3.js"
+import { StatusBar } from "expo-status-bar";
+
+// this guy is not bundling on android
+// custom ui for login with email
+// import { useLogin } from "@privy-io/expo/ui";
 
 export default function AuthPage() {
   const [connecting, setConnecting] = useState(true);
   const [error, setError] = useState("");
-  const { login } = useLogin();
+
+  // the function
+  // const { login } = useLogin();
 
   const { logout, user } = usePrivy();
   const account = getUserEmbeddedSolanaWallet(user);
+
+  // the functions for alternative approach
+  const { sendCode, loginWithCode } = useLoginWithEmail();
+  const [email] = useState("");
+  const [otp, setOtp] = useState("");
 
   const handleConnection = async () => {
     try {
@@ -131,18 +143,77 @@ export default function AuthPage() {
               <Button
                 title="Login with Email"
                 onPress={() => {
-                  login({ loginMethods: ["email"] })
-                    .then((session) => {
-                      console.log("User logged in", session.user);
-                      handleConnection();
-                    })
-                    .catch((err) => {
-                      setError(JSON.stringify(err.error) as string);
-                      console.error(JSON.stringify(err.error) as string)
-                    });
+                  // login({ loginMethods: ["email"] })
+                  //   .then((session) => {
+                  //     console.log("User logged in", session.user);
+                  //     handleConnection();
+                  //   })
+                  //   .catch((err) => {
+                  //     setError(JSON.stringify(err.error) as string);
+                  //     console.error(JSON.stringify(err.error) as string)
+                  //   });
                 }}
               />
+
             </View>
+
+
+            {/* OR Dummy UI, but we need to style it properly */}
+
+            <>
+              <StatusBar style="auto" />
+
+              <View
+                style={{
+                  width: "50%",
+                  backgroundColor: "gray",
+                  margin: 20,
+                  padding: 5,
+                }}
+              >
+                <ReactButton
+                  title="Send Code"
+                  color="white"
+                  onPress={() => sendCode({ email })}
+                />
+              </View>
+
+              <View
+                style={{
+                  padding: 20,
+                  borderColor: "gray",
+                  borderWidth: 1,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <TextInput
+                  style={{ padding: 5 }}
+                  placeholder="OTP"
+                  value={otp}
+                  onChangeText={setOtp}
+                />
+
+                <View
+                  style={{
+                    width: "50%",
+                    backgroundColor: "gray",
+                    margin: 20,
+                    padding: 5,
+                  }}
+                >
+                  <ReactButton
+                    title="Submit Code"
+                    color="white"
+                    onPress={() => loginWithCode({ code: otp })}
+                  />
+                </View>
+              </View>
+            </>
+
+
+
           </View>
         </ScrollView>
       </GestureHandlerRootView>
