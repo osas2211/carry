@@ -12,7 +12,8 @@ export const Status = ({
     | "rejected"
     | "accepted"
     | "assigned"
-    | "waiting for pickup",
+    | "waiting for pickup"
+    | "awaiting pickup",
 }) => {
   const statusBgColor: ColorValue =
     status === "pending" || status === "assigned"
@@ -21,7 +22,8 @@ export const Status = ({
       ? "#E8FCCF"
       : status === "in-transit" ||
         status === "accepted" ||
-        status === "waiting for pickup"
+        status === "waiting for pickup" ||
+        status === "awaiting pickup"
       ? "#D7E3FC"
       : "#FAE0E4"
   const statusTextColor: ColorValue =
