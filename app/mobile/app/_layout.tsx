@@ -1,11 +1,14 @@
-import "react-native-get-random-values"
+import { PrivyProvider } from "@privy-io/expo";
+import { PrivyElements } from "@privy-io/expo/ui";
+// import "react-native-get-random-values";
+import Constants from "expo-constants";
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native"
 import { useFonts } from "expo-font"
-import { Stack } from "expo-router"
+import { Slot, Stack } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
 import { StatusBar } from "expo-status-bar"
 import { useEffect, useRef, useState } from "react"
@@ -27,9 +30,8 @@ import { HAS_ONBOARDED } from "@/constants/key_strings"
 import { AlertNotificationRoot } from "react-native-alert-notification"
 import PushNotifcationRoot from "@/components/roots/PushNotifcationRoot"
 import Geocoder from "react-native-geocoding"
-
 // Initialize the module (needs to be done only once)
-Geocoder.init(process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY || "")
+Geocoder.init(Constants.expoConfig?.android?.config?.googleMaps?.apiKey || "")
 
 const queryClient = new QueryClient()
 
@@ -38,6 +40,7 @@ SplashScreen.preventAutoHideAsync()
 
 export default function RootLayout() {
   const colorScheme = useColorScheme()
+
   const [loaded] = useFonts({
     MontserratExtraLight: Montserrat_200ExtraLight,
     MontserratLight: Montserrat_300Light,
@@ -47,52 +50,53 @@ export default function RootLayout() {
     MontserratBold: Montserrat_700Bold,
   })
 
-  const [hasOnboarded, setHasOnboarded] = useState(false)
-  const [loading, setLoading] = useState(false)
-
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync()
     }
   }, [loaded])
 
-  useEffect(() => {
-    const checkOnboarding = async () => {
-      setLoading(true)
-      const value = await getValue(HAS_ONBOARDED)
-      setHasOnboarded(value === "true")
-      setLoading(false)
-    }
-    checkOnboarding()
-  }, [hasOnboarded])
-
   if (!loaded) {
     return null
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <PushNotifcationRoot>
-        <AlertNotificationRoot>
-          <ThemeProvider
-            value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-          >
-            <>
-              {/* <SafeAreaView
-              style={{ flex: 1, position: "relative" }}
-              edges={["top"]}
+    <PrivyProvider
+      appId={Constants.expoConfig?.extra?.privy?.appId}
+      clientId={Constants.expoConfig?.extra?.privy?.clientId}
+      config={{
+        embedded: {
+          solana: {
+            createOnLogin: 'users-without-wallets',
+          },
+        },
+      }}>
+      <QueryClientProvider client={queryClient}>
+        <PushNotifcationRoot>
+          <AlertNotificationRoot>
+            <ThemeProvider
+              value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
             >
-              
-            </SafeAreaView> */}
-              <Stack>
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <>
+                {/* <SafeAreaView
+                style={{ flex: 1, position: "relative" }}
+                edges={["top"]}
+              >
+                
+              </SafeAreaView> */}
+                {/* <Stack>
+                  <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                  <Stack.Screen name="+not-found" />
+                </Stack> */}
+                <Stack.Screen name="(app)" options={{ headerShown: false }} />
                 <Stack.Screen name="+not-found" />
-              </Stack>
-            </>
-            <StatusBar style="auto" />
-          </ThemeProvider>
-        </AlertNotificationRoot>
-      </PushNotifcationRoot>
-    </QueryClientProvider>
+              </>
+              <StatusBar style="auto" />
+            </ThemeProvider>
+          </AlertNotificationRoot>
+        </PushNotifcationRoot>
+      </QueryClientProvider>
+      <PrivyElements />
+    </PrivyProvider >
   )
 }

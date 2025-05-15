@@ -16,7 +16,7 @@ import {
 } from "react-native-gesture-handler"
 import { appColors } from "@/constants/Colors"
 import { Button } from "../ui/Button"
-import shipments from "@/app/(tabs)/shipments"
+import shipments from "@/app/(app)/(tabs)/shipments"
 import { DeliveryJobI } from "@/@types/delivery_jobs"
 import { useGetCouriers } from "@/hooks/api-hooks/useUser"
 import CourierCard from "./CourierCard"

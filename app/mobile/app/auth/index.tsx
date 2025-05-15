@@ -1,4 +1,6 @@
-import { Image, Text, View } from "react-native"
+import { usePrivy, getUserEmbeddedSolanaWallet } from "@privy-io/expo"
+import { useLogin } from "@privy-io/expo/ui";
+import { Image, Text, TextInput, View } from "react-native"
 import React, { useState } from "react"
 import { onboardingStyle } from "@/styles/onboarding"
 // @ts-ignore
@@ -12,7 +14,9 @@ import {
 import { router, Stack } from "expo-router"
 import { getValue, saveValue } from "@/helpers/secureStoreHelpers"
 import {
+  BASE_58_PUBLIC_KEY,
   HAS_ONBOARDED,
+  SERVER_AUTH_TOKEN,
   USER_PUBLIC_KEY,
   USER_ROLE,
 } from "@/constants/key_strings"
@@ -20,18 +24,31 @@ import { connectWallet } from "@/helpers/connectWallet"
 import { api } from "@/api/api.instance"
 import { AxiosError } from "axios"
 import { UserProfile } from "@/@types/user"
+import { generateUserToken } from "@/services/user.service"
+import { PublicKey } from "@solana/web3.js"
 
-export default function Onboarding() {
-  const [connecting, setConnecting] = useState(false)
+export default function AuthPage() {
+  const [connecting, setConnecting] = useState(true);
+  const [error, setError] = useState("");
+  const { login } = useLogin();
 
-  const handleWalletConnection = async () => {
+  const { logout, user } = usePrivy();
+  const account = getUserEmbeddedSolanaWallet(user);
+
+  const handleConnection = async () => {
     try {
+      if (!account) {
+        throw new Error("Connection not completed");
+      }
       setConnecting(true)
-      await connectWallet()
-      const pubKey = await getValue(USER_PUBLIC_KEY)
-      const data: UserProfile = (await api.get(`/users/${pubKey}`)).data
+      const publicKey = account.public_key;
+      const serverToken = await generateUserToken(publicKey);
+      saveValue(USER_PUBLIC_KEY, publicKey);
+      saveValue(BASE_58_PUBLIC_KEY, new PublicKey(publicKey).toBase58() || "");
+      saveValue(SERVER_AUTH_TOKEN, serverToken.token);
+      const data: UserProfile = (await api.get(`/users/${publicKey}`)).data
       saveValue(USER_ROLE, data.role)
-      // console.log("COnnected")
+      console.log("Connected")
       await saveValue(HAS_ONBOARDED, "true")
       router.replace("/")
     } catch (error: any) {
@@ -44,9 +61,11 @@ export default function Onboarding() {
       setConnecting(false)
     }
   }
-  const handleGetStarted = async () => {
-    router.push("/onboarding")
-  }
+  // const handleGetStarted = async () => {
+  //   router.push("/onboarding")
+  // }
+
+
   return (
     <>
       <Stack.Screen options={{ headerShown: false }} />
@@ -101,12 +120,28 @@ export default function Onboarding() {
             </View>
 
             <View style={{ flexDirection: "column", width: "100%", gap: 12 }}>
-              <Button
+
+              {/* <Button
                 title={connecting ? "Connecting..." : "Connect"}
                 variant="outlined"
                 onPress={handleWalletConnection}
               />
-              <Button title="Get started" onPress={handleGetStarted} />
+              <Button title="Get started" onPress={handleGetStarted} /> */}
+
+              <Button
+                title="Login with Email"
+                onPress={() => {
+                  login({ loginMethods: ["email"] })
+                    .then((session) => {
+                      console.log("User logged in", session.user);
+                      handleConnection();
+                    })
+                    .catch((err) => {
+                      setError(JSON.stringify(err.error) as string);
+                      console.error(JSON.stringify(err.error) as string)
+                    });
+                }}
+              />
             </View>
           </View>
         </ScrollView>

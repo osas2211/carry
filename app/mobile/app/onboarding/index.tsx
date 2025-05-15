@@ -1,5 +1,5 @@
 import { Image, Text, View } from "react-native"
-import React, { Component, useState } from "react"
+import React, { Component, useEffect, useState } from "react"
 import { onboardingStyle } from "@/styles/onboarding"
 // @ts-ignore
 import deliveryImg from "../../assets/images/onboarding/delivery-man.png"
@@ -10,8 +10,20 @@ import {
 } from "react-native-gesture-handler"
 import { router, Stack } from "expo-router"
 import { Button } from "@/components/ui/Button"
+import { HAS_ONBOARDED } from "@/constants/key_strings"
+import { getValue } from "@/helpers/secureStoreHelpers"
 
 export default function index() {
+  useEffect(() => {
+    const checkOnboarding = async () => {
+      const value = await getValue(HAS_ONBOARDED)
+      if (value == "true") {
+        router.push("/")
+      }
+    }
+    checkOnboarding()
+  }, [])
+
   return (
     <>
       <Stack.Screen options={{ headerShown: false }} />
