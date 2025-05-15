@@ -56,14 +56,21 @@ export const AvatarWithStatus = ({
   status,
   size,
   src,
+  elevation,
 }: {
   status: "online" | "away" | "offline"
   size?: number
   src: string
+  elevation?: number
 }) => {
   return (
     <View
-      style={{ position: "relative", width: size || 42, height: size || 42 }}
+      style={{
+        position: "relative",
+        width: size || 42,
+        height: size || 42,
+        elevation: elevation || 0,
+      }}
     >
       <Avatar src={src} size={size} />
       <View

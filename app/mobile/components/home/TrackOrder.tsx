@@ -21,14 +21,24 @@ export const TrackOrder = () => {
 
   const { data: user, isLoading } = useGetUser()
   return (
-    <View style={{ gap: 20 }}>
+    <View
+      style={{
+        gap: 20,
+        backgroundColor: appColors.primary,
+        paddingTop: 40,
+        paddingInline: 14,
+        paddingBottom: 30,
+        borderBottomEndRadius: 15,
+        borderBottomStartRadius: 15,
+      }}
+    >
       <HomeHeader />
       <View
         style={{
           minHeight: 180,
-          backgroundColor: appColors.text,
+          // backgroundColor: appColors.text,
           borderRadius: 15,
-          padding: 16,
+          // padding: 16,
           gap: 30,
         }}
       >
@@ -81,8 +91,8 @@ export const TrackOrder = () => {
           <Button
             title="Track Package"
             height={40}
-            bgColor={appColors.primary}
-            textColor={appColors.text}
+            // bgColor={appColors.primary}
+            // textColor={appColors.text}
             borderRadius={5}
             onPress={() => {
               if (tracking_id.length > 2) {

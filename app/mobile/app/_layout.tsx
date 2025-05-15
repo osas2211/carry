@@ -11,13 +11,13 @@ import { StatusBar } from "expo-status-bar"
 import { useEffect, useRef, useState } from "react"
 import "react-native-reanimated"
 import {
-  Roboto_200ExtraLight,
-  Roboto_300Light,
-  Roboto_400Regular,
-  Roboto_500Medium,
-  Roboto_600SemiBold,
-  Roboto_700Bold,
-} from "@expo-google-fonts/roboto"
+  Montserrat_200ExtraLight,
+  Montserrat_300Light,
+  Montserrat_400Regular,
+  Montserrat_500Medium,
+  Montserrat_600SemiBold,
+  Montserrat_700Bold,
+} from "@expo-google-fonts/montserrat"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 import { useColorScheme } from "@/hooks/useColorScheme"
@@ -39,12 +39,12 @@ SplashScreen.preventAutoHideAsync()
 export default function RootLayout() {
   const colorScheme = useColorScheme()
   const [loaded] = useFonts({
-    RobotoExtraLight: Roboto_200ExtraLight,
-    RobotoLight: Roboto_300Light,
-    RobotoRegular: Roboto_400Regular,
-    RobotoMedium: Roboto_500Medium,
-    RobotoSemiBold: Roboto_600SemiBold,
-    RobotoBold: Roboto_700Bold,
+    MontserratExtraLight: Montserrat_200ExtraLight,
+    MontserratLight: Montserrat_300Light,
+    MontserratRegular: Montserrat_400Regular,
+    MontserratMedium: Montserrat_500Medium,
+    MontserratSemiBold: Montserrat_600SemiBold,
+    MontserratBold: Montserrat_700Bold,
   })
 
   const [hasOnboarded, setHasOnboarded] = useState(false)

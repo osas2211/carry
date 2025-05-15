@@ -27,7 +27,7 @@ export const TrackingHistory = () => {
         <ActivityIndicator />
       ) : (
         <View style={{ gap: 12 }}>
-          {shipments?.slice(0, 2)?.map((shipment, index) => {
+          {shipments?.slice(0, 5)?.map((shipment, index) => {
             return (
               <TrackingItemCard
                 key={index}
@@ -53,7 +53,7 @@ const TrackingItemCard = ({ item_name = "", tracking_id = "" }) => {
         backgroundColor: appColors.background,
         // elevation: 1,
         shadowColor: "#444447",
-        padding: 16,
+        padding: 10,
         borderRadius: 10,
         flexDirection: "row",
         justifyContent: "space-between",
@@ -66,7 +66,7 @@ const TrackingItemCard = ({ item_name = "", tracking_id = "" }) => {
             height: 40,
             width: 40,
             borderRadius: 40,
-            backgroundColor: "#C6C5B9",
+            backgroundColor: appColors.grey,
             justifyContent: "center",
             alignItems: "center",
           }}
@@ -74,7 +74,7 @@ const TrackingItemCard = ({ item_name = "", tracking_id = "" }) => {
           <MaterialCommunityIcons
             name="package-variant"
             size={24}
-            color={"#393D3F"}
+            color={appColors.text}
           />
         </View>
         <View>

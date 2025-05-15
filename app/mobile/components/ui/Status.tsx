@@ -16,18 +16,18 @@ export const Status = ({
 }) => {
   const statusBgColor: ColorValue =
     status === "pending" || status === "assigned"
-      ? appColors.pending
+      ? "#FFFAE5"
       : status === "completed"
-      ? appColors.success
+      ? "#E8FCCF"
       : status === "in-transit" ||
         status === "accepted" ||
         status === "waiting for pickup"
-      ? appColors.blue
-      : appColors.error
+      ? "#D7E3FC"
+      : "#FAE0E4"
   const statusTextColor: ColorValue =
     status === "pending" || status === "completed" || status === "assigned"
       ? "black"
-      : "white"
+      : "black"
   return (
     <Text
       style={{
@@ -37,9 +37,9 @@ export const Status = ({
         fontSize: 10,
         paddingInline: 10,
         color: statusTextColor,
-        fontWeight: 600,
-        elevation: 1,
         textTransform: "capitalize",
+        // maxWidth: 80,
+        fontFamily: "MontserratSemiBold",
       }}
     >
       {status}

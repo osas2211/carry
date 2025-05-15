@@ -36,7 +36,14 @@ export default function TabLayout() {
   }, [])
   return (
     <>
-      <SafeAreaView style={{ flex: 1, position: "relative" }} edges={["top"]}>
+      <SafeAreaView
+        style={{
+          flex: 1,
+          position: "relative",
+          backgroundColor: appColors.background,
+        }}
+        edges={["top"]}
+      >
         {!isAuthorized ? (
           <View>
             {/* <Text>Checking auth...</Text> */}
@@ -64,13 +71,15 @@ export default function TabLayout() {
                   }),
                   borderTopWidth: 0,
                   backgroundColor: appColors.text,
-                  marginInline: 20,
-                  borderRadius: 50,
+                  marginInline: 5,
+                  borderRadius: 10,
                   height: 60,
                   shadowOpacity: 0,
                   elevation: 0,
                   alignItems: "center",
                   paddingTop: 3,
+                  justifyContent: "space-around",
+                  marginBottom: 5,
                 },
               }}
             >
@@ -79,7 +88,7 @@ export default function TabLayout() {
                 options={{
                   title: "Home",
                   tabBarIcon: ({ color }) => (
-                    <IconSymbol size={28} name="house.fill" color={color} />
+                    <IconSymbol size={24} name="house.fill" color={color} />
                   ),
                 }}
               />
@@ -88,7 +97,7 @@ export default function TabLayout() {
                 options={{
                   title: "Shipments",
                   tabBarIcon: ({ color }) => (
-                    <Feather size={28} name="package" color={color} />
+                    <Feather size={24} name="package" color={color} />
                   ),
                 }}
               />
@@ -97,7 +106,7 @@ export default function TabLayout() {
                 options={{
                   title: "Create",
                   tabBarIcon: ({ color }) => (
-                    <Feather size={28} name="plus" color={color} />
+                    <Feather size={24} name="plus" color={color} />
                   ),
                   tabBarItemStyle: {
                     display: role === UserRole.COURIER ? "none" : "flex",
@@ -110,7 +119,7 @@ export default function TabLayout() {
                 options={{
                   title: "Chats",
                   tabBarIcon: ({ color }) => (
-                    <IconSymbol size={28} name="message.fill" color={color} />
+                    <IconSymbol size={24} name="message.fill" color={color} />
                   ),
                 }}
               />
@@ -120,7 +129,7 @@ export default function TabLayout() {
                   title: "Profile",
                   tabBarIcon: ({ color }) => (
                     // @ts-ignore
-                    <IconSymbol size={28} name="user.fill" color={color} />
+                    <IconSymbol size={24} name="user.fill" color={color} />
                   ),
                 }}
               />
