@@ -22,6 +22,11 @@ const NormalUserUI = () => {
       <View
         style={{ padding: 16, gap: 15, backgroundColor: appColors.background }}
       >
+        <TopRiders />
+      </View>
+      <View
+        style={{ padding: 16, gap: 15, backgroundColor: appColors.background }}
+      >
         <TrackingHistory />
       </View>
     </View>
