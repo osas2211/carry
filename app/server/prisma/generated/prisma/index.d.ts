@@ -2547,15 +2547,18 @@ export namespace Prisma {
   }
 
   export type JobAvgAggregateOutputType = {
+    programId: number | null
     reward: number | null
   }
 
   export type JobSumAggregateOutputType = {
+    programId: number | null
     reward: bigint | null
   }
 
   export type JobMinAggregateOutputType = {
     id: string | null
+    programId: number | null
     creatorAddress: string | null
     courierAddress: string | null
     status: $Enums.JobStatus | null
@@ -2578,6 +2581,7 @@ export namespace Prisma {
 
   export type JobMaxAggregateOutputType = {
     id: string | null
+    programId: number | null
     creatorAddress: string | null
     courierAddress: string | null
     status: $Enums.JobStatus | null
@@ -2600,6 +2604,7 @@ export namespace Prisma {
 
   export type JobCountAggregateOutputType = {
     id: number
+    programId: number
     creatorAddress: number
     courierAddress: number
     status: number
@@ -2623,15 +2628,18 @@ export namespace Prisma {
 
 
   export type JobAvgAggregateInputType = {
+    programId?: true
     reward?: true
   }
 
   export type JobSumAggregateInputType = {
+    programId?: true
     reward?: true
   }
 
   export type JobMinAggregateInputType = {
     id?: true
+    programId?: true
     creatorAddress?: true
     courierAddress?: true
     status?: true
@@ -2654,6 +2662,7 @@ export namespace Prisma {
 
   export type JobMaxAggregateInputType = {
     id?: true
+    programId?: true
     creatorAddress?: true
     courierAddress?: true
     status?: true
@@ -2676,6 +2685,7 @@ export namespace Prisma {
 
   export type JobCountAggregateInputType = {
     id?: true
+    programId?: true
     creatorAddress?: true
     courierAddress?: true
     status?: true
@@ -2785,6 +2795,7 @@ export namespace Prisma {
 
   export type JobGroupByOutputType = {
     id: string
+    programId: number | null
     creatorAddress: string
     courierAddress: string | null
     status: $Enums.JobStatus
@@ -2826,6 +2837,7 @@ export namespace Prisma {
 
   export type JobSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    programId?: boolean
     creatorAddress?: boolean
     courierAddress?: boolean
     status?: boolean
@@ -2852,6 +2864,7 @@ export namespace Prisma {
 
   export type JobSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    programId?: boolean
     creatorAddress?: boolean
     courierAddress?: boolean
     status?: boolean
@@ -2876,6 +2889,7 @@ export namespace Prisma {
 
   export type JobSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    programId?: boolean
     creatorAddress?: boolean
     courierAddress?: boolean
     status?: boolean
@@ -2900,6 +2914,7 @@ export namespace Prisma {
 
   export type JobSelectScalar = {
     id?: boolean
+    programId?: boolean
     creatorAddress?: boolean
     courierAddress?: boolean
     status?: boolean
@@ -2920,7 +2935,7 @@ export namespace Prisma {
     isDeleted?: boolean
   }
 
-  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "creatorAddress" | "courierAddress" | "status" | "reward" | "metadataHash" | "pickupAddress" | "dropoffAddress" | "description" | "packageType" | "isFragile" | "isTemperatureSensitive" | "createdAt" | "updatedAt" | "acceptedAt" | "pickedUpAt" | "deliveredAt" | "eta" | "isDeleted", ExtArgs["result"]["job"]>
+  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "programId" | "creatorAddress" | "courierAddress" | "status" | "reward" | "metadataHash" | "pickupAddress" | "dropoffAddress" | "description" | "packageType" | "isFragile" | "isTemperatureSensitive" | "createdAt" | "updatedAt" | "acceptedAt" | "pickedUpAt" | "deliveredAt" | "eta" | "isDeleted", ExtArgs["result"]["job"]>
   export type JobInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     creator?: boolean | UserDefaultArgs<ExtArgs>
     courier?: boolean | Job$courierArgs<ExtArgs>
@@ -2945,6 +2960,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      programId: number | null
       creatorAddress: string
       courierAddress: string | null
       status: $Enums.JobStatus
@@ -3390,6 +3406,7 @@ export namespace Prisma {
    */
   interface JobFieldRefs {
     readonly id: FieldRef<"Job", 'String'>
+    readonly programId: FieldRef<"Job", 'Int'>
     readonly creatorAddress: FieldRef<"Job", 'String'>
     readonly courierAddress: FieldRef<"Job", 'String'>
     readonly status: FieldRef<"Job", 'JobStatus'>
@@ -4998,6 +5015,7 @@ export namespace Prisma {
 
   export const JobScalarFieldEnum: {
     id: 'id',
+    programId: 'programId',
     creatorAddress: 'creatorAddress',
     courierAddress: 'courierAddress',
     status: 'status',
@@ -5262,6 +5280,7 @@ export namespace Prisma {
     OR?: JobWhereInput[]
     NOT?: JobWhereInput | JobWhereInput[]
     id?: StringFilter<"Job"> | string
+    programId?: IntNullableFilter<"Job"> | number | null
     creatorAddress?: StringFilter<"Job"> | string
     courierAddress?: StringNullableFilter<"Job"> | string | null
     status?: EnumJobStatusFilter<"Job"> | $Enums.JobStatus
@@ -5287,6 +5306,7 @@ export namespace Prisma {
 
   export type JobOrderByWithRelationInput = {
     id?: SortOrder
+    programId?: SortOrderInput | SortOrder
     creatorAddress?: SortOrder
     courierAddress?: SortOrderInput | SortOrder
     status?: SortOrder
@@ -5315,6 +5335,7 @@ export namespace Prisma {
     AND?: JobWhereInput | JobWhereInput[]
     OR?: JobWhereInput[]
     NOT?: JobWhereInput | JobWhereInput[]
+    programId?: IntNullableFilter<"Job"> | number | null
     creatorAddress?: StringFilter<"Job"> | string
     courierAddress?: StringNullableFilter<"Job"> | string | null
     status?: EnumJobStatusFilter<"Job"> | $Enums.JobStatus
@@ -5340,6 +5361,7 @@ export namespace Prisma {
 
   export type JobOrderByWithAggregationInput = {
     id?: SortOrder
+    programId?: SortOrderInput | SortOrder
     creatorAddress?: SortOrder
     courierAddress?: SortOrderInput | SortOrder
     status?: SortOrder
@@ -5370,6 +5392,7 @@ export namespace Prisma {
     OR?: JobScalarWhereWithAggregatesInput[]
     NOT?: JobScalarWhereWithAggregatesInput | JobScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Job"> | string
+    programId?: IntNullableWithAggregatesFilter<"Job"> | number | null
     creatorAddress?: StringWithAggregatesFilter<"Job"> | string
     courierAddress?: StringNullableWithAggregatesFilter<"Job"> | string | null
     status?: EnumJobStatusWithAggregatesFilter<"Job"> | $Enums.JobStatus
@@ -5632,6 +5655,7 @@ export namespace Prisma {
 
   export type JobCreateInput = {
     id?: string
+    programId?: number | null
     status?: $Enums.JobStatus
     reward: bigint | number
     metadataHash?: string | null
@@ -5655,6 +5679,7 @@ export namespace Prisma {
 
   export type JobUncheckedCreateInput = {
     id?: string
+    programId?: number | null
     creatorAddress: string
     courierAddress?: string | null
     status?: $Enums.JobStatus
@@ -5678,6 +5703,7 @@ export namespace Prisma {
 
   export type JobUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    programId?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     reward?: BigIntFieldUpdateOperationsInput | bigint | number
     metadataHash?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5701,6 +5727,7 @@ export namespace Prisma {
 
   export type JobUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    programId?: NullableIntFieldUpdateOperationsInput | number | null
     creatorAddress?: StringFieldUpdateOperationsInput | string
     courierAddress?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
@@ -5724,6 +5751,7 @@ export namespace Prisma {
 
   export type JobCreateManyInput = {
     id?: string
+    programId?: number | null
     creatorAddress: string
     courierAddress?: string | null
     status?: $Enums.JobStatus
@@ -5746,6 +5774,7 @@ export namespace Prisma {
 
   export type JobUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    programId?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     reward?: BigIntFieldUpdateOperationsInput | bigint | number
     metadataHash?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5766,6 +5795,7 @@ export namespace Prisma {
 
   export type JobUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    programId?: NullableIntFieldUpdateOperationsInput | number | null
     creatorAddress?: StringFieldUpdateOperationsInput | string
     courierAddress?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
@@ -6203,6 +6233,17 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type EnumJobStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.JobStatus | EnumJobStatusFieldRefInput<$PrismaModel>
     in?: $Enums.JobStatus[]
@@ -6232,6 +6273,7 @@ export namespace Prisma {
 
   export type JobCountOrderByAggregateInput = {
     id?: SortOrder
+    programId?: SortOrder
     creatorAddress?: SortOrder
     courierAddress?: SortOrder
     status?: SortOrder
@@ -6253,11 +6295,13 @@ export namespace Prisma {
   }
 
   export type JobAvgOrderByAggregateInput = {
+    programId?: SortOrder
     reward?: SortOrder
   }
 
   export type JobMaxOrderByAggregateInput = {
     id?: SortOrder
+    programId?: SortOrder
     creatorAddress?: SortOrder
     courierAddress?: SortOrder
     status?: SortOrder
@@ -6280,6 +6324,7 @@ export namespace Prisma {
 
   export type JobMinOrderByAggregateInput = {
     id?: SortOrder
+    programId?: SortOrder
     creatorAddress?: SortOrder
     courierAddress?: SortOrder
     status?: SortOrder
@@ -6301,7 +6346,24 @@ export namespace Prisma {
   }
 
   export type JobSumOrderByAggregateInput = {
+    programId?: SortOrder
     reward?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type EnumJobStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -6517,6 +6579,14 @@ export namespace Prisma {
     connectOrCreate?: TrackingUpdateCreateOrConnectWithoutJobInput | TrackingUpdateCreateOrConnectWithoutJobInput[]
     createMany?: TrackingUpdateCreateManyJobInputEnvelope
     connect?: TrackingUpdateWhereUniqueInput | TrackingUpdateWhereUniqueInput[]
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type EnumJobStatusFieldUpdateOperationsInput = {
@@ -6851,6 +6921,22 @@ export namespace Prisma {
     not?: NestedEnumJobStatusFilter<$PrismaModel> | $Enums.JobStatus
   }
 
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
   export type NestedEnumJobStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.JobStatus | EnumJobStatusFieldRefInput<$PrismaModel>
     in?: $Enums.JobStatus[]
@@ -6863,6 +6949,7 @@ export namespace Prisma {
 
   export type JobCreateWithoutCreatorInput = {
     id?: string
+    programId?: number | null
     status?: $Enums.JobStatus
     reward: bigint | number
     metadataHash?: string | null
@@ -6885,6 +6972,7 @@ export namespace Prisma {
 
   export type JobUncheckedCreateWithoutCreatorInput = {
     id?: string
+    programId?: number | null
     courierAddress?: string | null
     status?: $Enums.JobStatus
     reward: bigint | number
@@ -6916,6 +7004,7 @@ export namespace Prisma {
 
   export type JobCreateWithoutCourierInput = {
     id?: string
+    programId?: number | null
     status?: $Enums.JobStatus
     reward: bigint | number
     metadataHash?: string | null
@@ -6938,6 +7027,7 @@ export namespace Prisma {
 
   export type JobUncheckedCreateWithoutCourierInput = {
     id?: string
+    programId?: number | null
     creatorAddress: string
     status?: $Enums.JobStatus
     reward: bigint | number
@@ -6988,6 +7078,7 @@ export namespace Prisma {
     OR?: JobScalarWhereInput[]
     NOT?: JobScalarWhereInput | JobScalarWhereInput[]
     id?: StringFilter<"Job"> | string
+    programId?: IntNullableFilter<"Job"> | number | null
     creatorAddress?: StringFilter<"Job"> | string
     courierAddress?: StringNullableFilter<"Job"> | string | null
     status?: EnumJobStatusFilter<"Job"> | $Enums.JobStatus
@@ -7316,6 +7407,7 @@ export namespace Prisma {
 
   export type JobCreateWithoutTrackingUpdatesInput = {
     id?: string
+    programId?: number | null
     status?: $Enums.JobStatus
     reward: bigint | number
     metadataHash?: string | null
@@ -7338,6 +7430,7 @@ export namespace Prisma {
 
   export type JobUncheckedCreateWithoutTrackingUpdatesInput = {
     id?: string
+    programId?: number | null
     creatorAddress: string
     courierAddress?: string | null
     status?: $Enums.JobStatus
@@ -7376,6 +7469,7 @@ export namespace Prisma {
 
   export type JobUpdateWithoutTrackingUpdatesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    programId?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     reward?: BigIntFieldUpdateOperationsInput | bigint | number
     metadataHash?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7398,6 +7492,7 @@ export namespace Prisma {
 
   export type JobUncheckedUpdateWithoutTrackingUpdatesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    programId?: NullableIntFieldUpdateOperationsInput | number | null
     creatorAddress?: StringFieldUpdateOperationsInput | string
     courierAddress?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
@@ -7420,6 +7515,7 @@ export namespace Prisma {
 
   export type JobCreateManyCreatorInput = {
     id?: string
+    programId?: number | null
     courierAddress?: string | null
     status?: $Enums.JobStatus
     reward: bigint | number
@@ -7441,6 +7537,7 @@ export namespace Prisma {
 
   export type JobCreateManyCourierInput = {
     id?: string
+    programId?: number | null
     creatorAddress: string
     status?: $Enums.JobStatus
     reward: bigint | number
@@ -7462,6 +7559,7 @@ export namespace Prisma {
 
   export type JobUpdateWithoutCreatorInput = {
     id?: StringFieldUpdateOperationsInput | string
+    programId?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     reward?: BigIntFieldUpdateOperationsInput | bigint | number
     metadataHash?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7484,6 +7582,7 @@ export namespace Prisma {
 
   export type JobUncheckedUpdateWithoutCreatorInput = {
     id?: StringFieldUpdateOperationsInput | string
+    programId?: NullableIntFieldUpdateOperationsInput | number | null
     courierAddress?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     reward?: BigIntFieldUpdateOperationsInput | bigint | number
@@ -7506,6 +7605,7 @@ export namespace Prisma {
 
   export type JobUncheckedUpdateManyWithoutCreatorInput = {
     id?: StringFieldUpdateOperationsInput | string
+    programId?: NullableIntFieldUpdateOperationsInput | number | null
     courierAddress?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     reward?: BigIntFieldUpdateOperationsInput | bigint | number
@@ -7527,6 +7627,7 @@ export namespace Prisma {
 
   export type JobUpdateWithoutCourierInput = {
     id?: StringFieldUpdateOperationsInput | string
+    programId?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     reward?: BigIntFieldUpdateOperationsInput | bigint | number
     metadataHash?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7549,6 +7650,7 @@ export namespace Prisma {
 
   export type JobUncheckedUpdateWithoutCourierInput = {
     id?: StringFieldUpdateOperationsInput | string
+    programId?: NullableIntFieldUpdateOperationsInput | number | null
     creatorAddress?: StringFieldUpdateOperationsInput | string
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     reward?: BigIntFieldUpdateOperationsInput | bigint | number
@@ -7571,6 +7673,7 @@ export namespace Prisma {
 
   export type JobUncheckedUpdateManyWithoutCourierInput = {
     id?: StringFieldUpdateOperationsInput | string
+    programId?: NullableIntFieldUpdateOperationsInput | number | null
     creatorAddress?: StringFieldUpdateOperationsInput | string
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     reward?: BigIntFieldUpdateOperationsInput | bigint | number

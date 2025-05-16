@@ -20,6 +20,7 @@ export function SignInButton() {
         return;
       }
       setSignInInProgress(true);
+
       let wallet = await signIn({
         domain: "carry.com",
         statement: "Sign into Carry",
@@ -35,6 +36,7 @@ export function SignInButton() {
       await handleWalletConnection(publicKey);
     } catch (err: any) {
       alertAndLog(
+
         "Error during sign in",
         err instanceof Error ? err.message : err
       );

@@ -15,7 +15,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@coral-xyz/anchor": "^0.31.1",
+    "@coral-xyz/anchor": "^0.28.0",
     "@expo-google-fonts/montserrat": "^0.3.0",
     "@expo-google-fonts/roboto": "^0.3.0",
     "@expo/vector-icons": "^14.0.2",
@@ -29,6 +29,7 @@
     "@solana-mobile/mobile-wallet-adapter-protocol": "^2.1.8",
     "@solana-mobile/mobile-wallet-adapter-protocol-web3js": "^2.1.8",
     "@solana-mobile/wallet-adapter-mobile": "^2.1.5",
+    "@solana/kit": "^2.1.1",
     "@solana/wallet-adapter-base": "^0.9.26",
     "@solana/web3.js": "^1.98.1",
     "@tanstack/react-query": "^5.75.0",
