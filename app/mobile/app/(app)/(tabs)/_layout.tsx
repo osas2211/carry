@@ -1,4 +1,4 @@
-import { router, Tabs } from "expo-router"
+import { Href, Redirect, router, Stack, Tabs } from "expo-router"
 import React, { useEffect, useState } from "react"
 import { ActivityIndicator, Platform, Text, View } from "react-native"
 import Feather from "@expo/vector-icons/Feather"
@@ -16,7 +16,7 @@ import {
 import { UserRole } from "@/@types/user"
 import { getItem } from "expo-secure-store"
 import { SafeAreaView } from "react-native-safe-area-context"
-import { usePrivy } from "@privy-io/expo"
+import { AuthBoundary, usePrivy } from "@privy-io/expo"
 
 export default function TabLayout() {
   const { isReady } = usePrivy();
@@ -43,7 +43,11 @@ export default function TabLayout() {
   }
 
   return (
-
+    // <AuthBoundary
+    //   loading={<Stack.Screen name="+not-found" />}
+    //   error={(error) => <Stack.Screen name="+not-found" />} // switch to error screen
+    //   unauthenticated={<Redirect href={"/auth" as Href} />}
+    // >
     <SafeAreaView
       style={{
         flex: 1,
@@ -162,6 +166,6 @@ export default function TabLayout() {
         )
       */}
     </SafeAreaView >
-
+    // </AuthBoundary>
   )
 }

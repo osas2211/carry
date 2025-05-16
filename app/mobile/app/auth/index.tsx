@@ -27,25 +27,21 @@ import { UserProfile } from "@/@types/user"
 import { generateUserToken } from "@/services/user.service"
 import { PublicKey } from "@solana/web3.js"
 import { StatusBar } from "expo-status-bar";
-
-// this guy is not bundling on android
-// custom ui for login with email
-// import { useLogin } from "@privy-io/expo/ui";
+import { useLogin } from "@privy-io/expo/ui";
 
 export default function AuthPage() {
   const [connecting, setConnecting] = useState(true);
   const [error, setError] = useState("");
 
-  // the function
-  // const { login } = useLogin();
+  const { login } = useLogin();
 
   const { logout, user } = usePrivy();
   const account = getUserEmbeddedSolanaWallet(user);
 
   // the functions for alternative approach
-  const { sendCode, loginWithCode } = useLoginWithEmail();
-  const [email] = useState("");
-  const [otp, setOtp] = useState("");
+  // const { sendCode, loginWithCode } = useLoginWithEmail();
+  // const [email] = useState("");
+  // const [otp, setOtp] = useState("");
 
   const handleConnection = async () => {
     try {
@@ -73,6 +69,7 @@ export default function AuthPage() {
       setConnecting(false)
     }
   }
+
   // const handleGetStarted = async () => {
   //   router.push("/onboarding")
   // }
@@ -143,15 +140,15 @@ export default function AuthPage() {
               <Button
                 title="Login with Email"
                 onPress={() => {
-                  // login({ loginMethods: ["email"] })
-                  //   .then((session) => {
-                  //     console.log("User logged in", session.user);
-                  //     handleConnection();
-                  //   })
-                  //   .catch((err) => {
-                  //     setError(JSON.stringify(err.error) as string);
-                  //     console.error(JSON.stringify(err.error) as string)
-                  //   });
+                  login({ loginMethods: ["email"] })
+                    .then((session) => {
+                      console.log("User logged in", session.user);
+                      handleConnection();
+                    })
+                    .catch((err) => {
+                      setError(JSON.stringify(err.error) as string);
+                      console.error('Login error:', err);
+                    });
                 }}
               />
 
@@ -159,7 +156,7 @@ export default function AuthPage() {
 
 
             {/* OR Dummy UI, but we need to style it properly */}
-
+            {/* 
             <>
               <StatusBar style="auto" />
 
@@ -210,7 +207,7 @@ export default function AuthPage() {
                   />
                 </View>
               </View>
-            </>
+            </> */}
 
 
 

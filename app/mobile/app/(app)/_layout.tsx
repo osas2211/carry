@@ -6,7 +6,7 @@ import React from "react";
 export default function AppLayout() {
   return (
     <AuthBoundary
-      loading={<Stack.Screen name="+Loader" />}
+      loading={<Stack.Screen name="+not-found" />}
       error={(error) => <Stack.Screen name="+not-found" />} // switch to error screen
       unauthenticated={<Redirect href={"/auth" as Href} />}
     >

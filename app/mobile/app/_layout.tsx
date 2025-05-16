@@ -1,7 +1,5 @@
 import { PrivyProvider } from "@privy-io/expo";
-
-// import { PrivyElements } from "@privy-io/expo/ui";
-// import "react-native-get-random-values";
+import { PrivyElements } from "@privy-io/expo/ui";
 import Constants from "expo-constants";
 import {
   DarkTheme,
@@ -9,10 +7,10 @@ import {
   ThemeProvider,
 } from "@react-navigation/native"
 import { useFonts } from "expo-font"
-import { Slot, Stack } from "expo-router"
+import { Stack } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
 import { StatusBar } from "expo-status-bar"
-import { useEffect, useRef, useState } from "react"
+import { useEffect } from "react"
 import "react-native-reanimated"
 import {
   Montserrat_200ExtraLight,
@@ -23,7 +21,6 @@ import {
   Montserrat_700Bold,
 } from "@expo-google-fonts/montserrat"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-
 import { useColorScheme } from "@/hooks/useColorScheme"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { getValue } from "@/helpers/secureStoreHelpers"
@@ -63,8 +60,10 @@ export default function RootLayout() {
 
   return (
     <PrivyProvider
-      appId={Constants.expoConfig?.extra?.privy?.appId}
-      clientId={Constants.expoConfig?.extra?.privy?.clientId}
+      // appId={Constants.expoConfig?.extra?.privy?.appId}
+      // clientId={Constants.expoConfig?.extra?.privy?.clientId}
+      appId="cmap29oso024zju0n7z1qfq72"
+      clientId="client-WY6LJkRxeo5kappoQtAX3SGFvrBfTvCD8GCgH7PHLBftB"
       config={{
         embedded: {
           solana: {
@@ -72,6 +71,11 @@ export default function RootLayout() {
           },
         },
       }}>
+      <PrivyElements
+        config={{
+          appearance: { colorScheme: colorScheme == "dark" ? "dark" : "light" },
+        }}
+      />
       <QueryClientProvider client={queryClient}>
         <PushNotifcationRoot>
           <AlertNotificationRoot>
@@ -85,19 +89,17 @@ export default function RootLayout() {
               >
                 
               </SafeAreaView> */}
-                {/* <Stack>
-                  <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                <Stack>
+                  <Stack.Screen name="(app)" options={{ headerShown: false }} />
                   <Stack.Screen name="+not-found" />
-                </Stack> */}
-                <Stack.Screen name="(app)" options={{ headerShown: false }} />
-                <Stack.Screen name="+not-found" />
+                </Stack>
               </>
               <StatusBar style="auto" />
             </ThemeProvider>
           </AlertNotificationRoot>
         </PushNotifcationRoot>
       </QueryClientProvider>
-      {/* <PrivyElements /> */}
+
     </PrivyProvider >
   )
 }
