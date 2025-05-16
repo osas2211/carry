@@ -68,8 +68,8 @@ const CourierCard = ({
         </View>
         <Button
           title="Assign Courier"
-          bgColor={appColors.primary}
-          textColor={appColors.text}
+          bgColor={appColors.primary_low}
+          textColor={appColors.primary}
           isLoading={mutation.isPending}
           onPress={handleAssign}
         />

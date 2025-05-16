@@ -73,7 +73,7 @@ export const Button = ({
               variant === "outlined"
                 ? "#202A25"
                 : textColor || appColors.background,
-            fontFamily: "RobotoMedium",
+            fontFamily: "MontserratSemiBold",
           }}
         >
           {title}

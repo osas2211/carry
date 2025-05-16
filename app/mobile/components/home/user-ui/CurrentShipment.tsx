@@ -19,7 +19,7 @@ const CurrentShipment = () => {
         style={{
           height: 65,
           width: "100%",
-          backgroundColor: "#ff0f7b10",
+          backgroundColor: "#6bee5a25",
           borderRadius: 10,
           padding: 12,
           flexDirection: "row",

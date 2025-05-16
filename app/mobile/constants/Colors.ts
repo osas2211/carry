@@ -31,9 +31,11 @@ export const appColors = {
   // primary: "#9EF01A",
   // primary: "#F9DC5C",
   primary: "#C77DFF",
+  primary_low: "#F2EBFB",
   success: "#9EF01A",
   pending: "#FDCA40",
   error: "#DD1C1A",
   blue: "#3772FF",
-  grey: "#F2F2F2"
+  grey: "#F2F2F2",
+
 }

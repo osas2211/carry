@@ -1,5 +1,6 @@
 import { View, Text, Image } from "react-native"
 import React from "react"
+import { appColors } from "@/constants/Colors"
 
 const options = [
   {
@@ -29,7 +30,7 @@ const options = [
   },
 
   {
-    bgColor: "#F0FFF1",
+    bgColor: appColors.grey,
     icon: require("../../../assets/images/home/passport.png"),
     title: "Pickup someone",
   },

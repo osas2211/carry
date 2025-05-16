@@ -101,12 +101,9 @@ export const DestinationAndPackage = ({
         Package
       </Text>
       <View style={{ marginTop: 0 }}>
-        <Text style={style.smallText}>Package Type</Text>
-        {/* <Input
-            style={style.inputBorder}
-            icon={<EvilIcons name="location" size={24} />}
-          /> */}
-        <RNPickerSelect
+        <Text style={style.smallText}>Package Title</Text>
+
+        {/* <RNPickerSelect
           onValueChange={(value) => {
             setForm((prev) => ({ ...prev, packageType: value }))
             setRequired_fields((prev) => ({ ...prev, packageType: false }))
@@ -126,10 +123,18 @@ export const DestinationAndPackage = ({
             },
           }}
           placeholder={{ label: "Pick package type" }}
+        /> */}
+        <Input
+          style={{ ...style.inputBorder, paddingLeft: 16 }}
+          placeholder="Enter title of the package"
+          onChangeText={(value) => {
+            setForm((prev) => ({ ...prev, packageType: value }))
+            setRequired_fields((prev) => ({ ...prev, packageType: false }))
+          }}
         />
       </View>
       {required_fields.packageType && (
-        <Text style={style.errorText}>Package Type is required</Text>
+        <Text style={style.errorText}>Package Title is required</Text>
       )}
 
       <View>
@@ -169,8 +174,8 @@ export const DestinationAndPackage = ({
 
       <Button
         title="Next"
-        textColor={appColors.text}
-        bgColor={appColors.primary}
+        textColor={appColors.primary}
+        bgColor={appColors.primary_low}
         height={55}
         onPress={handleSubmit}
       />
