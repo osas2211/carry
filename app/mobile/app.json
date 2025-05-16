@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "delichain",
-    "slug": "delichain",
+    "name": "Carry",
+    "slug": "Carry",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "delichain",
+    "scheme": "Carry",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -21,7 +21,7 @@
           "apiKey": "AIzaSyAQw396F0bpSY5i0I3eYEB_cK-0v926wc8"
         }
       },
-      "package": "com.osas2211.delichain"
+      "package": "com.osas2211.carry"
     },
     "web": {
       "bundler": "metro",

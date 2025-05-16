@@ -86,9 +86,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'com.osas2211.delichain'
+    namespace 'com.osas2211.carry'
     defaultConfig {
-        applicationId 'com.osas2211.delichain'
+        applicationId 'com.osas2211.carry'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

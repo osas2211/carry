@@ -1,4 +1,4 @@
-package com.osas2211.delichain
+package com.osas2211.carry
 
 import android.app.Application
 import android.content.res.Configuration

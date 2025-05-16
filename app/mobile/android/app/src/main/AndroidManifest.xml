@@ -26,9 +26,8 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="delichain"/>
-        <data android:scheme="com.osas2211.delichain"/>
-        <data android:scheme="exp+delichain"/>
+        <data android:scheme="Carry"/>
+        <data android:scheme="exp+carry"/>
       </intent-filter>
     </activity>
     <uses-library android:name="org.apache.http.legacy" android:required="false"/>

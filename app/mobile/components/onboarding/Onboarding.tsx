@@ -71,7 +71,7 @@ export default function Onboarding({
         <View
           style={{ justifyContent: "center", alignItems: "center", gap: 40 }}
         >
-          {/* <Text style={{ fontWeight: 800, fontSize: 20 }}>SpeedFi</Text> */}
+          {/* <Text style={{ fontWeight: 800, fontSize: 20 }}>Carry</Text> */}
           <Image source={deliveryImg} style={{ width: 350, height: 350 }} />
           <View style={{ gap: 10, paddingInline: 20 }}>
             <Text
@@ -89,8 +89,8 @@ export default function Onboarding({
                 color: appColors.text,
               }}
             >
-              SpeedFi connects local couriers and warehouses, retailers and
-              direct consumers into a fast, decentralized delivery network. No
+              Carry connects local couriers and warehouses, retailers and direct
+              consumers into a fast, decentralized delivery network. No
               middlemen, just efficiency.
             </Text>
           </View>
