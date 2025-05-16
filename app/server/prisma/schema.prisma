@@ -45,6 +45,7 @@ model User {
 
 model Job {
   id             String @id @default(cuid())
+  programId      Int?   
   creator        User   @relation("JobsCreated", fields: [creatorAddress], references: [walletAddress])
   creatorAddress String
 

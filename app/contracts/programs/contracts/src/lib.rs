@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("9TYPgvadsErCiq1PiZ3Us9fY52eLFVhTHnZ9gZUNiEVT");
+declare_id!("6uJXKENZwMPUQPnzH7auTcb1Y6GXtbAeK65XPyD2crkj");
 
 const ANCHOR_DISCRIMINATOR: usize = 8;
 
@@ -29,7 +29,7 @@ pub mod contracts {
         delivery.estimated_time_of_arrival = eta;
         delivery.status = String::from(DeliveryStatus::Active.as_str());
         delivery.created_at = current_unix_timestamp as u64;
-        // delivery.escrow = *escrow.key;
+        delivery.escrow = *escrow.key;
 
         let transfer_instruction =
             solana_program::system_instruction::transfer(creator.key, escrow.key, reward);
@@ -66,20 +66,17 @@ pub mod contracts {
     }
 
     // ACCEPT DELIVERY JOB
-    pub fn accept_delivery_job(
-        ctx: Context<CourierDeliveryAcceptJob>,
+    pub fn assign_delivery_job(
+        ctx: Context<CourierDeliveryAssignJob>,
         _index: u64,
-        creator: Pubkey,
+        courier: Pubkey,
     ) -> Result<()> {
         let delivery = &mut ctx.accounts.delivery;
 
         require!(delivery.status == "ACTIVE", CustomError::JobNotAvailable);
-        require_keys_neq!(
-            creator,
-            *ctx.accounts.courier.key,
-            CustomError::CreatorAcceptJobBlocked
-        );
-        delivery.courier = Some(*ctx.accounts.courier.key);
+        require!(delivery.courier.is_none(), CustomError::JobBlocked);
+
+        delivery.courier = Some(courier);
         delivery.status = String::from(DeliveryStatus::InProgress.as_str());
         Ok(())
     }
@@ -140,13 +137,13 @@ pub struct ConfirmDeliveryStatus<'info> {
 }
 
 #[derive(Accounts)]
-#[instruction(index: u64, creator: Pubkey)]
-pub struct CourierDeliveryAcceptJob<'info> {
+#[instruction(index: u64)]
+pub struct CourierDeliveryAssignJob<'info> {
     #[account(mut)]
-    pub courier: Signer<'info>,
+    pub creator: Signer<'info>,
     #[account(
         mut,
-        seeds = [creator.as_ref(), index.to_le_bytes().as_ref()],
+        seeds = [creator.key().as_ref(), index.to_le_bytes().as_ref()],
         bump,
     )]
     pub delivery: Account<'info, Delivery>,
@@ -168,7 +165,7 @@ pub struct Delivery {
     metadata_hash: Option<String>,
     created_at: u64,
     estimated_time_of_arrival: u64,
-    // escrow: Pubkey,
+    escrow: Pubkey,
 }
 
 // ************************************************************** NORMAL ENUMS **************************************************************
@@ -206,4 +203,7 @@ pub enum CustomError {
 
     #[msg("The provided courier account does not match the assigned courier.")]
     InvalidCourierAccount,
+
+    #[msg("The Job is already assigned")]
+    JobBlocked,
 }

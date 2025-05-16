@@ -109,7 +109,7 @@ export default function Onboarding() {
               /> */}
 
               <SignInButton />
-              <Button title="Get started" onPress={handleGetStarted} />
+              {/* <Button title="Get started" onPress={handleGetStarted} /> */}
             </View>
           </View>
         </ScrollView>

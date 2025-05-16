@@ -11,8 +11,16 @@ import { USER_PUBLIC_KEY } from "@/constants/key_strings"
 import { API_URL } from "@/constants/urls"
 import { router } from "expo-router"
 import { api } from "@/api/api.instance"
+import { useConnection } from "@/utils/ConnectionProvider"
+import { useAuthorization } from "@/utils/useAuthorization"
+import { useMobileWallet } from "@/utils/useMobileWallet"
+import { encodePayload } from "@/utils/gen"
+import bs58 from "bs58";
+import { alertAndLog } from "@/utils/alertAndLog"
 
 const CustomerOnboardingForm = () => {
+  const { selectedAccount } = useAuthorization();
+  const { signMessage } = useMobileWallet();
   const [imageUrl, setImageUrl] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [form, setForm] = useState({
@@ -25,21 +33,41 @@ const CustomerOnboardingForm = () => {
   const handleJoin = async () => {
     try {
       setIsLoading(true)
-      await connectWallet()
-      const pubKey = (await getValue(USER_PUBLIC_KEY)) || ""
+
+      if (!selectedAccount) {
+        console.error("not signed in")
+        return;
+      }
+
+      // const message = {
+      //   domain: "carry.com",
+      //   statement: "Create Carry Account",
+      //   uri: "https://carry.com",
+      // }
+
+      // const messageBytes = encodePayload(JSON.stringify(message));
+
+      // const sigBytes = await signMessage(messageBytes);
+
+      const pubKey = selectedAccount.publicKey.toString();
       const data: CreateUserDTO = {
         username: `${form.firstName} ${form.lastName}`,
         walletAddress: pubKey,
         role: UserRole.NORMAL_USER,
         avatarUrl: imageUrl,
+        // signedMessage: bs58.encode(sigBytes)
       }
-      // console.log(data)
       console.clear()
       const response = await api.post(`/users`, data)
       setIsLoading(false)
       alert("Joined successfully")
-      console.log(response.data)
+      // console.log(response.data)
+      router.push("/")
     } catch (error) {
+      alertAndLog(
+        "Error during onboarding",
+        error instanceof Error ? error.message : error
+      )
       console.log(error)
       setIsLoading(false)
     }

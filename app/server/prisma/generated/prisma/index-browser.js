@@ -141,6 +141,7 @@ exports.Prisma.UserScalarFieldEnum = {
 
 exports.Prisma.JobScalarFieldEnum = {
   id: 'id',
+  programId: 'programId',
   creatorAddress: 'creatorAddress',
   courierAddress: 'courierAddress',
   status: 'status',
