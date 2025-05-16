@@ -5,44 +5,47 @@ import {
   IsNumber,
   IsPositive,
   IsDateString,
-} from 'class-validator'
+} from 'class-validator';
 
 export class CreateDeliveryJobDto {
   @IsNotEmpty()
   @IsNumber()
   @IsPositive()
-  reward: number
+  reward: number;
 
   @IsNotEmpty()
   @IsString()
-  pickupAddress: string
+  pickupAddress: string;
 
   @IsNotEmpty()
   @IsString()
-  dropoffAddress: string
+  dropoffAddress: string;
 
   @IsOptional()
   @IsString()
-  metadataHash?: string
+  metadataHash?: string;
 
   @IsOptional()
   @IsString()
-  description?: string
+  description?: string;
 
   @IsOptional()
   @IsString()
-  packageType?: string
+  packageType?: string;
 
   @IsNotEmpty()
   @IsDateString()
-  eta: string // ISO 8601 format
+  eta: string; // ISO 8601 format
+
+  @IsNotEmpty()
+  @IsNumber()
+  programId: number;
 }
 
-
 export class AcceptDeliveryJobDto {
-  courierAddress: string
+  courierAddress: string;
 }
 
 export class ConfirmDeliveryDto {
-  courierAddress: string
+  courierAddress: string;
 }
