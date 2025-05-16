@@ -181,7 +181,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\code_base\\speedify\\app\\server\\prisma\\generated\\prisma",
+      "value": "/home/blockyj/Documents/solana-breakout/speedify/app/server/prisma/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -190,12 +190,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "debian-openssl-3.0.x",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\code_base\\speedify\\app\\server\\prisma\\schema.prisma",
+    "sourceFilePath": "/home/blockyj/Documents/solana-breakout/speedify/app/server/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
