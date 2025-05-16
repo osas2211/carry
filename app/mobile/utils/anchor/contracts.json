@@ -1,5 +1,5 @@
 {
-  "address": "9TYPgvadsErCiq1PiZ3Us9fY52eLFVhTHnZ9gZUNiEVT",
+  "address": "6uJXKENZwMPUQPnzH7auTcb1Y6GXtbAeK65XPyD2crkj",
   "metadata": {
     "name": "contracts",
     "version": "0.1.0",
@@ -9,16 +9,7 @@
   "instructions": [
     {
       "name": "assign_delivery_job",
-      "discriminator": [
-        146,
-        71,
-        217,
-        154,
-        114,
-        150,
-        74,
-        251
-      ],
+      "discriminator": [146, 71, 217, 154, 114, 150, 74, 251],
       "accounts": [
         {
           "name": "creator",
@@ -59,16 +50,7 @@
     },
     {
       "name": "confirm_delivery",
-      "discriminator": [
-        11,
-        109,
-        227,
-        53,
-        179,
-        190,
-        88,
-        155
-      ],
+      "discriminator": [11, 109, 227, 53, 179, 190, 88, 155],
       "accounts": [
         {
           "name": "signer",
@@ -98,14 +80,7 @@
             "seeds": [
               {
                 "kind": "const",
-                "value": [
-                  101,
-                  115,
-                  99,
-                  114,
-                  111,
-                  119
-                ]
+                "value": [101, 115, 99, 114, 111, 119]
               },
               {
                 "kind": "account",
@@ -135,16 +110,7 @@
     },
     {
       "name": "create_delivery",
-      "discriminator": [
-        68,
-        31,
-        6,
-        31,
-        5,
-        49,
-        46,
-        62
-      ],
+      "discriminator": [68, 31, 6, 31, 5, 49, 46, 62],
       "accounts": [
         {
           "name": "delivery",
@@ -174,14 +140,7 @@
             "seeds": [
               {
                 "kind": "const",
-                "value": [
-                  101,
-                  115,
-                  99,
-                  114,
-                  111,
-                  119
-                ]
+                "value": [101, 115, 99, 114, 111, 119]
               },
               {
                 "kind": "account",
@@ -218,16 +177,7 @@
   "accounts": [
     {
       "name": "Delivery",
-      "discriminator": [
-        121,
-        32,
-        31,
-        112,
-        7,
-        74,
-        193,
-        19
-      ]
+      "discriminator": [121, 32, 31, 112, 7, 74, 193, 19]
     }
   ],
   "errors": [

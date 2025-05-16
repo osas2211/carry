@@ -37,7 +37,7 @@ export class DeliveryJobsService {
     };
   }
 
-  async getTotalDeliveryJobs(walletAddress: string) {
+  async getUserTotalCreatedJobs(walletAddress: string) {
     const user = await this.prisma.user.findUnique({
       where: { walletAddress },
     });

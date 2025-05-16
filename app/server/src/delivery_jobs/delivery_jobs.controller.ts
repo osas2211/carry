@@ -35,7 +35,7 @@ export class DeliveryJobsController {
   @UseGuards(WalletAuthMiddleware)
   @Get('/job-count')
   async getTotalUserJobs(@Request() req: { publicKey: string }) {
-    return this.jobService.getTotalDeliveryJobs(req.publicKey);
+    return this.jobService.getUserTotalCreatedJobs(req.publicKey);
   }
 
   @Get()

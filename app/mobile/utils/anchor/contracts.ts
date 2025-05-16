@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/contracts.json`.
  */
 export type Contracts = {
-  address: "9TYPgvadsErCiq1PiZ3Us9fY52eLFVhTHnZ9gZUNiEVT";
+  address: "6uJXKENZwMPUQPnzH7auTcb1Y6GXtbAeK65XPyD2crkj";
   metadata: {
     name: "contracts";
     version: "0.1.0";

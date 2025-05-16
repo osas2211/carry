@@ -16,7 +16,7 @@ import {
 } from "./program-types";
 import { useGetTotalUserJobs } from "@/hooks/api-hooks/useDeliveryJobs";
 
-const DELIVERY_PROGRAM_ID = "9TYPgvadsErCiq1PiZ3Us9fY52eLFVhTHnZ9gZUNiEVT";
+const DELIVERY_PROGRAM_ID = "6uJXKENZwMPUQPnzH7auTcb1Y6GXtbAeK65XPyD2crkj";
 
 export function useDeliveryProgram() {
   const { connection } = useConnection();
