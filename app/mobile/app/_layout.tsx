@@ -1,4 +1,5 @@
 import "react-native-get-random-values"
+import "@/polyfills";
 import {
   DarkTheme,
   DefaultTheme,
@@ -27,6 +28,8 @@ import { HAS_ONBOARDED } from "@/constants/key_strings"
 import { AlertNotificationRoot } from "react-native-alert-notification"
 import PushNotifcationRoot from "@/components/roots/PushNotifcationRoot"
 import Geocoder from "react-native-geocoding"
+import { ClusterProvider } from "@/components/cluster/cluster-data-access";
+import { ConnectionProvider } from "@/utils/ConnectionProvider";
 
 // Initialize the module (needs to be done only once)
 Geocoder.init(process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY || "")
@@ -72,27 +75,31 @@ export default function RootLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <PushNotifcationRoot>
-        <AlertNotificationRoot>
-          <ThemeProvider
-            value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-          >
-            <>
-              {/* <SafeAreaView
+      <ClusterProvider>
+        <ConnectionProvider config={{ commitment: "processed" }}>
+          <PushNotifcationRoot>
+            <AlertNotificationRoot>
+              <ThemeProvider
+                value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+              >
+                <>
+                  {/* <SafeAreaView
               style={{ flex: 1, position: "relative" }}
               edges={["top"]}
             >
               
             </SafeAreaView> */}
-              <Stack>
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen name="+not-found" />
-              </Stack>
-            </>
-            <StatusBar style="auto" />
-          </ThemeProvider>
-        </AlertNotificationRoot>
-      </PushNotifcationRoot>
+                  <Stack>
+                    <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                    <Stack.Screen name="+not-found" />
+                  </Stack>
+                </>
+                <StatusBar style="auto" />
+              </ThemeProvider>
+            </AlertNotificationRoot>
+          </PushNotifcationRoot>
+        </ConnectionProvider>
+      </ClusterProvider>
     </QueryClientProvider>
   )
 }

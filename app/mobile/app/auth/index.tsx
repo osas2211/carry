@@ -10,40 +10,41 @@ import {
   ScrollView,
 } from "react-native-gesture-handler"
 import { router, Stack } from "expo-router"
-import { getValue, saveValue } from "@/helpers/secureStoreHelpers"
-import {
-  HAS_ONBOARDED,
-  USER_PUBLIC_KEY,
-  USER_ROLE,
-} from "@/constants/key_strings"
-import { connectWallet } from "@/helpers/connectWallet"
-import { api } from "@/api/api.instance"
-import { AxiosError } from "axios"
-import { UserProfile } from "@/@types/user"
+// import { getValue, saveValue } from "@/helpers/secureStoreHelpers"
+// import {
+//   HAS_ONBOARDED,
+//   USER_PUBLIC_KEY,
+//   USER_ROLE,
+// } from "@/constants/key_strings"
+// import { connectWallet } from "@/helpers/connectWallet"
+// import { api } from "@/api/api.instance"
+// import { AxiosError } from "axios"
+// import { UserProfile } from "@/@types/user"
+import { SignInButton } from "@/components/sign-in/sign-in"
 
 export default function Onboarding() {
   const [connecting, setConnecting] = useState(false)
 
-  const handleWalletConnection = async () => {
-    try {
-      setConnecting(true)
-      await connectWallet()
-      const pubKey = await getValue(USER_PUBLIC_KEY)
-      const data: UserProfile = (await api.get(`/users/${pubKey}`)).data
-      saveValue(USER_ROLE, data.role)
-      // console.log("COnnected")
-      await saveValue(HAS_ONBOARDED, "true")
-      router.replace("/")
-    } catch (error: any) {
-      console.log(error?.message)
-      if (error?.status == 404) {
-        router.push("/onboarding")
-      }
-      setConnecting(false)
-    } finally {
-      setConnecting(false)
-    }
-  }
+  // const handleWalletConnection = async () => {
+  //   try {
+  //     setConnecting(true)
+  //     await connectWallet()
+  //     const pubKey = await getValue(USER_PUBLIC_KEY)
+  //     const data: UserProfile = (await api.get(`/users/${pubKey}`)).data
+  //     saveValue(USER_ROLE, data.role)
+  //     // console.log("COnnected")
+  //     await saveValue(HAS_ONBOARDED, "true")
+  //     router.replace("/")
+  //   } catch (error: any) {
+  //     console.log(error?.message)
+  //     if (error?.status == 404) {
+  //       router.push("/onboarding")
+  //     }
+  //     setConnecting(false)
+  //   } finally {
+  //     setConnecting(false)
+  //   }
+  // }
   const handleGetStarted = async () => {
     router.push("/onboarding")
   }
@@ -101,11 +102,13 @@ export default function Onboarding() {
             </View>
 
             <View style={{ flexDirection: "column", width: "100%", gap: 12 }}>
-              <Button
+              {/* <Button
                 title={connecting ? "Connecting..." : "Connect"}
                 variant="outlined"
                 onPress={handleWalletConnection}
-              />
+              /> */}
+
+              <SignInButton />
               <Button title="Get started" onPress={handleGetStarted} />
             </View>
           </View>
