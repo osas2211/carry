@@ -28,7 +28,7 @@ export const ConfirmShipment = ({
   form: CreateShipmentFormI
 }) => {
   const [open, setOpen] = React.useState(false)
-  const { createDelivery } = useDeliveryProgram();
+  // const { createDelivery } = useDeliveryProgram();
   const distanceKm = haversineDistance(
     form.from?.geometry?.location.lat,
     form.from?.geometry?.location.lng,
@@ -39,12 +39,11 @@ export const ConfirmShipment = ({
   const reward = Number(distanceKm * 0.00409)
   const cost = reward.toPrecision(3)
 
-
   const createShipment = useCreateDeliveryJob()
   const { refetch } = useGetUserShipments()
-  const { data: countData } = useGetTotalUserJobs();
+  const { data: countData } = useGetTotalUserJobs()
   const handleConfirm = async () => {
-    const currentCount = countData?.data.count || 0;
+    const currentCount = countData?.data.count || 0
 
     const payload: CreateDeliveryJobDto = {
       reward: Number(cost) * LAMPORTS,
@@ -53,22 +52,21 @@ export const ConfirmShipment = ({
       packageType: form.packageType,
       eta: eta_date,
       isFragile: form.isFragile,
-      programId: currentCount
+      programId: currentCount,
     }
 
-    const tx = await createDelivery.mutateAsync({
-      index: currentCount,
-      reward: (Number(cost) * LAMPORTS).toString(),
-      eta: eta_seconds
-    })
+    // const tx = await createDelivery.mutateAsync({
+    //   index: currentCount,
+    //   reward: (Number(cost) * LAMPORTS).toString(),
+    //   eta: eta_seconds
+    // })
 
-    console.log(tx);
+    // console.log(tx);
 
     const data = await createShipment.mutateAsync(payload)
     refetch()
     router.push(`/shipment/${data.id}`)
   }
-
 
   return (
     <Animated.View>
@@ -238,8 +236,8 @@ export const ConfirmShipment = ({
           disabled={createShipment.isPending}
           isLoading={createShipment.isPending}
 
-        // height={55}
-        // width={"48%"}
+          // height={55}
+          // width={"48%"}
         />
       </View>
     </Animated.View>

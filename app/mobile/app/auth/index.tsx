@@ -2,52 +2,18 @@ import { Image, Text, View } from "react-native"
 import React, { useState } from "react"
 import { onboardingStyle } from "@/styles/onboarding"
 // @ts-ignore
-import deliveryImg from "../../assets/images/onboarding/courier.jpg"
-import { Button } from "@/components/ui/Button"
 import { appColors } from "@/constants/Colors"
 import {
   GestureHandlerRootView,
   ScrollView,
 } from "react-native-gesture-handler"
 import { router, Stack } from "expo-router"
-// import { getValue, saveValue } from "@/helpers/secureStoreHelpers"
-// import {
-//   HAS_ONBOARDED,
-//   USER_PUBLIC_KEY,
-//   USER_ROLE,
-// } from "@/constants/key_strings"
-// import { connectWallet } from "@/helpers/connectWallet"
-// import { api } from "@/api/api.instance"
-// import { AxiosError } from "axios"
-// import { UserProfile } from "@/@types/user"
+import { Dimensions } from "react-native"
+const screen = Dimensions.get("screen")
+
 import { SignInButton } from "@/components/sign-in/sign-in"
 
 export default function Onboarding() {
-  const [connecting, setConnecting] = useState(false)
-
-  // const handleWalletConnection = async () => {
-  //   try {
-  //     setConnecting(true)
-  //     await connectWallet()
-  //     const pubKey = await getValue(USER_PUBLIC_KEY)
-  //     const data: UserProfile = (await api.get(`/users/${pubKey}`)).data
-  //     saveValue(USER_ROLE, data.role)
-  //     // console.log("COnnected")
-  //     await saveValue(HAS_ONBOARDED, "true")
-  //     router.replace("/")
-  //   } catch (error: any) {
-  //     console.log(error?.message)
-  //     if (error?.status == 404) {
-  //       router.push("/onboarding")
-  //     }
-  //     setConnecting(false)
-  //   } finally {
-  //     setConnecting(false)
-  //   }
-  // }
-  const handleGetStarted = async () => {
-    router.push("/onboarding")
-  }
   return (
     <>
       <Stack.Screen options={{ headerShown: false }} />
@@ -57,47 +23,52 @@ export default function Onboarding() {
           style={{
             // marginBlock: 30,
             paddingInline: 20,
-            paddingTop: 60,
             // paddingTop: "0%",
             position: "relative",
             ...onboardingStyle.fullScreen,
             backgroundColor: appColors.background,
           }}
         >
-          <View style={{ gap: 20, justifyContent: "center", height: "100%" }}>
+          <View
+            style={{
+              gap: 20,
+              justifyContent: "center",
+              height: "100%",
+            }}
+          >
             {/* <Text style={{ fontWeight: 800, fontSize: 20 }}>Carry</Text> */}
             <Image
-              source={deliveryImg}
+              source={require("../../assets/images/onboarding/courier_.jpg")}
               style={{
                 width: 420,
-                height: 300,
-                objectFit: "contain",
+                height: screen.height * 0.65,
+                // objectFit: "contain",
                 alignSelf: "center",
               }}
             />
-            <View style={{ gap: 10, paddingInline: 0 }}>
-              <Text>Logo</Text>
+            <View style={{ gap: 0, paddingInline: 0, alignItems: "center" }}>
+              <View>
+                <Image
+                  source={require("../../assets/images/icon-full.png")}
+                  style={{
+                    height: 30,
+                    width: 100,
+                    objectFit: "contain",
+                    marginTop: 10,
+                  }}
+                />
+              </View>
               <Text
                 style={{
-                  fontSize: 24,
+                  fontSize: 16,
                   color: appColors.text,
-                  fontFamily: "RobotoSemiBold",
-                  lineHeight: 27,
+                  fontFamily: "MontserratMedium",
                   marginBottom: 0,
+                  textAlign: "center",
+                  marginTop: 10,
                 }}
               >
                 A Decentralized and Community Driven Delivery Network.
-              </Text>
-              <Text
-                style={{
-                  color: appColors.text,
-                  fontFamily: "RobotoRegular",
-                  fontSize: 13,
-                }}
-              >
-                Carry connects local couriers and warehouses, retailers and
-                direct consumers into a fast, decentralized delivery network. No
-                middlemen, just efficiency.
               </Text>
             </View>
 
@@ -110,6 +81,25 @@ export default function Onboarding() {
 
               <SignInButton />
               {/* <Button title="Get started" onPress={handleGetStarted} /> */}
+              <Text
+                style={{
+                  color: appColors.text,
+                  fontFamily: "MontserratRegular",
+                  fontSize: 10,
+                  textAlign: "center",
+                }}
+              >
+                The power of the{" "}
+                <Text
+                  style={{
+                    color: appColors.primary,
+                    fontFamily: "MontserratBold",
+                  }}
+                >
+                  world
+                </Text>{" "}
+                in the palm of your hand.
+              </Text>
             </View>
           </View>
         </ScrollView>
