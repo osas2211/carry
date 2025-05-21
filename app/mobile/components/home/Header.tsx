@@ -33,9 +33,8 @@ const HomeHeader = () => {
           flexDirection: "row",
           gap: 8,
           borderColor: appColors.text,
-          // borderWidth: 0.2,
-          // elevation: 2,
-          backgroundColor: "#fff",
+
+          backgroundColor: "#343434",
         }}
       >
         {isLoading ? (
@@ -50,18 +49,22 @@ const HomeHeader = () => {
               <ActivityIndicator />
             </View>
             <View>
-              <Text style={{ fontFamily: "RobotoMedium" }}>Loading...</Text>
+              <Text style={{ color: appColors.background }}>Loading...</Text>
               <Text style={{ fontSize: 12 }}>loading...</Text>
             </View>
           </>
         ) : (
           <>
-            <AvatarWithStatus status="online" src={user?.avatarUrl || ""} />
+            <AvatarWithStatus
+              elevation={15}
+              status="online"
+              src={user?.avatarUrl || ""}
+            />
             <View>
-              <Text style={{ fontFamily: "RobotoMedium" }}>
+              <Text style={{ color: appColors.background }}>
                 {user?.username}
               </Text>
-              <Text style={{ fontSize: 11 }}>
+              <Text style={{ fontSize: 11, color: appColors.background }}>
                 {truncateText(user?.walletAddress || "", 5)}
               </Text>
             </View>
@@ -72,7 +75,7 @@ const HomeHeader = () => {
       <TouchableOpacity
         activeOpacity={0.5}
         style={{
-          backgroundColor: appColors.primary,
+          backgroundColor: "#343434",
           height: 45,
           width: 45,
           borderRadius: 50,
@@ -81,7 +84,7 @@ const HomeHeader = () => {
           elevation: 10,
         }}
       >
-        <Ionicons name="notifications" size={24} color="black" />
+        <Ionicons name="notifications" size={24} color={appColors.primary} />
       </TouchableOpacity>
     </View>
   )

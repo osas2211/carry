@@ -8,9 +8,15 @@ import { CreateShipmentFormI } from "./create-form-type"
 import { haversineDistance } from "@/helpers/haversineDistance"
 import moment from "moment"
 import { calculateETA } from "@/helpers/CalculateETA"
-import { useCreateDeliveryJob } from "@/hooks/api-hooks/useDeliveryJobs"
+import {
+  useCreateDeliveryJob,
+  useGetTotalUserJobs,
+  useGetUserShipments,
+} from "@/hooks/api-hooks/useDeliveryJobs"
 import { CreateDeliveryJobDto } from "@/@types/delivery_jobs"
 import { LAMPORTS } from "@/constants/units"
+import { router } from "expo-router"
+import { useDeliveryProgram } from "@/components/program/program-data-access"
 
 export const ConfirmShipment = ({
   setStep,
@@ -22,18 +28,23 @@ export const ConfirmShipment = ({
   form: CreateShipmentFormI
 }) => {
   const [open, setOpen] = React.useState(false)
+  // const { createDelivery } = useDeliveryProgram();
   const distanceKm = haversineDistance(
     form.from?.geometry?.location.lat,
     form.from?.geometry?.location.lng,
     form.to?.geometry?.location.lat,
     form.to?.geometry?.location.lng
   )
-  const { eta_date, eta_time } = calculateETA(distanceKm, 30)
+  const { eta_date, eta_time, eta_seconds } = calculateETA(distanceKm, 30)
   const reward = Number(distanceKm * 0.00409)
   const cost = reward.toPrecision(3)
 
   const createShipment = useCreateDeliveryJob()
-  const handleConfirm = () => {
+  const { refetch } = useGetUserShipments()
+  const { data: countData } = useGetTotalUserJobs()
+  const handleConfirm = async () => {
+    const currentCount = countData?.data.count || 0
+
     const payload: CreateDeliveryJobDto = {
       reward: Number(cost) * LAMPORTS,
       pickupAddress: form.from?.formatted_address || "",
@@ -41,9 +52,22 @@ export const ConfirmShipment = ({
       packageType: form.packageType,
       eta: eta_date,
       isFragile: form.isFragile,
+      programId: currentCount,
     }
-    createShipment.mutate(payload)
+
+    // const tx = await createDelivery.mutateAsync({
+    //   index: currentCount,
+    //   reward: (Number(cost) * LAMPORTS).toString(),
+    //   eta: eta_seconds
+    // })
+
+    // console.log(tx);
+
+    const data = await createShipment.mutateAsync(payload)
+    refetch()
+    router.push(`/shipment/${data.id}`)
   }
+
   return (
     <Animated.View>
       <Text style={{ fontSize: 24, fontWeight: 600 }}>Confirm Shipment</Text>

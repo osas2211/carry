@@ -1,18 +1,54 @@
-import { View, Text, Image, ColorValue } from "react-native"
+import {
+  View,
+  Text,
+  Image,
+  ColorValue,
+  ImageSourcePropType,
+} from "react-native"
 import React, { ReactNode } from "react"
 import { appColors } from "@/constants/Colors"
 
-export const Avatar = ({ size, src }: { size?: number; src: string }) => {
+export const Avatar = ({
+  size,
+  src,
+  withBorder,
+  borderColor,
+  forSource,
+}: {
+  size?: number
+  src: string | ImageSourcePropType
+  withBorder?: boolean
+  borderColor?: string
+  forSource?: boolean
+}) => {
   return (
-    <Image
-      src={src}
-      style={{
-        height: size || 42,
-        width: size || 42,
-        borderRadius: size || 42,
-        objectFit: "cover",
-      }}
-    />
+    <>
+      {forSource ? (
+        <Image
+          source={src as ImageSourcePropType}
+          style={{
+            height: size || 42,
+            width: size || 42,
+            borderRadius: size || 42,
+            objectFit: "cover",
+            borderWidth: withBorder ? 3 : 0,
+            borderColor: borderColor,
+          }}
+        />
+      ) : (
+        <Image
+          src={src as string}
+          style={{
+            height: size || 42,
+            width: size || 42,
+            borderRadius: size || 42,
+            objectFit: "cover",
+            borderWidth: withBorder ? 3 : 0,
+            borderColor: borderColor,
+          }}
+        />
+      )}
+    </>
   )
 }
 
@@ -20,14 +56,21 @@ export const AvatarWithStatus = ({
   status,
   size,
   src,
+  elevation,
 }: {
   status: "online" | "away" | "offline"
   size?: number
   src: string
+  elevation?: number
 }) => {
   return (
     <View
-      style={{ position: "relative", width: size || 42, height: size || 42 }}
+      style={{
+        position: "relative",
+        width: size || 42,
+        height: size || 42,
+        elevation: elevation || 0,
+      }}
     >
       <Avatar src={src} size={size} />
       <View
@@ -55,10 +98,12 @@ export const IconAvatar = ({
   icon,
   size,
   bgColor,
+  elevation,
 }: {
   icon: ReactNode
   size?: number
   bgColor?: ColorValue
+  elevation?: number
 }) => {
   return (
     <View
@@ -69,7 +114,7 @@ export const IconAvatar = ({
         backgroundColor: bgColor || "#fff",
         alignItems: "center",
         justifyContent: "center",
-        // elevation: 1,
+        elevation: elevation || 0,
       }}
     >
       {icon}

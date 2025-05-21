@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "./generated/prisma"
+  // output   = "./generated/prisma"
 }
 
 datasource db {
@@ -45,6 +45,7 @@ model User {
 
 model Job {
   id             String @id @default(cuid())
+  programId      Int?   
   creator        User   @relation("JobsCreated", fields: [creatorAddress], references: [walletAddress])
   creatorAddress String
 
@@ -61,10 +62,13 @@ model Job {
   isFragile              Boolean   @default(false)
   isTemperatureSensitive Boolean   @default(false)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  eta       String
-  isDeleted Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  acceptedAt  DateTime @default(now()) @updatedAt
+  pickedUpAt  DateTime @default(now()) @updatedAt
+  deliveredAt DateTime @default(now()) @updatedAt
+  eta         String
+  isDeleted   Boolean  @default(false)
 
   trackingUpdates TrackingUpdate[]
 

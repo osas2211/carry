@@ -23,7 +23,13 @@ export const ScreenHeader = ({ title = "", bgColor = "" }) => {
           icon={<Feather name="arrow-left" size={24} color={appColors.text} />}
         />
       </TouchableOpacity>
-      <Text style={{ fontSize: 17, fontWeight: 600, color: "black" }}>
+      <Text
+        style={{
+          fontSize: 17,
+          color: "black",
+          fontFamily: "MontserratSemiBold",
+        }}
+      >
         {title}
       </Text>
     </View>

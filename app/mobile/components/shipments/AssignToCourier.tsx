@@ -38,7 +38,7 @@ const AssignToCourier = ({ shipment }: { shipment: DeliveryJobI }) => {
     bottomSheetModalRef.current?.close()
   }, [])
   const handleSheetChanges = useCallback((index: number) => {
-    console.log("handleSheetChanges", index)
+    // console.log("handleSheetChanges", index)
   }, [])
 
   useEffect(() => {

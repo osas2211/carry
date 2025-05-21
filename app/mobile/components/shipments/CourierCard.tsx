@@ -15,6 +15,7 @@ import {
   AlertNotificationRoot,
   Dialog,
 } from "react-native-alert-notification"
+import { useDeliveryProgram } from "../program/program-data-access"
 
 const CourierCard = ({
   courier,
@@ -28,7 +29,15 @@ const CourierCard = ({
   const { tracking_id } = useLocalSearchParams()
   const { refetch } = useGetSingleShipment(shipment.id as string)
   const mutation = useAssignToCourier()
+  const { assignDelivery } = useDeliveryProgram();
   const handleAssign = async () => {
+    const tx = await assignDelivery.mutateAsync({
+      index: Number(shipment.programId),
+      courier: courier.walletAddress
+    })
+
+    console.log(tx);
+
     await mutation.mutateAsync({
       id: shipment.id,
       courierAddress: courier.walletAddress,
@@ -68,8 +77,8 @@ const CourierCard = ({
         </View>
         <Button
           title="Assign Courier"
-          bgColor={appColors.primary}
-          textColor={appColors.text}
+          bgColor={appColors.primary_low}
+          textColor={appColors.primary}
           isLoading={mutation.isPending}
           onPress={handleAssign}
         />

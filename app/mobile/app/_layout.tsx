@@ -1,4 +1,5 @@
 import "react-native-get-random-values"
+import "@/polyfills";
 import {
   DarkTheme,
   DefaultTheme,
@@ -11,13 +12,13 @@ import { StatusBar } from "expo-status-bar"
 import { useEffect, useState } from "react"
 import "react-native-reanimated"
 import {
-  Roboto_200ExtraLight,
-  Roboto_300Light,
-  Roboto_400Regular,
-  Roboto_500Medium,
-  Roboto_600SemiBold,
-  Roboto_700Bold,
-} from "@expo-google-fonts/roboto"
+  Montserrat_200ExtraLight,
+  Montserrat_300Light,
+  Montserrat_400Regular,
+  Montserrat_500Medium,
+  Montserrat_600SemiBold,
+  Montserrat_700Bold,
+} from "@expo-google-fonts/montserrat"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 import { useColorScheme } from "@/hooks/useColorScheme"
@@ -25,6 +26,13 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { getValue } from "@/helpers/secureStoreHelpers"
 import { HAS_ONBOARDED } from "@/constants/key_strings"
 import { AlertNotificationRoot } from "react-native-alert-notification"
+import PushNotifcationRoot from "@/components/roots/PushNotifcationRoot"
+import Geocoder from "react-native-geocoding"
+import { ClusterProvider } from "@/components/cluster/cluster-data-access";
+import { ConnectionProvider } from "@/utils/ConnectionProvider";
+
+// Initialize the module (needs to be done only once)
+Geocoder.init(process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY || "")
 
 const queryClient = new QueryClient()
 
@@ -34,12 +42,12 @@ SplashScreen.preventAutoHideAsync()
 export default function RootLayout() {
   const colorScheme = useColorScheme()
   const [loaded] = useFonts({
-    RobotoExtraLight: Roboto_200ExtraLight,
-    RobotoLight: Roboto_300Light,
-    RobotoRegular: Roboto_400Regular,
-    RobotoMedium: Roboto_500Medium,
-    RobotoSemiBold: Roboto_600SemiBold,
-    RobotoBold: Roboto_700Bold,
+    MontserratExtraLight: Montserrat_200ExtraLight,
+    MontserratLight: Montserrat_300Light,
+    MontserratRegular: Montserrat_400Regular,
+    MontserratMedium: Montserrat_500Medium,
+    MontserratSemiBold: Montserrat_600SemiBold,
+    MontserratBold: Montserrat_700Bold,
   })
 
   const [hasOnboarded, setHasOnboarded] = useState(false)
@@ -67,24 +75,31 @@ export default function RootLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AlertNotificationRoot>
-        <ThemeProvider
-          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-        >
-          <>
-            <SafeAreaView
+      <ClusterProvider>
+        <ConnectionProvider config={{ commitment: "processed" }}>
+          <PushNotifcationRoot>
+            <AlertNotificationRoot>
+              <ThemeProvider
+                value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+              >
+                <>
+                  {/* <SafeAreaView
               style={{ flex: 1, position: "relative" }}
               edges={["top"]}
             >
-              <Stack>
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen name="+not-found" />
-              </Stack>
-            </SafeAreaView>
-          </>
-          <StatusBar style="auto" />
-        </ThemeProvider>
-      </AlertNotificationRoot>
+              
+            </SafeAreaView> */}
+                  <Stack>
+                    <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                    <Stack.Screen name="+not-found" />
+                  </Stack>
+                </>
+                <StatusBar style="auto" />
+              </ThemeProvider>
+            </AlertNotificationRoot>
+          </PushNotifcationRoot>
+        </ConnectionProvider>
+      </ClusterProvider>
     </QueryClientProvider>
   )
 }

@@ -11,6 +11,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler"
 import AssignToCourier from "./AssignToCourier"
 import { DeliveryJobI } from "@/@types/delivery_jobs"
 import { socket } from "@/helpers/socket"
+import { schedulePushNotification } from "@/helpers/schedule_push_notification"
 
 export const ShipmentDetails = () => {
   const { tracking_id } = useLocalSearchParams()
@@ -20,11 +21,23 @@ export const ShipmentDetails = () => {
   )
 
   useEffect(() => {
-    socket.on(`shipment-status-${tracking_id}`, (data) => {
+    const eventName = `shipment-status-${tracking_id}`
+
+    const handleStatusUpdate = (data: { status: string }) => {
       refetch()
       refetchAll()
-    })
-  })
+      schedulePushNotification({
+        title: "Shipment status",
+        body: `Your Shipment has been ${data?.status}`,
+      })
+    }
+
+    socket.on(eventName, handleStatusUpdate)
+
+    return () => {
+      socket.off(eventName, handleStatusUpdate) // Clean up the listener
+    }
+  }, [tracking_id]) // Only re-run when tracking_id changes
 
   return (
     <GestureHandlerRootView style={styles.container}>
@@ -40,6 +53,7 @@ export const ShipmentDetails = () => {
                 from_place: data?.pickupAddress,
                 to_place: data?.dropoffAddress,
                 status: data?.status,
+                shipment: data,
               }}
             />
             <Timeline shipment={data!!} />

@@ -17,7 +17,7 @@ export const Colors = {
   },
   dark: {
     text: '#ECEDEE',
-    background: '#151718',
+    background: '#fff',
     tint: tintColorDark,
     icon: '#9BA1A6',
     tabIconDefault: '#9BA1A6',
@@ -29,10 +29,13 @@ export const appColors = {
   text: "#1B1B1E",
   background: "#FDFDFF",
   // primary: "#9EF01A",
-  primary: "#F4D35E",
+  // primary: "#F9DC5C",
+  primary: "#C77DFF",
+  primary_low: "#F2EBFB",
   success: "#9EF01A",
   pending: "#FDCA40",
   error: "#DD1C1A",
   blue: "#3772FF",
-  grey: "#F2F2F2"
+  grey: "#F2F2F2",
+
 }

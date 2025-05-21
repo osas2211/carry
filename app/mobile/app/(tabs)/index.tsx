@@ -7,6 +7,7 @@ import CourierHome from "@/components/home/CourierHome"
 import { useGetUserShipments } from "@/hooks/api-hooks/useDeliveryJobs"
 import { useEffect } from "react"
 import { socket } from "@/helpers/socket"
+import NormalUserUI from "@/components/home/user-ui/NormalUserUI"
 
 export default function HomeScreen() {
   const role = getItem(USER_ROLE) as UserRole.COURIER | UserRole.NORMAL_USER
@@ -27,15 +28,11 @@ export default function HomeScreen() {
           style={{
             minHeight: 300,
             // backgroundColor: appColors.primary,
-            borderBottomEndRadius: 20,
-            borderBottomStartRadius: 20,
-            paddingBlock: 20,
-            paddingTop: 20,
-            paddingInline: 16,
+
             gap: 20,
           }}
         >
-          {role === UserRole.NORMAL_USER ? <NormalUserHome /> : <CourierHome />}
+          {role === UserRole.NORMAL_USER ? <NormalUserUI /> : <CourierHome />}
         </View>
       </ScrollView>
     </>

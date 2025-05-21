@@ -20,7 +20,7 @@ const addressSelector = createDefaultAddressSelector()
 // @ts-ignore 
 export const wallet = new SolanaMobileWalletAdapter({
   appIdentity: {
-    name: 'SpeedFi',
+    name: 'Carry',
     // uri: "https://www.zhap.org/", 
   },
   authorizationResultCache,
@@ -39,7 +39,7 @@ export const connectWallet = async () => {
   await wallet.disconnect()
 
   const authData = await wallet.performAuthorization({
-    statement: "Sign in to SpeedFi with your wallet",
+    statement: "Sign in to Carry with your wallet",
   })
   // console.log(authData)
 
