@@ -1,20 +1,65 @@
-# Welcome to your Expo app 👋
+# 🚚 Carry
+
+> **Carry** is a decentralized delivery network that rewards both couriers and communities using real-world incentives, zkCompression for scalable data, and DAO-driven governance.
+
+## 🌍 What is Carry?
+
+Carry reimagines last-mile delivery by turning idle cars into active crypto nodes. It enables users to:
+
+- 📦 Create and accept delivery jobs on-chain
+- 🔐 Use zkCompression to reduce storage and transaction costs
+- 🚗 Earn passive crypto by running “Car-as-a-Node”
+- 🧠 Participate in DAO governance to vote on features and fees
+- 🛰 Track deliveries in real time with decentralized communication
+
+## 🛠️ Tech Stack
+
+- **Solana + Anchor**: Smart contract framework
+- **zkCompression (Light Protocol)**: Verifiable, low-cost off-chain data
+- **React Native**: Mobile app frontend
+- **Solana Mobile Wallet Adapter**: Wallet authentication
+- **TypeScript**: Client-side logic and contract interaction
+- **DAO Framework**: Community governance and voting
+
+## 📦 Core Features
+
+| Feature                   | Description                                                       |
+| ------------------------- | ----------------------------------------------------------------- |
+| Delivery Job Marketplace  | Senders post delivery tasks with crypto rewards                   |
+| zkCompression             | Compress delivery metadata off-chain, commit Merkle root on-chain |
+| Car-as-a-Node             | Couriers earn extra by providing coverage/data passively          |
+| DAO Governance            | Token holders vote on protocol decisions, fees, and upgrades      |
+| Realtime Tracking & Calls | Location tracking + secure calls between senders and couriers     |
+| Courier Ranking System    | Area-based ranking and reward multipliers for top performers      |
+
+## 🚀 Getting Started
+
+### 1. Clone the repo
+
+````bash
+git clone https://github.com/osas2211/carry.git
+cd carry
+
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
 ## Get started
 
-1. Install dependencies
+1. Mobile setup
 
    ```bash
-   npm install
-   ```
+   cd mobile```
 
-2. Start the app
+2. Install dependencies
+
+   ```bash
+   npm install```
+
+3. Start the app
 
    ```bash
     npx expo start
-   ```
+````
 
 In the output, you'll find options to open the app in a
 
